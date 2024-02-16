@@ -1,0 +1,29 @@
+.pagination{
+    margin-top: 50px;
+}
+.pagination .bh_row,
+.pagination .ds-f{
+    gap: 2px;
+}
+.pagination .direction{
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--bh_color_gray_600);
+    border-radius: 5px;
+}
+.pagination i{
+    font-size: 18px;
+}
+.pagination .direction:hover{
+    background-color: var(--bh_color_gray_100);
+}
+.pagination .direction.active{
+    border: 1px solid var(--bh_color_main);
+    color: var(--bh_color_main);
+    background-color:  var(--bh_color_white) !important;
+    font-weight: bold;
+    pointer-events: none;
+}

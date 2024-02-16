@@ -1,44 +1,102 @@
-import NextLogo from "./NextLogo";
-import SupabaseLogo from "./SupabaseLogo";
+import './css/header.css'
+import './css/main.css'
+import './css/layout.css'
+
 
 export default function Header() {
   return (
-    <div className="flex flex-col gap-16 items-center">
-      <div className="flex gap-8 justify-center items-center">
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <SupabaseLogo />
-        </a>
-        <span className="border-l rotate-45 h-6" />
-        <a href="https://nextjs.org/" target="_blank" rel="noreferrer">
-          <NextLogo />
-        </a>
+    <>
+      <header>
+        <div className="header ds-b m-ds-n">
+          <div className="bh_wrap">
+            <div className="logo_area">
+              <div className="ds-f jc-b ai-c">
+                <h1>
+                  <a href="/" className="ds-b">
+                    <img
+                      src="/images/main/logo.png"
+                      alt="logo"
+                      className="logo"
+                    />
+                  </a>
+                </h1>
+                <ul className="ds-f">
+                  <a href="#" className="login ds-b">
+                    로그인
+                  </a>
+                  <a href="#" className="login ds-b">
+                    회원가입
+                  </a>
+                </ul>
+              </div>
+            </div>
+            <div className="main_menu">
+              <ul className="ds-f">
+                <li className="fw-m">
+                  <a href="/about">About Us</a>
+                </li>
+                <li className="fw-m">
+                  <a href="/expert">전문가 찾기</a>
+                </li>
+                <li className="fw-m">
+                  <a href="counsel">간편 상담</a>
+                </li>
+                <li className="fw-m">
+                  <a href="/talk">손사 Talk</a>
+                </li>
+                <li className="fw-m">
+                  <a href="/inquiry">맞춤 손사추천</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="m_header ds-n m-ds-b">
+          <div className="m_logo ta-c">
+            <a href="/">
+              <img src="/images/main/logo.png" alt="logo" className="logo" />
+            </a>
+          </div>
+          <div className="m_menu_btn" id="m_menu_btn" >
+            <i className="ri-menu-fill"></i>
+          </div>
+        </div>
+      </header>
+      <div className="m_menu">
+        <div className="cover" ></div>
+        <div className="mune_list">
+          <div className="close">
+            <i className="ri-close-fill" ></i>
+          </div>
+          <div className="login_area">
+            <div className="ds-f">
+              <a href="#" className="ds-b">
+                로그인
+              </a>
+              <a href="#" className="ds-b">
+                회원가입
+              </a>
+            </div>
+          </div>
+          <ul>
+            <li>
+              <a href="/about.html">- About Us</a>
+            </li>
+            <li>
+              <a href="/expert.html">- 전문가 찾기</a>
+            </li>
+            <li>
+              <a href="counsel_borad.html">- 간편 상담</a>
+            </li>
+            <li>
+              <a href="/talk_board.html">- 손사 Talk</a>
+            </li>
+            <li>
+              <a href="/inquiry.html">- 맞춤 손사추천</a>
+            </li>
+          </ul>
+        </div>
       </div>
-      <h1 className="sr-only">Supabase and Next.js Starter Template</h1>
-      <p className="text-3xl lg:text-4xl !leading-tight mx-auto max-w-xl text-center">
-        The fastest way to build apps with{" "}
-        <a
-          href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Supabase
-        </a>{" "}
-        and{" "}
-        <a
-          href="https://nextjs.org/"
-          target="_blank"
-          className="font-bold hover:underline"
-          rel="noreferrer"
-        >
-          Next.js
-        </a>
-      </p>
-      <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
-    </div>
+    </>
   );
 }
