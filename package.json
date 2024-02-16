@@ -8,6 +8,7 @@
   "dependencies": {
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "aos": "^3.0.0-beta.6",
     "autoprefixer": "10.4.17",
     "geist": "^1.2.1",
     "next": "latest",

@@ -1,5 +1,6 @@
 import { GeistSans } from "geist/font/sans";
 import Header from '../components/Header'
+import Footer from '../components/Footer'
 import '../components/css/footer.css'
 import '../components/css/header.css'
 import '../components/css/layout.css';
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body>
           <Header></Header>
           {children}
+          <Footer></Footer>
       </body>
     </html>
   );
