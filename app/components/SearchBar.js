@@ -14,24 +14,24 @@ function SearchBar() {
   }, []);
 
   return (
-    <section class="section section1">
-      <div class="bh_wrap">
-        <div class="title" data-aos="fade-down" data-aos-duration="1000">
-          <div class="ds-f ai-c jc-c">
+    <section className="section section1">
+      <div className="bh_wrap">
+        <div className="title" data-aos="fade-down" data-aos-duration="1000">
+          <div className="ds-f ai-c jc-c">
             <img src="images/main/sec1_img.png" alt="img" />
-            <h3 class="fw-b">
+            <h3 className="fw-b">
               <em>어떤 점</em>이 궁금하신가요?
             </h3>
           </div>
         </div>
-        <form class="search_area">
-          <div class="ds-f jc-c">
+        <form className="search_area">
+          <div className="ds-f jc-c">
             <input
               type="text"
               placeholder="상담분야 또는 전문가 이름을 입력해 주세요."
             />
             <button type="submit">
-              <i class="ri-search-line"></i>
+              <i className="ri-search-line"></i>
             </button>
           </div>
         </form>

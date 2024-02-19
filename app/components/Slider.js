@@ -1,5 +1,5 @@
 "use client";
-import $ from 'jquery';
+// import $ from 'jquery';
 import React from "react";
 import Script from 'next/script'
 
@@ -125,17 +125,17 @@ function Slider() {
             },
           });
 
-          $(".s_tool .pause").click(function () {
+          document.querySelector(".s_tool .pause").click(function () {
             swiper.autoplay.stop();
-            $(".s_tool").addClass("pause");
-            $(this).hide();
-            $(".s_tool .play").show();
+            document.querySelector(".s_tool").addClass("pause");
+            document.querySelector(this).hide();
+            document.querySelector(".s_tool .play").show();
           });
-          $(".s_tool .play").click(function () {
+          document.querySelector(".s_tool .play").click(function () {
             swiper.autoplay.start();
-            $(".s_tool").removeClass("pause");
-            $(this).hide();
-            $(".s_tool .pause").show();
+            document.querySelector(".s_tool").removeClass("pause");
+            document.querySelector(this).hide();
+            document.querySelector(".s_tool .pause").show();
           });
 
           var swiper2 = new Swiper(".simple_slide", {
