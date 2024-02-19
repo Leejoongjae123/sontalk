@@ -1,5 +1,7 @@
+"use client";
 import React from "react";
-import TopText from '../../components/about/TopText'
+import TopText from "../../components/about/TopText";
+import Script from "next/script";
 
 function About() {
   return (
@@ -8,20 +10,6 @@ function About() {
         <div className="about_wrap">
           <div className="cont1">
             <div className="bh_wrap">
-              {/* <div
-                className="txt_box"
-                data-aos="fade-down"
-                data-aos-duration="1500"
-              >
-                <span>About us</span>
-                <h3>
-                  저희는 많은 손해사정사들과 협력하여
-                  <br />
-                  <span>깊은 전문지식과 경험</span>을 바탕으로
-                  <br />
-                  최상의 서비스를 제공합니다.
-                </h3>
-              </div> */}
               <TopText></TopText>
             </div>
           </div>
@@ -113,10 +101,10 @@ function About() {
                 </p>
                 <p className="mb-30 m-mb-20">
                   우리의 목표는 고객들에게 탁월한
-                  <span className="bh_color_main">전문 지식을 제공</span>하는 것뿐만
-                  아니라, 손해사정 분야에서
-                  <span className="bh_color_main">혁신을 선도</span>하는 기업으로
-                  성장하는 것입니다.
+                  <span className="bh_color_main">전문 지식을 제공</span>하는
+                  것뿐만 아니라, 손해사정 분야에서
+                  <span className="bh_color_main">혁신을 선도</span>하는
+                  기업으로 성장하는 것입니다.
                   <br />
                   혁신을 통해 우리는
                   <span className="bh_color_main">
@@ -127,7 +115,9 @@ function About() {
                 </p>
                 <p className="mb-30 m-mb-20">
                   우리는
-                  <span className="bh_color_main">고객 중심의 가치를 지키며,</span>
+                  <span className="bh_color_main">
+                    고객 중심의 가치를 지키며,
+                  </span>
                   최고 수준의 전문가들과 함께 일하며 고객 여러분에게 가장 적합한
                   솔루션을 제공합니다.
                   <br />
@@ -210,6 +200,29 @@ function About() {
           </div>
         </div>
       </div>
+      <Script
+        src="/swiper.min.js"
+        onLoad={() => {
+          var swiper = new Swiper(".partner_slide", {
+            navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            },
+            autoplay: {
+              delay: 5000,
+            },
+            spaceBetween: 20,
+            breakpoints: {
+              0: {
+                slidesPerView: 2,
+              },
+              992: {
+                slidesPerView: 5,
+              },
+            },
+          });
+        }}
+      ></Script>
     </>
   );
 }

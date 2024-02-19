@@ -1,9 +1,20 @@
-import './css/header.css'
-import './css/main.css'
-import './css/layout.css'
-
+"use client";
+import { useState } from "react";
 
 export default function Header() {
+  // 메뉴의 상태를 관리하는 state 변수입니다. 기본값은 'false'로, 메뉴가 숨겨져 있음을 의미합니다.
+  const [isOpen, setIsOpen] = useState(false);
+
+  // 메뉴를 열기 위한 함수입니다. 'isOpen' 상태를 'true'로 설정하여 메뉴를 표시합니다.
+  const menuOpen = () => {
+    setIsOpen(true);
+  };
+
+  // 메뉴를 닫기 위한 함수입니다. 'isOpen' 상태를 'false'로 설정하여 메뉴를 숨깁니다.
+  const menuClose = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <header>
@@ -57,16 +68,17 @@ export default function Header() {
               <img src="/images/main/logo.png" alt="logo" className="logo" />
             </a>
           </div>
-          <div className="m_menu_btn" id="m_menu_btn" >
+          <div className="m_menu_btn" id="m_menu_btn" onClick={menuOpen}>
             <i className="ri-menu-fill"></i>
           </div>
         </div>
       </header>
-      <div className="m_menu">
-        <div className="cover" ></div>
-        <div className="mune_list">
+
+      <div className="m_menu" style={{display:isOpen?'block':'none'}}>
+        <div className="cover" onClick={menuClose}></div>
+        <div className="mune_list on">
           <div className="close">
-            <i className="ri-close-fill" ></i>
+            <i className="ri-close-fill" onClick={menuClose}></i>
           </div>
           <div className="login_area">
             <div className="ds-f">
@@ -80,19 +92,19 @@ export default function Header() {
           </div>
           <ul>
             <li>
-              <a href="/about.html">- About Us</a>
+              <a href="/about">- About Us</a>
             </li>
             <li>
-              <a href="/expert.html">- 전문가 찾기</a>
+              <a href="/expert">- 전문가 찾기</a>
             </li>
             <li>
-              <a href="counsel_borad.html">- 간편 상담</a>
+              <a href="counsel">- 간편 상담</a>
             </li>
             <li>
-              <a href="/talk_board.html">- 손사 Talk</a>
+              <a href="/talk">- 손사 Talk</a>
             </li>
             <li>
-              <a href="/inquiry.html">- 맞춤 손사추천</a>
+              <a href="/inquiry">- 맞춤 손사추천</a>
             </li>
           </ul>
         </div>

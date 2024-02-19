@@ -7,6 +7,8 @@ import '../components/css/layout.css';
 import '../components/css/main.css';
 import '../components/css/reset.css';
 import '../components/css/swiper.min.css';
+import 'remixicon/fonts/remixicon.css'
+
 
 
 
