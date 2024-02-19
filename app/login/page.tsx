@@ -118,7 +118,7 @@ export default function Login({
     <div className="container">
       <div className="row">
         <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
-          <div className="card z-index-0 mt-8">
+          <div className="card z-index-0 ">
             <div className="card-header text-center pt-4 pb-1">
               <h4 className="font-weight-bolder mb-1">로그인</h4>
             </div>
