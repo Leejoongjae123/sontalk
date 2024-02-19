@@ -1,7 +1,7 @@
-"use client";
 import React from "react";
 import TopText from "../../components/about/TopText";
 import Script from "next/script";
+import WithCompany from './components/WithCompany.js'
 
 function About() {
   return (
@@ -126,7 +126,8 @@ function About() {
                 </p>
                 <p className="mb-30 m-mb-0">감사합니다.</p>
               </div>
-              <div className="partner_area">
+              <WithCompany></WithCompany>
+              {/* <div className="partner_area">
                 <div className="ds-f jc-b mb-20">
                   <div className="title">제휴사</div>
                   <div className="nav">
@@ -195,12 +196,12 @@ function About() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </div>
-      <Script
+      {/* <Script
         src="/swiper.min.js"
         onLoad={() => {
           var swiper = new Swiper(".partner_slide", {
@@ -222,7 +223,7 @@ function About() {
             },
           });
         }}
-      ></Script>
+      ></Script> */}
     </>
   );
 }
