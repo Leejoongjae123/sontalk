@@ -2,10 +2,10 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import './theme.css';
-import './loopple.css';
+import "./theme.css";
+// import './loopple.css';
 
-export default function Login({
+export default function SignUp({
   searchParams,
 }: {
   searchParams: { message: string };
@@ -114,13 +114,13 @@ export default function Login({
     //     )}
     //   </form>
     // </div>
-    
+
     <div className="container">
       <div className="row">
         <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
           <div className="card z-index-0 mt-8">
             <div className="card-header text-center pt-4 pb-1">
-              <h4 className="font-weight-bolder mb-1">로그인</h4>
+              <h4 className="font-weight-bolder mb-1">회원가입</h4>
             </div>
             <div className="card-body pb-0">
               <form>
@@ -155,7 +155,7 @@ export default function Login({
                     type="button"
                     className="btn bg-gradient-info w-100 mt-4 mb-2"
                   >
-                    로그인
+                    회원가입
                   </button>
                 </div>
               </form>
@@ -286,17 +286,10 @@ export default function Login({
                   </a>
                 </div>
               </div> */}
-              <p className="mb-0 mt-3 text-sm mx-auto">
-                아직 계정이 없으세요?
-                <a href='/signup'
-                  className="text-info text-gradient font-weight-bold"
-                  >가입하기</a>
-              </p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    
   );
 }

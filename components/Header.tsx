@@ -32,10 +32,10 @@ export default function Header() {
                   </a>
                 </h1>
                 <ul className="ds-f">
-                  <a href="#" className="login ds-b">
+                  <a href="/login" className="login ds-b">
                     로그인
                   </a>
-                  <a href="#" className="login ds-b">
+                  <a href="/signup" className="login ds-b">
                     회원가입
                   </a>
                 </ul>
@@ -82,10 +82,10 @@ export default function Header() {
           </div>
           <div className="login_area">
             <div className="ds-f">
-              <a href="#" className="ds-b">
+              <a href="/login" className="ds-b">
                 로그인
               </a>
-              <a href="#" className="ds-b">
+              <a href="/signup" className="ds-b">
                 회원가입
               </a>
             </div>
