@@ -366,7 +366,7 @@ function Counsel() {
               </div>
             </div>
           </div>
-          <div className="pagination">
+          <div className="pagination" style={{fontSize:'1.5rem'}}>
             <div className="bh_row no-gutters jc-c">
               <div className="prve_btn">
                 <div className="ds-f">

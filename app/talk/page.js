@@ -250,7 +250,8 @@ function Talk() {
               </div>
             </div>
           </div>
-          <div className="pagination">
+          <div className="pagination"style={{fontSize:'1.5rem'}} >
+            
             <div className="bh_row no-gutters jc-c">
               <div className="prve_btn">
                 <div className="ds-f">
@@ -263,13 +264,13 @@ function Talk() {
                 </div>
               </div>
               <div className="page_no_wrap">
-                <a href="#" className="ds-b direction active">
+                <a href="#" className="ds-b direction active" >
                   1
                 </a>
               </div>
               <div className="next_btn">
                 <div className="ds-f">
-                  <a href="#" className="ds-b direction">
+                  <a href="#" className="ds-b direction" >
                     <i className="ri-arrow-right-s-line"></i>
                   </a>
                   <a href="#" className="ds-b direction">
