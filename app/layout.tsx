@@ -1,5 +1,5 @@
 import { GeistSans } from "geist/font/sans";
-import Header from '../components/Header'
+import Header from '../components/Header.js'
 import Footer from '../components/Footer'
 import '../components/css/footer.css'
 import '../components/css/header.css'
