@@ -11,6 +11,7 @@ export default async function Header() {
     data: { user },
   } = await supabase?.auth.getUser();
 
+  
   const signOut = async () => {
     "use server";
 
