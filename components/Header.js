@@ -9,9 +9,7 @@ export default async function Header() {
 
   const {
     data: { user },
-  } = await supabase.auth.getUser();
-
-  console.log(user);
+  } = await supabase?.auth.getUser();
 
   const signOut = async () => {
     "use server";
