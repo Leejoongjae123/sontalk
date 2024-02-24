@@ -126,7 +126,7 @@ function About() {
                 </p>
                 <p className="mb-30 m-mb-0">감사합니다.</p>
               </div>
-              <WithCompany></WithCompany>
+              {/* <WithCompany></WithCompany> */}
             </div>
           </div>
         </div>

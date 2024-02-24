@@ -2,6 +2,7 @@
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
+import { useRouter } from "next/navigation";
 
 function UpperCont() {
   useEffect(() => {
@@ -27,6 +28,13 @@ function UpperCont() {
     setActivePin({ txt, pin });
   };
   console.log(activePin);
+
+  const router = useRouter();
+
+  // 버튼 클릭 이벤트 핸들러: catId를 쿼리 파라미터로 추가하여 페이지 이동
+  const navigateToBoard = (catId) => {
+    router.push(`/expert/board?cat=${catId}`);
+  };
 
   return (
     <div className="cont2">
@@ -71,7 +79,10 @@ function UpperCont() {
               <div className="bh_row rw1 none">
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F01")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon1.png" alt="icon" />
                       <p>
                         진단비
@@ -83,7 +94,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F02")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon2.png" alt="icon" />
                       <p>
                         암 입원비 /<br />
@@ -94,7 +108,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F03")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon3.png" alt="icon" />
                       <p>
                         질병·상해 사망 및<br />
@@ -105,7 +122,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F04")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon4.png" alt="icon" />
                       <p>치아 보험</p>
                     </a>
@@ -113,7 +133,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-0 m-mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F05")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon5.png" alt="icon" />
                       <p>
                         자동차보험<span>(대인/대물)</span>,
@@ -125,7 +148,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-0 m-mb-30">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F06")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon6.png" alt="icon" />
                       <p>배상 책임, 근로자재해보험, 학교안전공제, 여행자보험</p>
                     </a>
@@ -133,7 +159,10 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F07")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon7.png" alt="icon" />
                       <p>
                         도난, 화재, 누수, 침수
@@ -146,10 +175,13 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6">
                   <div className="inner ta-c">
-                    <a href="expert_board.html" className="ds-b po-r">
+                    <a
+                      onClick={() => navigateToBoard("F08")}
+                      className="ds-b po-r"
+                    >
                       <img src="images/icon/sec2_icon8.png" alt="icon" />
                       <p>
-                        여선전용 및<br />
+                        여성전용 및<br />
                         태아
                       </p>
                     </a>
@@ -165,7 +197,7 @@ function UpperCont() {
               <div className="bh_row none rw2">
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>수도권</p>
@@ -175,7 +207,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>원주/강릉/강원</p>
@@ -185,7 +217,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>청주/충북</p>
@@ -195,7 +227,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>대전/세종/충남</p>
@@ -205,7 +237,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>대구/경북</p>
@@ -215,7 +247,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>전주/전북</p>
@@ -225,7 +257,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>부산/울산/경남</p>
@@ -235,7 +267,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6 mb-30">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>광주/전남</p>
@@ -245,7 +277,7 @@ function UpperCont() {
                 </div>
                 <div className="col-lg-3 col-6">
                   <div className="inner ta-c">
-                    <a href="#" className="ds-f po-r ai-c jc-c">
+                    <a className="ds-f po-r ai-c jc-c">
                       <div className="txt_box">
                         <i className="ri-map-pin-line"></i>
                         <p>제주</p>
@@ -267,9 +299,9 @@ function UpperCont() {
                     className={`area ar1 ${
                       activePin.txt === "txt1" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin1"
                     data-check="tx1"
+
                     onMouseEnter={() => {
                       handleMouseEnter("txt1", "pin1");
                     }}
@@ -316,7 +348,6 @@ function UpperCont() {
                     className={`area ar2 ${
                       activePin.txt === "txt2" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin2"
                     data-check="tx2"
                     onMouseEnter={() => {
@@ -341,7 +372,6 @@ function UpperCont() {
                     className={`area ar3 ${
                       activePin.txt === "txt3" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin3"
                     data-check="tx3"
                     onMouseEnter={() => {
@@ -366,7 +396,6 @@ function UpperCont() {
                     className={`area ar4 ${
                       activePin.txt === "txt4" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin4"
                     data-check="tx4"
                     onMouseEnter={() => {
@@ -391,7 +420,6 @@ function UpperCont() {
                     className={`area ar5 ${
                       activePin.txt === "txt5" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin5"
                     data-check="tx5"
                     onMouseEnter={() => {
@@ -416,7 +444,6 @@ function UpperCont() {
                     className={`area ar6 ${
                       activePin.txt === "txt6" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin6"
                     data-check="tx6"
                     onMouseEnter={() => {
@@ -441,7 +468,6 @@ function UpperCont() {
                     className={`area ar7 ${
                       activePin.txt === "txt7" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin7"
                     data-check="tx7"
                     onMouseEnter={() => {
@@ -466,7 +492,6 @@ function UpperCont() {
                     className={`area ar8 ${
                       activePin.txt === "txt8" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin8"
                     data-check="tx8"
                     onMouseEnter={() => {
@@ -515,7 +540,6 @@ function UpperCont() {
                     className={`area ar9 ${
                       activePin.txt === "txt9" ? "on" : ""
                     }`}
-                    href="expert_board.html"
                     data-adrs="pin9"
                     data-check="tx9"
                     onMouseEnter={() => {
@@ -665,7 +689,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt1" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R01")}
                   className="pin1 pin_point"
                 >
                   <img src="images/icon/pin_icon1.png" alt="ar1" />
@@ -674,7 +698,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt2" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R02")}
                   className="pin2 pin_point"
                 >
                   <img src="images/icon/pin_icon2.png" alt="pin" />
@@ -683,7 +707,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt3" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R03")}
                   className="pin3 pin_point"
                 >
                   <img src="images/icon/pin_icon3.png" alt="pin" />
@@ -692,7 +716,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt4" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R04")}
                   className="pin4 pin_point"
                 >
                   <img src="images/icon/pin_icon4.png" alt="pin" />
@@ -701,7 +725,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt5" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R05")}
                   className="pin5 pin_point"
                 >
                   <img src="images/icon/pin_icon5.png" alt="pin" />
@@ -710,7 +734,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt6" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R06")}
                   className="pin6 pin_point"
                 >
                   <img src="images/icon/pin_icon6.png" alt="pin" />
@@ -719,7 +743,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt7" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R07")}
                   className="pin7 pin_point"
                 >
                   <img src="images/icon/pin_icon7.png" alt="pin" />
@@ -728,7 +752,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt8" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R08")}
                   className="pin8 pin_point"
                 >
                   <img src="images/icon/pin_icon8.png" alt="pin" />
@@ -737,7 +761,7 @@ function UpperCont() {
                   style={{
                     display: activePin.txt === "txt9" ? "block" : "none",
                   }}
-                  href="expert_board.html"
+                  onClick={() => navigateToBoard("R09")}
                   className="pin9 pin_point"
                 >
                   <img src="images/icon/pin_icon9.png" alt="pin" />
