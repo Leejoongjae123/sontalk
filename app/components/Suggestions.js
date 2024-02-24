@@ -1,6 +1,6 @@
 "use client";
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 
 export default function Suggestions() {
@@ -12,6 +12,23 @@ export default function Suggestions() {
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
   }, []);
+
+  const [activeTab, setActiveTab] = useState("tab-01");
+
+  const handleTabClick = (tabId) => {
+    setActiveTab(tabId);
+  };
+
+  const [isOptionVisible, setOptionVisible] = useState({
+    rw1: false,
+    rw2: false,
+    // 추가적인 옵션 상태 관리가 필요하다면 여기에 추가
+  });
+
+  const showOption = (optionId) => {
+    setOptionVisible({ ...isOptionVisible, [optionId]: true });
+  };
+
   return (
     <section className="section section2 po-r">
       <div className="sec2_content">
@@ -27,7 +44,13 @@ export default function Suggestions() {
               <div className="tab_menu">
                 <div className="bh_row">
                   <div className="col-lg-6 col-12 m-mb-20">
-                    <div className="ds-f ai-c on" data-tab="tab-01">
+                    <div
+                      className={`ds-f ai-c ${
+                        activeTab === "tab-01" ? "on" : ""
+                      }`}
+                      onClick={() => handleTabClick("tab-01")}
+                      data-tab="tab-01"
+                    >
                       <p className="po-r">
                         <i className="ri-file-list-3-line"></i>분야로 찾기
                         <i className="ri-check-fill check"></i>
@@ -35,7 +58,13 @@ export default function Suggestions() {
                     </div>
                   </div>
                   <div className="col-lg-6 col-12">
-                    <div className="ds-f ai-c" data-tab="tab-02">
+                    <div
+                      className={`ds-f ai-c ${
+                        activeTab === "tab-02" ? "on" : ""
+                      }`}
+                      onClick={() => handleTabClick("tab-02")}
+                      data-tab="tab-02"
+                    >
                       <p className="po-r">
                         <i className="ri-map-pin-line"></i>지역으로 찾기
                         <i className="ri-check-fill check"></i>
@@ -44,9 +73,17 @@ export default function Suggestions() {
                   </div>
                 </div>
               </div>
-              <div className="tab_in tab-01 on">
+              <div
+                className={`tab_in tab-01 ${
+                  activeTab === "tab-01" ? "on" : ""
+                }`}
+              >
                 <div className="option">
-                  <div className="bh_row rw1 none">
+                  <div
+                    className={`bh_row rw1 ${
+                      isOptionVisible.rw1 ? "" : "none"
+                    }`}
+                  >
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
                         <a href="#" className="ds-b po-r">
@@ -101,11 +138,20 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
-                      <div className="inner in2 ta-c" data-rw="rw1">
-                        <button className="ds-b">더보기+</button>
+                    {isOptionVisible.rw1 ? (
+                      <></>
+                    ) : (
+                      <div className="col-lg-2 col-6">
+                        <div
+                          className="inner in2 ta-c"
+                          onClick={() => showOption("rw1")}
+                          data-rw="rw1"
+                        >
+                          <button className="ds-b">더보기+</button>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
                         <a href="#" className="ds-b po-r">
@@ -138,9 +184,17 @@ export default function Suggestions() {
                   </div>
                 </div>
               </div>
-              <div className="tab_in tab-02">
+              <div
+                className={`tab_in tab-02 ${
+                  activeTab === "tab-02" ? "on" : ""
+                }`}
+              >
                 <div className="option op2">
-                  <div className="bh_row none rw2">
+                  <div
+                    className={`bh_row rw2 ${
+                      isOptionVisible.rw2 ? "" : "none"
+                    }`}
+                  >
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
                         <a href="#" className="ds-f po-r ai-c jc-c">
@@ -191,11 +245,20 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
-                      <div className="inner in2 ta-c" data-rw="rw2">
-                        <button className="ds-b">더보기+</button>
+                    {isOptionVisible.rw2 ? (
+                      <></>
+                    ) : (
+                      <div className="col-lg-2 col-6">
+                        <div
+                          className="inner in2 ta-c"
+                          onClick={() => showOption("rw2")}
+                          data-rw="rw2"
+                        >
+                          <button className="ds-b">더보기+</button>
+                        </div>
                       </div>
-                    </div>
+                    )}
+
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
                         <a href="#" className="ds-f po-r ai-c jc-c">
@@ -286,7 +349,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
@@ -311,7 +376,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
@@ -336,7 +403,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
@@ -361,7 +430,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
@@ -386,7 +457,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
@@ -411,7 +484,9 @@ export default function Suggestions() {
                           <span className="ds-b">#의료보험</span>
                           <span className="ds-b">#의료보험</span>
                         </div>
-                        <div className="title">임플란트의 의료보험 적용여부</div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
                         <div className="content">
                           어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
                           진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
