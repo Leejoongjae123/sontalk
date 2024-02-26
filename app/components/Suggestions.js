@@ -2,6 +2,7 @@
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
+import { useRouter } from "next/navigation";
 
 export default function Suggestions() {
   useEffect(() => {
@@ -27,6 +28,13 @@ export default function Suggestions() {
 
   const showOption = (optionId) => {
     setOptionVisible({ ...isOptionVisible, [optionId]: true });
+  };
+
+  const router = useRouter();
+
+  // 버튼 클릭 이벤트 핸들러: catId를 쿼리 파라미터로 추가하여 페이지 이동
+  const navigateToBoard = (catId) => {
+    router.push(`/expert/board?cat=${catId}&page=1`);
   };
 
   return (
@@ -86,7 +94,10 @@ export default function Suggestions() {
                   >
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F01")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon1.png" alt="icon" />
                           <p>
                             진단비
@@ -98,7 +109,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F02")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon2.png" alt="icon" />
                           <p>
                             암 입원비 /<br />
@@ -109,7 +123,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F03")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon3.png" alt="icon" />
                           <p>
                             질병·상해 사망 및<br />
@@ -120,7 +137,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F04")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon4.png" alt="icon" />
                           <p>치아 보험</p>
                         </a>
@@ -128,7 +148,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F05")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon5.png" alt="icon" />
                           <p>
                             자동차보험,
@@ -154,7 +177,10 @@ export default function Suggestions() {
 
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F06")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon6.png" alt="icon" />
                           <p>
                             배상 책임, 근로자재해보험, 학교안전공제, 여행자보험
@@ -164,7 +190,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F07")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon7.png" alt="icon" />
                           <p>도난, 화재, 누수, 침수 재난사고</p>
                         </a>
@@ -172,7 +201,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-b po-r">
+                        <a
+                          onClick={() => navigateToBoard("F08")}
+                          className="ds-b po-r"
+                        >
                           <img src="images/icon/sec2_icon8.png" alt="icon" />
                           <p>
                             여선전용 및<br />
@@ -197,7 +229,10 @@ export default function Suggestions() {
                   >
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R08")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>수도권</p>
@@ -207,7 +242,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R07")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>원주/강릉/강원</p>
@@ -217,7 +255,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R06")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>청주/충북</p>
@@ -227,7 +268,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R01")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>대전/세종/충남</p>
@@ -237,7 +281,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R04")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>대구/경북</p>
@@ -261,7 +308,10 @@ export default function Suggestions() {
 
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R05")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>전주/전북</p>
@@ -271,7 +321,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R03")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>부산/울산/경남</p>
@@ -281,7 +334,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R09")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>광주/전남</p>
@@ -291,7 +347,10 @@ export default function Suggestions() {
                     </div>
                     <div className="col-lg-2 col-6">
                       <div className="inner ta-c">
-                        <a href="#" className="ds-f po-r ai-c jc-c">
+                        <a
+                          onClick={() => navigateToBoard("R02")}
+                          className="ds-f po-r ai-c jc-c"
+                        >
                           <div className="txt_box">
                             <i className="ri-map-pin-line"></i>
                             <p>제주</p>

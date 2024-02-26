@@ -33,7 +33,7 @@ function UpperCont() {
 
   // 버튼 클릭 이벤트 핸들러: catId를 쿼리 파라미터로 추가하여 페이지 이동
   const navigateToBoard = (catId) => {
-    router.push(`/expert/board?cat=${catId}`);
+    router.push(`/expert/board?cat=${catId}&page=1`);
   };
 
   return (
@@ -301,7 +301,6 @@ function UpperCont() {
                     }`}
                     data-adrs="pin1"
                     data-check="tx1"
-
                     onMouseEnter={() => {
                       handleMouseEnter("txt1", "pin1");
                     }}
