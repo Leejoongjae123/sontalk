@@ -6,6 +6,7 @@ import { useEffect,useState } from "react"
 import { supabase } from "../../../utils/supabase/client"
 import categoryList from '../../../components/categoryList'
 import { useSearchParams } from 'next/navigation'
+import { useRouter } from "next/navigation";
 
 export default function ExpertBoard() {
 
@@ -41,8 +42,12 @@ export default function ExpertBoard() {
   useEffect(()=>{
     fetchData()
   },[])
-          
 
+  const router = useRouter();
+
+  const navigateToBooking = (expertNo) => {
+    router.push(`/booking?expertNo=${expertNo}`);
+  };
 
   return (
     <div className="body">
@@ -74,18 +79,8 @@ export default function ExpertBoard() {
                                 {elem.field1?(<p>{findNameByCat(elem.field1)}</p>):(<></>)}
                                 {elem.field2?(<p>{findNameByCat(elem.field2)}</p>):(<></>)}
                                 {elem.field3?(<p>{findNameByCat(elem.field3)}</p>):(<></>)}
-                                {/* <p>산재사고</p>
-                                <p>교통사고</p> */}
                               </div>
                             </div>
-                            {/* <div className="hash">
-                              <div className="ds-f">
-                                <p>#신규</p>
-                                <p>#의료보험</p>
-                                <p>#암</p>
-                                <p>#교통사고</p>
-                              </div>
-                            </div> */}
                           </div>
                         </div>
                       </div>
@@ -121,7 +116,7 @@ export default function ExpertBoard() {
                           </a>
                         </div>
                         <div className="reservation">
-                          <a href="counsel_inquiry.html" className="ds-b">
+                          <a onClick={() => navigateToBooking(elem.expertNo)} className="ds-b">
                             <div className="ds-f ai-c jc-b">
                               <p>
                                 <i className="ri-home-4-fill"></i>상담 예약
