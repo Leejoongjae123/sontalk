@@ -69,7 +69,7 @@ export default async function Header() {
                   <a href="/expert">전문가 찾기</a>
                 </li>
                 <li className="fw-m">
-                  <a href="counsel">간편 상담</a>
+                  <a href="/counsel">간편 상담</a>
                 </li>
                 <li className="fw-m">
                   <a href="/talk">손사 Talk</a>

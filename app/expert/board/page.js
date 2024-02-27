@@ -22,7 +22,6 @@ export default function ExpertBoard() {
       .from('introduction')
       .select('*')
       .eq('region',search)
-
       setExperts(introduction)
     }else{
       console.log('456')
@@ -31,12 +30,8 @@ export default function ExpertBoard() {
       .select('*')
       // field1이 search와 같거나, field2가 search와 같거나, field3가 search와 같은 조건
       .or(`field1.eq.${search},field2.eq.${search},field3.eq.${search}`)
-
-
       setExperts(introduction)
     }
-
-
   }
   
   useEffect(()=>{

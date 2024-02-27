@@ -1,12 +1,47 @@
 import React from "react";
 import BookingTitle from './components/BookingTitle'
-function Inquiry() {
+import { createClient } from "@/utils/supabase/server";
+import { redirect } from "next/navigation";
+
+
+function Booking() {
+
+  const Booking = async (formData) => {
+    "use server";
+
+    const name = formData.get("name") 
+    const phoneNumber = formData.get("phoneNumber")
+    const description = formData.get("description")
+    const supabase = createClient()
+    console.log(supabase);
+
+    // const { error } = await supabase.auth.signInWithPassword({
+    //   email,
+    //   password,
+    // });
+    // console.log(error);
+    
+    const { data, error } = await supabase
+    .from('booking')
+    .insert([
+      { name: name, phoneNumber: phoneNumber,description:description },
+    ])
+    .select()
+        
+
+    if (error) {
+      return redirect("/");
+    }
+
+    return redirect("/");
+  };
+
   return (
     <div className="body">
       <div className="inquiry_wrap po-r">
         <div className="bh_wrap">
           <BookingTitle></BookingTitle>
-          <form className="form_area">
+          <form action={Booking} className="form_area">
             <div className="bh_row">
               <div className="col-lg-6 col-12">
                 <div className="info_box mb-50 m-mb-30">
@@ -14,7 +49,7 @@ function Inquiry() {
                     이름 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <input type="text" required className="w-100" />
+                    <input name='name' type="text" required className="w-100" />
                   </div>
                 </div>
               </div>
@@ -24,7 +59,7 @@ function Inquiry() {
                     연락처 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <input type="text" required className="w-100" />
+                    <input name='phoneNumber' type="text" required className="w-100" />
                   </div>
                 </div>
               </div>
@@ -34,7 +69,7 @@ function Inquiry() {
                     상세내용 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <textarea required className="w-100"></textarea>
+                    <textarea name='description' required className="w-100"></textarea>
                   </div>
                 </div>
               </div>
@@ -79,7 +114,7 @@ function Inquiry() {
               </div>
             </div>
             <div className="ta-c">
-              <button type="submit" className="submit_btn">
+              <button formAction={Booking} type="submit" className="submit_btn">
                 예약하기
               </button>
             </div>
@@ -90,4 +125,4 @@ function Inquiry() {
   );
 }
 
-export default Inquiry;
+export default Booking;
