@@ -63,7 +63,7 @@ export default function ExpertBoard() {
                           </div>
                           <div className="txt_box">
                             <h3>
-                              <a href="expert_detail.html">손TOP {findNameByCat(elem.region)}</a>
+                              <a href={`/expert/board/${elem.expertNo}`}>손TOP {findNameByCat(elem.region)}</a>
                             </h3>
                             <div className="ds-f ai-c name">
                               <i className="ri-account-pin-circle-fill"></i>

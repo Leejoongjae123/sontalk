@@ -11,14 +11,19 @@ export default async function page({ params }) {
     .from("query")
     .select("*")
     .eq("questionNo", questionNo.toString())
-  // const getQuestion = async (questionNo) => {
-  //   "use server";
-  //   const supabase = createClient(cookieStore);
-  //   console.log(supabase)
-  //   let { data: query, error } = await supabase.from("query").select("*");
-  //   console.log(query)
+  
+  
+  const currentClick=query[0].count
+  console.log(currentClick)
 
-  // };
+  
+  const { data, updateError } = await supabase
+  .from('query')
+  .update({ 'count': currentClick+1})
+  .eq('questionNo',questionNo.toString())
+  .select()
+        
+  console.log(data,updateError)
 
 
   return (
@@ -66,7 +71,7 @@ export default async function page({ params }) {
             </div> */}
           </div>
           <div className="content_body">
-            <div className="content">
+            <div className="content" style={{ whiteSpace: 'pre-wrap' }}>
               {query[0].description}
             </div>
           </div>

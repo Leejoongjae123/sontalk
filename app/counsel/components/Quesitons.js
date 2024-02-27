@@ -4,6 +4,7 @@ import { supabase } from "../../../utils/supabase/client";
 import keywordList from "../../../components/keywordList";
 import AOS from "aos";
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
+import Link from 'next/link'
 
 export default function Quesitons() {
   useEffect(() => {
@@ -46,7 +47,7 @@ export default function Quesitons() {
           <div className="ds-f">
             <input
               type="text"
-              placeholder="키워드 또는 제목, 내용을 입력해주세요."
+              placeholder="제목, 내용을 입력해주세요."
             />
             <button type="submit">
               <i className="ri-search-line"></i>
@@ -109,11 +110,11 @@ export default function Quesitons() {
                   </div>
                 </div>
                 <div className="title">
-                  <a href={`/counsel/${elem.questionNo.toString()}`}>
+                  <Link href={`/counsel/${elem.questionNo.toString()}`}>
                     {elem.title}
-                  </a>
+                  </Link>
                 </div>
-                <div className="content">
+                <div className="content" style={{ whiteSpace: 'pre-wrap' }}>
                   {elem.description}
                 </div>
                 <div className="anser">
