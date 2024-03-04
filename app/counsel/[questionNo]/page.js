@@ -9,23 +9,18 @@ export default async function page({ params }) {
   const supabase = createClient(cookieStore);
   let { data: query, error } = await supabase
     .from("query")
-    .select("*")
-    .eq("questionNo", questionNo.toString())
-  
-  
-  const currentClick=query[0].count
-  console.log(currentClick)
+    .select("*,queryAnswer(*,introduction(*))")
+    .eq("questionNo", questionNo.toString());
 
-  
+  const currentClick = query[0].count;
+
   const { data, updateError } = await supabase
-  .from('query')
-  .update({ 'count': currentClick+1})
-  .eq('questionNo',questionNo.toString())
-  .select()
-        
-  console.log(data,updateError)
+    .from("query")
+    .update({ count: currentClick + 1 })
+    .eq("questionNo", questionNo.toString())
+    .select();
 
-
+  console.log(query[0].queryAnswer)
   return (
     <div className="body">
       <div className="counsel_detail">
@@ -50,9 +45,7 @@ export default async function page({ params }) {
                 )}
               </div>
             </div>
-            <div className="title">
-              {query[0].title}
-            </div>
+            <div className="title">{query[0].title}</div>
             <div className="info">
               <div className="ds-f">
                 <span>조회수 {query[0].count}</span>
@@ -71,13 +64,12 @@ export default async function page({ params }) {
             </div> */}
           </div>
           <div className="content_body">
-            <div className="content" style={{ whiteSpace: 'pre-wrap' }}>
+            <div className="content" style={{ whiteSpace: "pre-wrap" }}>
               {query[0].description}
             </div>
           </div>
           <div className="content_tool_box">
             <div className="bh_row no-gutters jc-b ai-c">
-
               <div className="col-lg-auto col-12">
                 <div className="tools">
                   <div className="bh_row gutters-5">
@@ -120,182 +112,52 @@ export default async function page({ params }) {
           </div>
           <div className="comment_area">
             <span>
-              다른 전문가 답변 <b>6</b>건
+              전문가 답변 <b>{query[0].queryAnswer.length}</b>건
             </span>
-            <div className="comment_box">
-              <div className="info_box">
-                <div className="bh_row no-gutters ai-c jc-b">
-                  <div className="col-lg-auto col-12">
-                    <div className="profile">
-                      <div className="ds-f ai-c">
-                        <div className="img_box">
-                          <img src="images/main/profile_img1.png" alt="img" />
+            {query[0].queryAnswer.map((elem,index) => {
+              return (
+                <div className="comment_box" key={index}>
+                  <div className="info_box">
+                    <div className="bh_row no-gutters ai-c jc-b">
+                      <div className="col-lg-auto col-12">
+                        <div className="profile">
+                          <div className="ds-f ai-c">
+                            <div className="img_box">
+                              <img
+                                src={elem.introduction.imageUrl}
+                                alt="img"
+                              />
+                            </div>
+                            <div className="txt_box">
+                              <h3>손TOP {findNameByCat(elem.introduction.region)}</h3>
+                              <p>{elem.introduction.name} 손해사정사</p>
+                            </div>
+                          </div>
                         </div>
-                        <div className="txt_box">
-                          <h3>손TOP 서울 강남구</h3>
-                          <p>홍길동 손해사정사</p>
+                      </div>
+                      <div className="col-lg-auto col-12">
+                        <div className="ds-f bh-flex-flex-wrap">
+                          {/* <div className="other_btn">
+                            <a href="#" className="ds-b">
+                              전문가의 다른 간편 상담답변 보기 <b>56건</b>
+                            </a>
+                          </div> */}
+                          <div className="other_btn type2">
+                            <a href={`/booking?expertNo=${elem.expertNo}`} className="ds-b">
+                              <b style={{color:"white"}}>상담 예약</b>
+                            </a>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className="col-lg-auto col-12">
-                    <div className="ds-f bh-flex-flex-wrap">
-                      <div className="other_btn">
-                        <a href="#" className="ds-b">
-                          전문가의 다른 간편 상담답변 보기 <b>56건</b>
-                        </a>
-                      </div>
-                      <div className="other_btn type2">
-                        <a href="counsel_inquiry.html" className="ds-b">
-                          <b>상담 예약</b>
-                        </a>
-                      </div>
-                    </div>
+                  <div className="comment_content">
+                    {elem.description}
                   </div>
+                  <div className="comment_date">{formatDate(elem.created_at)}</div>
                 </div>
-              </div>
-              <div className="comment_content">
-                전국민 자동차 보유율 및 운전면허 취득률이 높아지는 추세에 따라,
-                운전 미숙으로 인한 크고 작은 사고도 많이 발생하고 있습니다.
-                <br />
-                이에 최근 한 운전자분의 변압기 추돌 사고에 대한 손해배상에
-                보험금을 적용할 수 있는지의 의뢰를 해결한 사례에 대해 소개하고자
-                합니다.
-                <br />
-                <br />
-                1. 사건 개요: 사고는 A도로에서 발생한 B의 승합차가 운전 미숙으로
-                인해 변압기에 추돌하는 사건으로, 기업상대 손해배상이 필요한
-                상황이었습니다.
-                <br />
-                이를 위해 보험사에 대한 보험료 청구를 수행하게 되었습니다.
-                <br />
-                2. 업무 진행과정: 청구서 작성 단계에서는 사고 상황을 명확하게
-                서술하고 피해 항목을 세밀하게 나누어 손해액을 정확하게 계산하는
-                것이 중요했습니다.
-                <br />
-                특히, 자동차 수리비 및 기업상대 손해배상 비용을 각각
-                <br />
-                상세하게 기술함으로써 보험사에 정당한 청구를 제시할 수
-                있었습니다.
-              </div>
-              <div className="comment_date">2024.01.10</div>
-            </div>
-            <div className="comment_box">
-              <div className="info_box">
-                <div className="bh_row no-gutters ai-c jc-b">
-                  <div className="col-lg-auto col-12">
-                    <div className="profile">
-                      <div className="ds-f ai-c">
-                        <div className="img_box">
-                          <img src="images/main/profile_img2.png" alt="img" />
-                        </div>
-                        <div className="txt_box">
-                          <h3>손TOP 서울 강남구</h3>
-                          <p>홍길동 손해사정사</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-auto col-12">
-                    <div className="ds-f bh-flex-flex-wrap">
-                      <div className="other_btn">
-                        <a href="#" className="ds-b">
-                          전문가의 다른 간편 상담답변 보기 <b>56건</b>
-                        </a>
-                      </div>
-                      <div className="other_btn type2">
-                        <a href="counsel_inquiry.html" className="ds-b">
-                          <b>상담 예약</b>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="comment_content">
-                전국민 자동차 보유율 및 운전면허 취득률이 높아지는 추세에 따라,
-                운전 미숙으로 인한 크고 작은 사고도 많이 발생하고 있습니다.
-                <br />
-                이에 최근 한 운전자분의 변압기 추돌 사고에 대한 손해배상에
-                보험금을 적용할 수 있는지의 의뢰를 해결한 사례에 대해 소개하고자
-                합니다.
-                <br />
-                <br />
-                1. 사건 개요: 사고는 A도로에서 발생한 B의 승합차가 운전 미숙으로
-                인해 변압기에 추돌하는 사건으로, 기업상대 손해배상이 필요한
-                상황이었습니다.
-                <br />
-                이를 위해 보험사에 대한 보험료 청구를 수행하게 되었습니다.
-                <br />
-                2. 업무 진행과정: 청구서 작성 단계에서는 사고 상황을 명확하게
-                서술하고 피해 항목을 세밀하게 나누어 손해액을 정확하게 계산하는
-                것이 중요했습니다.
-                <br />
-                특히, 자동차 수리비 및 기업상대 손해배상 비용을 각각
-                <br />
-                상세하게 기술함으로써 보험사에 정당한 청구를 제시할 수
-                있었습니다.
-              </div>
-              <div className="comment_date">2024.01.10</div>
-            </div>
-            <div className="comment_box">
-              <div className="info_box">
-                <div className="bh_row no-gutters ai-c jc-b">
-                  <div className="col-lg-auto col-12">
-                    <div className="profile">
-                      <div className="ds-f ai-c">
-                        <div className="img_box">
-                          <img src="images/main/profile_img3.png" alt="img" />
-                        </div>
-                        <div className="txt_box">
-                          <h3>손TOP 서울 강남구</h3>
-                          <p>홍길동 손해사정사</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-lg-auto col-12">
-                    <div className="ds-f bh-flex-flex-wrap">
-                      <div className="other_btn">
-                        <a href="#" className="ds-b">
-                          전문가의 다른 간편 상담답변 보기 <b>56건</b>
-                        </a>
-                      </div>
-                      <div className="other_btn type2">
-                        <a href="counsel_inquiry.html" className="ds-b">
-                          <b>상담 예약</b>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="comment_content">
-                전국민 자동차 보유율 및 운전면허 취득률이 높아지는 추세에 따라,
-                운전 미숙으로 인한 크고 작은 사고도 많이 발생하고 있습니다.
-                <br />
-                이에 최근 한 운전자분의 변압기 추돌 사고에 대한 손해배상에
-                보험금을 적용할 수 있는지의 의뢰를 해결한 사례에 대해 소개하고자
-                합니다.
-                <br />
-                <br />
-                1. 사건 개요: 사고는 A도로에서 발생한 B의 승합차가 운전 미숙으로
-                인해 변압기에 추돌하는 사건으로, 기업상대 손해배상이 필요한
-                상황이었습니다.
-                <br />
-                이를 위해 보험사에 대한 보험료 청구를 수행하게 되었습니다.
-                <br />
-                2. 업무 진행과정: 청구서 작성 단계에서는 사고 상황을 명확하게
-                서술하고 피해 항목을 세밀하게 나누어 손해액을 정확하게 계산하는
-                것이 중요했습니다.
-                <br />
-                특히, 자동차 수리비 및 기업상대 손해배상 비용을 각각
-                <br />
-                상세하게 기술함으로써 보험사에 정당한 청구를 제시할 수
-                있었습니다.
-              </div>
-              <div className="comment_date">2024.01.10</div>
-            </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -331,4 +193,17 @@ function daysAgoFormatted(dateString) {
   } else {
     return `${differenceInDays}일 전 작성`;
   }
+}
+
+function formatDate(dateString) {
+  // 주어진 날짜를 Date 객체로 파싱
+  const givenDate = new Date(dateString);
+
+  // 연, 월, 일을 각각 추출
+  const year = givenDate.getFullYear();
+  const month = (givenDate.getMonth() + 1).toString().padStart(2, "0"); // 월은 0부터 시작하므로 1을 더하고, 두 자리수로 맞춤
+  const day = givenDate.getDate().toString().padStart(2, "0"); // 일자를 두 자리수로 맞춤
+
+  // "XXXX.XX.XX" 형식으로 반환
+  return `${year}.${month}.${day}`;
 }

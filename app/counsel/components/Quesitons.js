@@ -19,7 +19,7 @@ export default function Quesitons() {
   const [isComplete, setIsComplete] = useState(false);
   const [questions, setQuestions] = useState([]);
   const fetchData = async () => {
-    let { data: query, error } = await supabase.from("query").select("*");
+    let { data: query, error } = await supabase.from("query").select("*,queryAnswer(*,introduction(*))");
     setQuestions(query);
     setIsComplete(true);
   };
@@ -28,8 +28,7 @@ export default function Quesitons() {
     fetchData();
   }, [isComplete]);
 
-  console.log(questions);
-
+  console.log(questions)
   return (
     <>
       <div
@@ -120,22 +119,17 @@ export default function Quesitons() {
                 <div className="anser">
                   <div className="ds-f name">
                     <span>대표답변</span>
-                    <p>홍길동 손해사정사</p>
+                    <p>{elem.queryAnswer[0].introduction.name} 손해사정사</p>
                   </div>
                   <div className="anser_content">
-                    국가는 전통문화의 계승·발전과 민족문화의 창달에 노력하여야
-                    한다. 대통령은 제1항과 제2항의 처분 또는 명령을 한 때에는
-                    지체없이 국회에 보고하여 그 승인을 얻어야 한다. 국회나 그
-                    위원회의 요구가 있을 때에는 국무총리·국무위원 또는
-                    정부위원은 출석·답변하여야 하며, 국무총리 또는 국무위원이
-                    출석요구를 받은 때에는 국무위원 또는 정부위원으로 하여금 ...
+                    {elem.queryAnswer[0].description}
                   </div>
                 </div>
                 <div className="info">
                   <div className="bh_row no-gutters ai-c jc-b">
                     <div className="col-auto">
                       <p>
-                        다른 전문가 답변 <b className="fw-b">6</b>건
+                        다른 전문가 답변 <b className="fw-b">{elem.queryAnswer.length-1}</b>건
                       </p>
                     </div>
                     <div className="col-auto">
