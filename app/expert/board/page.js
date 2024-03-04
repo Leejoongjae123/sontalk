@@ -24,7 +24,6 @@ export default function ExpertBoard() {
       .eq('region',search)
       setExperts(introduction)
     }else{
-      console.log('456')
       let { data: introduction, error } = await supabase
       .from('introduction')
       .select('*')

@@ -3536,3 +3536,21 @@ body {
        display: none;
     }
 }
+
+.listItem:before {
+  content: '•'; /* 점 모양 */
+  margin-right: 8px; /* 점과 텍스트 사이의 거리 */
+  color: black; /* 점 색상 */
+}
+
+.ellipsis {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 표시할 라인 수 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.2em; /* 라인 높이, 이 값을 기반으로 max-height 계산 */
+  max-height: 2.4em; /* 'line-height'의 두 배 값, 2줄 표시를 위함 */
+  white-space: normal; /* 텍스트 줄바꿈 허용 */
+  margin-bottom: 0.2em;
+}

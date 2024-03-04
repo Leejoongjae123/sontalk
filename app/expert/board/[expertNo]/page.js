@@ -1,7 +1,21 @@
 import React from "react";
 import { headers, cookies } from "next/headers";
-
+import { createClient } from "../../../../utils/supabase/server";
+import { useRouter } from "next/navigation";
+import PrevHistory from "./components/PrevHistory";
+import QueryAnswer from "./components/QueryAnswer";
+import Talk from "./components/Talk";
 export default async function page({ params }) {
+  const cookieStore = cookies();
+  const expertNo = params.expertNo;
+  console.log(expertNo);
+  const supabase = createClient(cookieStore);
+
+  let { data: introduction, error1 } = await supabase
+    .from("introduction")
+    .select("*")
+    .eq("expertNo", expertNo.toString());
+
   return (
     <div className="body">
       <div className="expert_detail">
@@ -10,15 +24,18 @@ export default async function page({ params }) {
             <div className="col-lg col-12">
               <div className="info_area">
                 <div className="detail_title">
-                  <h3>다양한 사고에 대응하는 배상책임의 마술사</h3>
+                  <h3>{introduction[0].description}</h3>
                 </div>
-                <div className="option1">
+                {/* <div className="option1">
                   <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill fw-l"></i>
-                    <p className="fw-b ml-5">홍길동 손해사정사</p>
+                    <div>
+                      <p className="fw-b ml-5">
+                        {introduction[0].name} 손해사정사
+                      </p>
+                    </div>
                   </div>
                   <div className="bh_row gutters-5">
-                    {/* <div className="col-lg-2_5 col-6 mb-0 m-mb-20">
+                    <div className="col-lg-2_5 col-6 mb-0 m-mb-20">
                       <div className="inner ta-c">
                         <div className="subject">
                           <i className="ri-user-star-line"></i>
@@ -32,7 +49,7 @@ export default async function page({ params }) {
                           <i className="ri-star-line"></i>
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                     <div className="col-lg-2_5 col-6 mb-0 m-mb-20">
                       <div className="inner ta-c">
                         <div className="subject">
@@ -52,7 +69,7 @@ export default async function page({ params }) {
                       </div>
                     </div>
 
-                    {/* <div className="col-lg-2_5 col-6 mb-0 m-mb-20">
+                    <div className="col-lg-2_5 col-6 mb-0 m-mb-20">
                       <div className="inner ta-c">
                         <div className="subject">
                           <i className="ri-chat-quote-line"></i>
@@ -60,7 +77,7 @@ export default async function page({ params }) {
                         </div>
                         <div className="result fw-b">16</div>
                       </div>
-                    </div> */}
+                    </div>
                     <div className="col-lg-2_5 col-6">
                       <div className="inner ta-c">
                         <div className="subject">
@@ -71,55 +88,32 @@ export default async function page({ params }) {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="option2">
-                  <div className="subject">
-                    <div className="ds-f jc-b ai-c">
-                      <h3>
-                        선임사례 <em>21건</em>
-                      </h3>
-                      <div className="effect_btn">
-                        <a href="#" className="ds-f ai-c">
-                          <span>더보기</span>
-                          <i className="ri-arrow-right-line"></i>
-                        </a>
-                      </div>
-                    </div>
+                </div> */}
+                <div className="option1">
+                  <div className="ds-f ai-c name">
+                    {/* <i className="ri-account-pin-circle-fill fw-l"></i> */}
+                    <p className="fw-b ml-5">경력</p>
                   </div>
-                  <div className="bh_row op1 gutters-10">
-                    <div className="col-lg-4 col-12 mb-0 m-mb-20">
-                      <div className="inner">
-                        <div className="category">산재사고</div>
-                        <p>일자 : 2024.01.10</p>
-                        <p>보험사 : DD손보</p>
-                        <div className="result ta-c">
-                          <i className="ri-auction-line"></i> 보험금 지급
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-12 mb-0 m-mb-20">
-                      <div className="inner">
-                        <div className="category">산재사고</div>
-                        <p>일자 : 2024.01.10</p>
-                        <p>보험사 : DD손보</p>
-                        <div className="result ta-c">
-                          <i className="ri-auction-line"></i> 보험금 지급
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-lg-4 col-12">
-                      <div className="inner">
-                        <div className="category">산재사고</div>
-                        <p>일자 : 2024.01.10</p>
-                        <p>보험사 : DD손보</p>
-                        <div className="result ta-c">
-                          <i className="ri-auction-line"></i> 보험금 지급
-                        </div>
-                      </div>
-                    </div>
+                  <div className="bh_row gutters-5">
+                    <ul>
+                      {introduction[0]?.career?.map((elem, index) => {
+                        return (
+                          <li
+                            key={index}
+                            className="listItem"
+                            style={{ fontSize: "1rem" }}
+                          >
+                            {elem}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   </div>
                 </div>
-                <div className="option2">
+                <PrevHistory expertNo={expertNo}></PrevHistory>
+                <QueryAnswer expertNo={expertNo}></QueryAnswer>
+                <Talk expertNo={expertNo}></Talk>
+                {/* <div className="option2">
                   <div className="subject">
                     <div className="ds-f jc-b ai-c">
                       <h3>
@@ -168,8 +162,8 @@ export default async function page({ params }) {
                       </div>
                     </div>
                   </div>
-                </div>
-                <div className="option2 last">
+                </div> */}
+                {/* <div className="option2 last">
                   <div className="subject">
                     <div className="ds-f jc-b ai-c">
                       <h3>
@@ -230,25 +224,29 @@ export default async function page({ params }) {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className="col-lg-auto col-12">
               <div className="right_area">
-                <div className="img_box po-r">
-                  <img src="/images/sub/board_detali_img.jpg" alt="img" />
-                  <div className="profile">
+                <div className="img_box po-r" style={{display:"flex"}}>
+                  <img style={{margin:"auto"}} src={introduction[0].imageUrl} alt="img" />
+                  {/* <div className="profile">
                     <p>손TOP 서울 강남구</p>
                     <div className="ds-f ai-c name">
                       <i className="ri-account-pin-circle-fill fw-l"></i>
                       <p className="fw-m">홍길동 손해사정사</p>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
+                <div>
+                  <p className="fw-b ml-5" style={{fontSize:"24px",textAlign:'center',margin:"1rem 0 1rem 0"}}>{introduction[0].name} 손해사정사</p>
+                </div>
+
                 <a href="#" className="ds-b mb-10 ta-c">
                   <i className="ri-phone-fill"></i>전화 상담
                 </a>
-                <a href="/counsel_inquiry.html" className="ds-b ta-c">
+                <a href={`/booking?expertNo=${expertNo}`} className="ds-b ta-c">
                   <i className="ri-home-4-fill"></i>상담 예약
                 </a>
               </div>
