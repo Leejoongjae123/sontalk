@@ -36,13 +36,13 @@ function InquiryTitle() {
             <div className="circle_box ta-c">
               <i className="ri-phone-fill"></i>
               <p>1670-8684</p>
-              <a href="tel:000-0000-0000">전화 문의하기</a>
+              <a href="tel:1670-8684">전화 문의하기</a>
             </div>
             <div className="circle_box cb2 ta-c">
               <p>
                 <span>카카오톡</span>으로 상담해보세요.
               </p>
-              <a href="#">카톡 문의하기</a>
+              <a target="_blank" href="http://pf.kakao.com/_eHyxiG">카톡 문의하기</a>
             </div>
           </div>
         </div>

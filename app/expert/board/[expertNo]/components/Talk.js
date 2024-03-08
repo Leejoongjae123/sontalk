@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
+import categoryList from "@/components/categoryList";
 import keywordList from "@/components/keywordList";
 
 const theme = createTheme({
@@ -105,11 +106,6 @@ function daysAgoFormatted(dateString) {
 }
 
 function findNameByCat(catValue) {
-  // keywordList에서 catValue와 일치하는 cat 값을 가진 객체를 찾습니다.
-  const matchingKeyword = keywordList.find(
-    (keyword) => keyword.cat === catValue
-  );
-
-  // 일치하는 객체가 있으면 그 객체의 name 값을 반환합니다.
-  return matchingKeyword ? matchingKeyword.name : undefined;
+  const item = categoryList?.find((item) => item.cat === catValue);
+  return item ? item.name : "해당하는 카테고리가 없습니다.";
 }

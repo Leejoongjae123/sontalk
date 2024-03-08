@@ -50,6 +50,7 @@ export default async function page({ params }) {
               <div className="ds-f">
                 <span>조회수 {query[0].count}</span>
                 <span>{daysAgoFormatted(query[0].created_at)}</span>
+                <span>{maskMiddleName(query[0].name)}</span>
               </div>
             </div>
             {/* <div className="tool_box">
@@ -206,4 +207,23 @@ function formatDate(dateString) {
 
   // "XXXX.XX.XX" 형식으로 반환
   return `${year}.${month}.${day}`;
+}
+
+function maskMiddleName(name) {
+  // 이름의 길이가 1 이하일 경우 그대로 반환
+  if (name.length <= 1) {
+    return name;
+  }
+
+  // 가운데 글자의 시작 인덱스와 길이 계산
+  const middleIndex = Math.floor(name.length / 2);
+  let maskLength = name.length % 2 === 0 ? 2 : 1; // 짝수면 2, 홀수면 1
+
+  // 가운데 글자(들)을 별표로 대체
+  const maskedName = 
+    name.substring(0, middleIndex - Math.floor(maskLength / 2)) + 
+    "*".repeat(maskLength) + 
+    name.substring(middleIndex + Math.ceil(maskLength / 2));
+
+  return maskedName;
 }

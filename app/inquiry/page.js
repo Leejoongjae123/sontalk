@@ -1,12 +1,54 @@
 import React from "react";
 import InquiryTitle from './components/InquiryTitle'
-function Inquiry() {
+import { createClient } from "@/utils/supabase/server";
+import { headers, cookies } from "next/headers";
+import { redirect } from "next/navigation";
+
+export default function Inquiry() {
+
+  const Booking = async (formData) => {
+    "use server";
+
+    const name = formData.get("name") 
+    const phoneNumber = formData.get("phoneNumber")
+    const description = formData.get("description")
+    const supabase = createClient()
+
+    
+
+
+    
+    const { data, error } = await supabase
+    .from('booking')
+    .insert([
+      { name: name, phoneNumber: phoneNumber,description:description },
+    ])
+    .select()
+
+    const fileInput = document.getElementById('fileInput')
+    const file = fileInput.files[0]
+
+    const filePath = `uploads/${file.name}`
+        
+    const { data:attachedFile, error:attachedFileError } = await supabase.storage
+    .from('attachedFile')
+    .upload(filePath, file)
+    
+    console.log(attachedFile)
+
+    if (error) {
+      return redirect("/");
+    }
+
+    return redirect("/");
+  };
+
   return (
     <div className="body">
       <div className="inquiry_wrap po-r">
         <div className="bh_wrap">
           <InquiryTitle></InquiryTitle>
-          <form className="form_area">
+          <form className="form_area" action={Booking}>
             <div className="bh_row">
               <div className="col-lg-6 col-12">
                 <div className="info_box mb-50 m-mb-30">
@@ -14,7 +56,7 @@ function Inquiry() {
                     이름 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <input type="text" required className="w-100" />
+                    <input type="text" required className="w-100" name='name'/>
                   </div>
                 </div>
               </div>
@@ -24,7 +66,7 @@ function Inquiry() {
                     연락처 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <input type="text" required className="w-100" />
+                    <input type="text" required className="w-100" name='phoneNumber' />
                   </div>
                 </div>
               </div>
@@ -34,7 +76,7 @@ function Inquiry() {
                     상세내용 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <textarea required className="w-100"></textarea>
+                    <textarea required className="w-100" name='description'></textarea>
                   </div>
                 </div>
               </div>
@@ -42,7 +84,7 @@ function Inquiry() {
                 <div className="file_area">
                   <div className="file_btn po-r ds-ib">
                     <span>사진 및 파일 첨부</span>
-                    <input type="file" />
+                    <input type="file" id='fileInput'/>
                   </div>
                 </div>
               </div>
@@ -90,4 +132,4 @@ function Inquiry() {
   );
 }
 
-export default Inquiry;
+
