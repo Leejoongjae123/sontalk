@@ -2,7 +2,7 @@ import React from "react";
 import BookingTitle from './components/BookingTitle'
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-
+import Policy from './components/Policy'
 
 function Booking() {
 
@@ -88,9 +88,8 @@ function Booking() {
             <div className="agreement">
               <div className="agreement_notice">
                 <span>개인정보 수집 및 이용에 대해서 동의합니다.</span>
-                <a href="#" target="_blank">
-                  [자세히보기]
-                </a>
+                <Policy></Policy>
+
               </div>
               <div className="agreement_btn_wrap">
                 <div className="btn_agree">

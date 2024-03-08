@@ -41,7 +41,17 @@ export default function ExpertBoard() {
     router.push(`/booking?expertNo=${expertNo}`);
   };
 
-  console.log(experts);
+  
+  const handleClick=(e, phoneNumber) =>{
+    // 사용자의 환경이 모바일이 아닌 경우
+    if (!/Mobi|Android/i.test(navigator.userAgent)) {
+      e.preventDefault() // 기본 동작 방지
+      // 전화번호 복사, 모달 표시, 또는 다른 동작을 수행
+      alert(`전화번호 : ${phoneNumber}`)
+    }
+    // 모바일 사용자의 경우, 기본적인 tel: 링크 동작 수행
+  }
+
 
   return (
     <div className="body">
@@ -125,6 +135,7 @@ export default function ExpertBoard() {
                               <a
                                 href={`tel:${elem.phoneNumber}`}
                                 className="ds-b"
+                                onClick={(e)=>{handleClick(e,elem.phoneNumber)}}
                               >
                                 <div className="ds-f ai-c jc-b">
                                   <p>
