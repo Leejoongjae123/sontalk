@@ -5,10 +5,10 @@ import { useRouter } from "next/navigation";
 import PrevHistory from "./components/PrevHistory";
 import QueryAnswer from "./components/QueryAnswer";
 import Talk from "./components/Talk";
+import Phone from './components/Phone'
 export default async function page({ params }) {
   const cookieStore = cookies();
   const expertNo = params.expertNo;
-  console.log(expertNo);
   const supabase = createClient(cookieStore);
 
   let { data: introduction, error1 } = await supabase
@@ -243,9 +243,10 @@ export default async function page({ params }) {
                   <p className="fw-b ml-5" style={{fontSize:"24px",textAlign:'center',margin:"1rem 0 1rem 0"}}>{introduction[0].name} 손해사정사</p>
                 </div>
 
-                <a href="#" className="ds-b mb-10 ta-c">
+                {/* <a href="#" className="ds-b mb-10 ta-c">
                   <i className="ri-phone-fill"></i>전화 상담
-                </a>
+                </a> */}
+                <Phone introduction={introduction}></Phone>
                 <a href={`/booking?expertNo=${expertNo}`} className="ds-b ta-c">
                   <i className="ri-home-4-fill"></i>상담 예약
                 </a>

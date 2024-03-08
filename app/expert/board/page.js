@@ -7,6 +7,7 @@ import { supabase } from "../../../utils/supabase/client";
 import categoryList from "../../../components/categoryList";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
+import Phone from './components/Phone'
 
 export default function ExpertBoard() {
   const searchParams = useSearchParams();
@@ -132,10 +133,10 @@ export default function ExpertBoard() {
                               </div>
                             </div>
                             <div className="phone mb-10">
-                              <a
+                              {/* <a
                                 href={`tel:${elem.phoneNumber}`}
                                 className="ds-b"
-                                onClick={(e)=>{handleClick(e,elem.phoneNumber)}}
+                                // onClick={(e)=>{handleClick(e,elem.phoneNumber)}}
                               >
                                 <div className="ds-f ai-c jc-b">
                                   <p>
@@ -143,7 +144,8 @@ export default function ExpertBoard() {
                                     전화상담
                                   </p>
                                 </div>
-                              </a>
+                              </a> */}
+                              <Phone elem={elem}></Phone>
                             </div>
                             <div className="reservation">
                               <a
