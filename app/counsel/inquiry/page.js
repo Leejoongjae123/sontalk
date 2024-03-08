@@ -1,5 +1,4 @@
 import React from "react";
-import Agreement from "./components/agreement";
 import { createClient } from "@/utils/supabase/server";
 import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
