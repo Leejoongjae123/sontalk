@@ -304,37 +304,22 @@ function TalkTitle() {
           </div> */}
         </div>
       </div>
-      <div style={{display:"flex",justifyContent:'center'}} className="pagination">
-        <Stack spacing={2}>
-          <Pagination count={10} />
+      <div style={{ display: "flex", justifyContent: "center",width:"100%" }}>
+        <Stack spacing={2} direction="row" style={{overflowX:'auto'}}>
+          <Pagination
+            count={10}
+            sx={{
+              "& .MuiPaginationItem-root": {
+                // Targeting the root item of Pagination
+                fontSize: "14px", // Setting font size to 16px
+                minWidth:'auto',
+              },
+              '.MuiPagination-ul': {
+                flexWrap: 'nowrap', // Preventing the pagination from wrapping onto multiple lines
+              }
+            }}
+          />
         </Stack>
-        {/* <div className="bh_row no-gutters jc-c">
-          <div className="prve_btn">
-            <div className="ds-f">
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-left-double-line"></i>
-              </a>
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-left-s-line"></i>
-              </a>
-            </div>
-          </div>
-          <div className="page_no_wrap">
-            <a href="#" className="ds-b direction active">
-              1
-            </a>
-          </div>
-          <div className="next_btn">
-            <div className="ds-f">
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-right-s-line"></i>
-              </a>
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-right-double-line"></i>
-              </a>
-            </div>
-          </div>
-        </div> */}
       </div>
     </>
   );

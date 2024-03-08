@@ -224,12 +224,24 @@ export default function Quesitons() {
             );
           })}
       </div>
-      <div className="pagination" style={{display:"flex",justifyContent:'center'}}>
-      <Stack spacing={2}>
-        <Pagination count={10} />
-      </Stack>
+      <div style={{ display: "flex", justifyContent: "center",width:"100%" }}>
+        <Stack spacing={2} direction="row" style={{overflowX:'auto'}}>
+          <Pagination
+            count={10}
+            sx={{
+              "& .MuiPaginationItem-root": {
+                // Targeting the root item of Pagination
+                fontSize: "14px", // Setting font size to 16px
+                minWidth:'auto',
+              },
+              '.MuiPagination-ul': {
+                flexWrap: 'nowrap', // Preventing the pagination from wrapping onto multiple lines
+              }
+            }}
+          />
+        </Stack>
       </div>
-      
+
       {/* <div className="pagination" style={{ fontSize: "1.5rem" }}>
         <div className="bh_row no-gutters jc-c">
           <div className="prve_btn">
