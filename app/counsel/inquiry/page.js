@@ -3,38 +3,35 @@ import Agreement from "./components/agreement";
 import { createClient } from "@/utils/supabase/server";
 import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
-
+import FormGroup from "@mui/material/FormGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 export default async function page() {
-
-
+  const label = { inputProps: { "aria-label": "Checkbox demo" } };
   // const cookieStore = cookies();
   // const supabase = createClient(cookieStore);
 
   const register = async (formData) => {
     "use server";
-    const title = formData.get("title")
-    const name = formData.get("name")
-    const description = formData.get("description") 
+    const title = formData.get("title");
+    const name = formData.get("name");
+    const description = formData.get("description");
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-    
-    console.log(title)
-    
+
+    console.log(title);
+
     const { data, error } = await supabase
-    .from('query')
-    .insert([
-      { title: title, name: name,description:description }
-    ])
-    .select()
-    console.log(data)
-    console.log(error)
-    if (!error){
-      return redirect('/counsel')
+      .from("query")
+      .insert([{ title: title, name: name, description: description }])
+      .select();
+    console.log(data);
+    console.log(error);
+    if (!error) {
+      return redirect("/counsel");
     }
-  }
-    
-    
+  };
 
   return (
     <div className="body">
@@ -52,7 +49,7 @@ export default async function page() {
                 <input
                   type="text"
                   placeholder="질문의 제목을 입력해주세요."
-                  name='title'
+                  name="title"
                   required
                 />
               </div>
@@ -65,7 +62,7 @@ export default async function page() {
                 <input
                   type="text"
                   placeholder="작성자의 이름을 입력해주세요"
-                  name='name'
+                  name="name"
                   required
                 />
               </div>
@@ -76,10 +73,22 @@ export default async function page() {
               </p>
               <div className="input_box">
                 <textarea
-                  name='description'
+                  name="description"
                   placeholder="상담받고자 하는 내용을 구체적으로 작성해주세요."
                   required
                 ></textarea>
+              </div>
+            </div>
+            {/* <div style={{display:'flex',alignItems:'center'}} className="info_box">
+              <Checkbox></Checkbox>
+              <p style={{fontSize:'16px'}}>비밀글 작성하기</p>
+            </div> */}
+            <div style={{paddingLeft:"0px",paddingTop:"0",paddingBottom:"0",backgroundColor:'white',border:'none'}} className="agreement">
+              <div className="confirm">
+                <input type="checkbox" id="accept_agreement" />
+                <label htmlFor="accept_agreement">
+                  비밀글 작성하기
+                </label>
               </div>
             </div>
             <div className="agreement">
@@ -118,7 +127,6 @@ export default async function page() {
                 상담하기
               </button>
             </div>
-            
           </form>
         </div>
       </div>

@@ -73,6 +73,16 @@ function Booking() {
                   </div>
                 </div>
               </div>
+              <div className="col-12">
+                <div className="info_box">
+                  <p className="subject">
+                    상담 가능 일정 <em>*</em>
+                  </p>
+                  <div className="input_box">
+                    <textarea style={{height:'15vh'}} placeholder={`정확한 날짜 기입 또는 요일과 가능 시간대 기입\n(ex.2024년 3월1일 13시~15시 혹은 월~수 12시 이후)`} name='description' required className="w-100"></textarea>
+                  </div>
+                </div>
+              </div>
               {/* <div className="col-12">
                 <div className="file_area">
                   <div className="file_btn po-r ds-ib">

@@ -12,30 +12,25 @@ export default function Inquiry() {
     const name = formData.get("name") 
     const phoneNumber = formData.get("phoneNumber")
     const description = formData.get("description")
-    const supabase = createClient()
-
-    
-
-
+    const supabase = createClient() 
     
     const { data, error } = await supabase
-    .from('booking')
+    .from('recommendation')
     .insert([
       { name: name, phoneNumber: phoneNumber,description:description },
     ])
     .select()
 
-    const fileInput = document.getElementById('fileInput')
-    const file = fileInput.files[0]
+    // const fileInput = document.getElementById('fileInput')
+    // const file = fileInput.files[0]
 
-    const filePath = `uploads/${file.name}`
+    // const filePath = `uploads/${file.name}`
         
-    const { data:attachedFile, error:attachedFileError } = await supabase.storage
-    .from('attachedFile')
-    .upload(filePath, file)
+    // const { data:attachedFile, error:attachedFileError } = await supabase.storage
+    // .from('attachedFile')
+    // .upload(filePath, file)
     
-    console.log(attachedFile)
-
+    // console.log(attachedFile)
     if (error) {
       return redirect("/");
     }

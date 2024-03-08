@@ -73,9 +73,9 @@ export default function Quesitons() {
       >
         <span>간편 상담</span>
         <h3>
-          간편 상담을 통해
+          나와 비슷한 문제의 답변을 찾아보거나, 직접 상담글을 작성하여
           <br />
-          <span className="bh_color_main">궁금증을 해결해보세요.</span>
+          <span className="bh_color_main">답변을 받아볼 수 있어요</span>
         </h3>
         <form className="search_area">
           <div className="ds-f">
@@ -177,7 +177,7 @@ export default function Quesitons() {
                   {elem.queryAnswer.length>=1?(<div className="anser">
                     <div className="ds-f name">
                       <span>대표답변</span>
-                      <p>{elem.queryAnswer[0]?.introduction?.name} 손해사정사</p>
+                      <p>{elem?.queryAnswer[0]?.introduction?.name} 손해사정사</p>
                     </div>
                     <div className="anser_content">
                       {elem.queryAnswer[0]?.description}
