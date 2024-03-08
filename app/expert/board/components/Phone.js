@@ -17,13 +17,13 @@ export default function Phone({ elem }) {
   return (
     <>
       <a
-        href={`tel:${elem.phoneNumber}`}
+        href={`tel:1670-8684`}
         className="ds-b"
         onClick={handleClick}
       >
         <div className="ds-f ai-c jc-b">
           <p>
-            <i className="ri-phone-fill"></i>30분 전화상담
+            <i className="ri-phone-fill"></i>전화상담
           </p>
         </div>
       </a>
@@ -31,9 +31,9 @@ export default function Phone({ elem }) {
       {isModalOpen && (
         <div style={modalStyle}>
           <div style={modalContentStyle}>
-            <h2 style={{ fontSize: "20px", textAlign: "center" }}>전화번호</h2>
+            <h2 style={{ fontSize: "20px", textAlign: "center" }}>대표전화</h2>
             <p style={{ fontSize: "16px", color: "black" }}>
-              {elem.phoneNumber}
+              1670-8684
             </p>
             <div style={buttonContainerStyle}>
               <button

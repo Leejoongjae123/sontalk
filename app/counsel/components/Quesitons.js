@@ -5,6 +5,8 @@ import keywordList from "../../../components/keywordList";
 import AOS from "aos";
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import Link from "next/link";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 export default function Quesitons() {
   useEffect(() => {
@@ -174,26 +176,40 @@ export default function Quesitons() {
                   <div className="content" style={{ whiteSpace: "pre-wrap" }}>
                     {elem.description}
                   </div>
-                  {elem.queryAnswer.length>=1?(<div className="anser">
-                    <div className="ds-f name">
-                      <span>대표답변</span>
-                      <p>{elem?.queryAnswer[0]?.introduction?.name} 손해사정사</p>
+                  {elem.queryAnswer.length >= 1 ? (
+                    <div className="anser">
+                      <div className="ds-f name">
+                        <span>대표답변</span>
+                        <p>
+                          {elem?.queryAnswer[0]?.introduction?.name} 손해사정사
+                        </p>
+                      </div>
+                      <div className="anser_content">
+                        {elem.queryAnswer[0]?.description}
+                      </div>
                     </div>
-                    <div className="anser_content">
-                      {elem.queryAnswer[0]?.description}
-                    </div>
-                  </div>):(<></>)}
-                  
+                  ) : (
+                    <></>
+                  )}
+
                   <div className="info">
                     <div className="bh_row no-gutters ai-c jc-b">
-                    {elem.queryAnswer.length?(<div className="col-auto">
-                        <p>
-                          다른 전문가 답변{" "}
-                          <b className="fw-b">{elem.queryAnswer.length?(elem.queryAnswer.length - 1):("0")}</b>
-                          건
-                        </p>
-                      </div>):(<div></div>)}
-                      
+                      {elem.queryAnswer.length ? (
+                        <div className="col-auto">
+                          <p>
+                            다른 전문가 답변{" "}
+                            <b className="fw-b">
+                              {elem.queryAnswer.length
+                                ? elem.queryAnswer.length - 1
+                                : "0"}
+                            </b>
+                            건
+                          </p>
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+
                       <div className="col-auto">
                         <div className="ds-f">
                           <span>조회수 {elem.count}</span>
@@ -208,7 +224,13 @@ export default function Quesitons() {
             );
           })}
       </div>
-      <div className="pagination" style={{ fontSize: "1.5rem" }}>
+      <div className="pagination" style={{display:"flex",justifyContent:'center'}}>
+      <Stack spacing={2}>
+        <Pagination count={10} />
+      </Stack>
+      </div>
+      
+      {/* <div className="pagination" style={{ fontSize: "1.5rem" }}>
         <div className="bh_row no-gutters jc-c">
           <div className="prve_btn">
             <div className="ds-f">
@@ -236,7 +258,7 @@ export default function Quesitons() {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

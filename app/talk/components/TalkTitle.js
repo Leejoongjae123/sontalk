@@ -5,6 +5,8 @@ import { supabase } from "../../../utils/supabase/client";
 import keywordList from "@/components/keywordList";
 import categoryList from "@/components/categoryList";
 import Link from "next/link";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 import AOS from "aos";
 
@@ -94,8 +96,7 @@ function TalkTitle() {
                       </div>
                     </div>
                     {/* <a href="talk_detail.html"></a> */}
-                    <Link href={`/talk/${elem.talkNo.toString()}`}>
-                    </Link>
+                    <Link href={`/talk/${elem.talkNo.toString()}`}></Link>
                   </div>
                 </div>
               );
@@ -303,8 +304,11 @@ function TalkTitle() {
           </div> */}
         </div>
       </div>
-      <div className="pagination" style={{ fontSize: "1.5rem" }}>
-        <div className="bh_row no-gutters jc-c">
+      <div style={{display:"flex",justifyContent:'center'}} className="pagination">
+        <Stack spacing={2}>
+          <Pagination count={10} />
+        </Stack>
+        {/* <div className="bh_row no-gutters jc-c">
           <div className="prve_btn">
             <div className="ds-f">
               <a href="#" className="ds-b direction">
@@ -330,7 +334,7 @@ function TalkTitle() {
               </a>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
