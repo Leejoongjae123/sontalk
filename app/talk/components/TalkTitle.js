@@ -22,17 +22,26 @@ function TalkTitle() {
 
   const [isComplete, setIsComplete] = useState(false);
   const [talks, setTalks] = useState([]);
+  const [totalCount, setTotalCount] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1);
   const fetchData = async () => {
-    let { data: talk, error } = await supabase.from("talk").select("*");
+    let { data: talk, error } = await supabase.from("talk").select("*").range((currentPage-1)*10,currentPage*10);
     setTalks(talk);
     setIsComplete(true);
+    setTotalCount(Math.ceil(talk.length/10))
   };
+
+  
+
+
 
   useEffect(() => {
     fetchData();
-  }, [isComplete]);
+  }, [currentPage]);
 
-  console.log(talks);
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
+  };
 
   return (
     <>
@@ -307,7 +316,9 @@ function TalkTitle() {
       <div style={{ display: "flex", justifyContent: "center",width:"100%" }}>
         <Stack spacing={2} direction="row" style={{overflowX:'auto'}}>
           <Pagination
-            count={10}
+            count={totalCount}
+            page={currentPage}
+            onChange={handleChangePage}
             sx={{
               "& .MuiPaginationItem-root": {
                 // Targeting the root item of Pagination

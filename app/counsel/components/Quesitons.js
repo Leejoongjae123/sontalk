@@ -20,31 +20,45 @@ export default function Quesitons() {
 
   const [isComplete, setIsComplete] = useState(false);
   const [questions, setQuestions] = useState([]);
-  const [activeTab, setActiveTab] = useState("조회순");
+  const [activeTab, setActiveTab] = useState("count");
   const [activeSort, setActiveSort] = useState("count");
   const [selectedTag, setSelectedTag] = useState("");
-
-  const fetchData = async () => {
+  const [totalCount, setTotalCount] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchComplete, setSearchComplete] = useState(1)
+  const fetchData = async (searchKeyword) => {
     let { data: query, error } = await supabase
       .from("query")
       // .select("*,queryAnswer(*,introduction(*))")
       .select("*,queryAnswer(*,introduction(*))")
-      .order(activeSort, { ascending: false });
+      .like("title", "%" + searchKeyword + "%")
+      .order(activeTab, { ascending: false })
+      .range((currentPage - 1) * 10, currentPage * 10);
+    if (searchKeyword) {
+      setTotalCount(query.length);
+    }
     setQuestions(query);
     setIsComplete(true);
   };
 
+  const fetchTotal = async () => {
+    let { data: query, error } = await supabase.from("query").select("*");
+    setTotalCount(Math.ceil(query.length / 10));
+  };
+
   useEffect(() => {
-    fetchData();
-  }, [isComplete]);
+    fetchData(searchKeyword);
+    fetchTotal();
+  }, [currentPage, activeTab,searchComplete]);
 
   // 탭을 클릭했을 때 실행될 함수입니다.
   const handleTabClick = (tabName) => {
     // 클릭된 탭의 이름으로 activeTab 상태를 업데이트합니다.
     setActiveTab(tabName);
-
-    setIsComplete(false);
   };
+
+  console.log(activeTab);
 
   // 태그를 클릭했을 때 실행될 함수입니다.
   const handleTagClick = (tagName) => {
@@ -65,7 +79,20 @@ export default function Quesitons() {
     "#의료보험",
   ];
 
-  console.log(questions);
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
+  };
+
+  // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
+  const handleInputChange = (event) => {
+    setSearchKeyword(event.target.value);
+  };
+  // 버튼 클릭 시 실행할 함수입니다.
+  const handleSearch = () => {
+    setSearchComplete(prevState => prevState + 1);
+  };
+
+
   return (
     <>
       <div
@@ -81,8 +108,14 @@ export default function Quesitons() {
         </h3>
         <form className="search_area">
           <div className="ds-f">
-            <input type="text" placeholder="제목, 내용을 입력해주세요." />
-            <button type="submit">
+            <input 
+            type="text" 
+            placeholder="제목, 내용을 입력해주세요."
+            value={searchKeyword}
+            onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
+            
+            />
+            <button type='button' onClick={handleSearch}>
               <i className="ri-search-line"></i>
             </button>
           </div>
@@ -112,16 +145,16 @@ export default function Quesitons() {
             <div className="sorting">
               <div className="ds-f">
                 <a
-                  className={`ds-b ${activeTab === "조회순" ? "active" : ""}`}
-                  onClick={() => handleTabClick("조회순")}
+                  className={`ds-b ${activeTab === "count" ? "active" : ""}`}
+                  onClick={() => handleTabClick("count")}
                 >
                   조회순
                 </a>
                 <a
                   className={`ds-b ${
-                    activeTab === "최신 질문순" ? "active" : ""
+                    activeTab === "created_at" ? "active" : ""
                   }`}
-                  onClick={() => handleTabClick("최신 질문순")}
+                  onClick={() => handleTabClick("created_at")}
                 >
                   최신 질문순
                 </a>
@@ -224,19 +257,21 @@ export default function Quesitons() {
             );
           })}
       </div>
-      <div style={{ display: "flex", justifyContent: "center",width:"100%" }}>
-        <Stack spacing={2} direction="row" style={{overflowX:'auto'}}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
           <Pagination
-            count={10}
+            count={totalCount}
+            page={currentPage}
+            onChange={handleChangePage}
             sx={{
               "& .MuiPaginationItem-root": {
                 // Targeting the root item of Pagination
                 fontSize: "14px", // Setting font size to 16px
-                minWidth:'auto',
+                minWidth: "auto",
               },
-              '.MuiPagination-ul': {
-                flexWrap: 'nowrap', // Preventing the pagination from wrapping onto multiple lines
-              }
+              ".MuiPagination-ul": {
+                flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
+              },
             }}
           />
         </Stack>
