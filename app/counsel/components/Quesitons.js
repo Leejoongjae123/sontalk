@@ -100,7 +100,7 @@ export default function Quesitons() {
         data-aos="fade-down"
         data-aos-duration="1500"
       >
-        <span>간편 상담</span>
+        <span style={{fontSize:"2rem"}}>간편 상담</span>
         <h3>
           나와 비슷한 문제의 답변을 찾아보거나, 직접 상담글을 작성하여
           <br />

@@ -64,7 +64,7 @@ function TalkTitle() {
         data-aos="fade-down"
         data-aos-duration="1500"
       >
-        <span>손사 Talk</span>
+        <span style={{fontSize:'2rem'}}>손사 Talk</span>
         <h3>
           분야별 손해사정
           <br />

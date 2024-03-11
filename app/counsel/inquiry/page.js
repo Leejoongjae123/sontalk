@@ -78,18 +78,33 @@ export default async function page() {
                 ></textarea>
               </div>
             </div>
-            {/* <div style={{display:'flex',alignItems:'center'}} className="info_box">
-              <Checkbox></Checkbox>
-              <p style={{fontSize:'16px'}}>비밀글 작성하기</p>
-            </div> */}
-            <div style={{paddingLeft:"0px",paddingTop:"0",paddingBottom:"0",backgroundColor:'white',border:'none'}} className="agreement">
+            <div
+              style={{
+                paddingLeft: "0px",
+                paddingTop: "0",
+                paddingBottom: "0",
+                backgroundColor: "white",
+                border: "none",
+                marginBottom:"1rem"
+              }}
+              className="agreement"
+            >
               <div className="confirm">
                 <input type="checkbox" id="accept_agreement" />
-                <label htmlFor="accept_agreement">
-                  비밀글 작성하기
-                </label>
+                <label htmlFor="accept_agreement">비밀글 작성하기</label>
               </div>
             </div>
+            <div style={{}} className="info_box">
+              <div className="input_box">
+                <input
+                  type="text"
+                  placeholder="비밀글 작성하기 체크 시 회신받을 이메일을 입력해주세요"
+                  name="title"
+                  required
+                />
+              </div>
+            </div>
+
             <div className="agreement">
               <div className="txt_box">
                 <p>
