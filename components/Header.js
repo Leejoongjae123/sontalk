@@ -44,7 +44,7 @@ export default async function Header() {
                     </li>
                     <li className="fw-m">
                       <form action={signOut}>
-                        <button style={{backgroundColor:'white',fontSize:'0.9rem',cursor:'pointer'}}>로그아웃</button>
+                        <button style={{backgroundColor:'white',fontSize:'0.9rem',cursor:'pointer',color:'#757575'}}>로그아웃</button>
                       </form>
                     </li>
                   </ul>

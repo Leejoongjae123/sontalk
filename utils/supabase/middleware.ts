@@ -65,12 +65,16 @@ export const updateSession = async (request: NextRequest) => {
     // This `try/catch` block is only here for the interactive tutorial.
     // Feel free to remove once you have Supabase connected.
     const { supabase, response } = createClient(request);
-
     // This will refresh session if expired - required for Server Components
     // https://supabase.com/docs/guides/auth/server-side/nextjs
-    await supabase.auth.getUser();
-
-    return response;
+    // const user=await supabase.auth.getUser();
+    const {data}= await supabase.auth.getUser();
+    // 사용자 정보가 없으면 로그인 페이지로 리다이렉트하는 응답 생성
+    if (!data.user) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    
+    return response
   } catch (e) {
     // If you are here, a Supabase client could not be created!
     // This is likely because you have not set up environment variables.

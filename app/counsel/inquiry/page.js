@@ -15,6 +15,8 @@ export default async function page() {
     "use server";
     const title = formData.get("title");
     const name = formData.get("name");
+    const email = formData.get("email");
+    const secret = formData.get('secret') ? false : true;
     const description = formData.get("description");
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -23,7 +25,7 @@ export default async function page() {
 
     const { data, error } = await supabase
       .from("query")
-      .insert([{ title: title, name: name, description: description }])
+      .insert([{ title: title, name: name, description: description,secret:secret,email:email }])
       .select();
     console.log(data);
     console.log(error);
@@ -90,7 +92,7 @@ export default async function page() {
               className="agreement"
             >
               <div className="confirm">
-                <input type="checkbox" id="accept_agreement" />
+                <input type="checkbox" id="accept_agreement" name='secret' />
                 <label htmlFor="accept_agreement">비밀글 작성하기</label>
               </div>
             </div>
@@ -99,7 +101,7 @@ export default async function page() {
                 <input
                   type="text"
                   placeholder="비밀글 작성하기 체크 시 회신받을 이메일을 입력해주세요"
-                  name="title"
+                  name="email"
                   required
                 />
               </div>

@@ -7,7 +7,6 @@ import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import Link from "next/link";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
-
 export default function Quesitons() {
   useEffect(() => {
     // AOS 초기화
@@ -27,6 +26,7 @@ export default function Quesitons() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1)
+  const [categoryName, setCategoryName] = useState("")
   const fetchData = async (searchKeyword) => {
     let { data: query, error } = await supabase
       .from("query")
@@ -34,9 +34,10 @@ export default function Quesitons() {
       .select("*,queryAnswer(*,introduction(*))")
       .like("title", "%" + searchKeyword + "%")
       .order(activeTab, { ascending: false })
-      .range((currentPage - 1) * 10, currentPage * 10);
+      .range((currentPage - 1) * 10, currentPage * 10)
+      .eq('secret','false')
     if (searchKeyword) {
-      setTotalCount(query.length);
+      setTotalCount(Math.ceil(query.length / 10));
     }
     setQuestions(query);
     setIsComplete(true);
@@ -49,8 +50,11 @@ export default function Quesitons() {
 
   useEffect(() => {
     fetchData(searchKeyword);
-    fetchTotal();
   }, [currentPage, activeTab,searchComplete]);
+
+  useEffect(()=>{
+    fetchTotal();
+  },[])
 
   // 탭을 클릭했을 때 실행될 함수입니다.
   const handleTabClick = (tabName) => {
@@ -58,13 +62,16 @@ export default function Quesitons() {
     setActiveTab(tabName);
   };
 
-  console.log(activeTab);
-
+  
+  
   // 태그를 클릭했을 때 실행될 함수입니다.
   const handleTagClick = (tagName) => {
     // 클릭된 태그의 이름으로 selectedTag 상태를 업데이트합니다.
     setSelectedTag(tagName);
   };
+  console.log(totalCount)
+
+
   const tags = [
     "#교통사고",
     "#충치",
@@ -91,7 +98,11 @@ export default function Quesitons() {
   const handleSearch = () => {
     setSearchComplete(prevState => prevState + 1);
   };
+  const handleCategory = (input) => {
+    setCategoryName(input);
+  };
 
+  console.log(categoryName)
 
   return (
     <>
@@ -127,7 +138,11 @@ export default function Quesitons() {
           {tags.map((tag, index) => (
             <p
               key={index}
-              onClick={() => handleTagClick(tag)}
+              onClick={() => {
+                handleTagClick(tag);
+                handleCategory(keywordList[index].cat)
+              }}
+              name={keywordList[index].cat}
               style={
                 selectedTag === tag
                   ? { backgroundColor: "#171C60", color: "white" }
