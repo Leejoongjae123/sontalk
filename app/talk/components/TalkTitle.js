@@ -22,26 +22,40 @@ function TalkTitle() {
 
   const [isComplete, setIsComplete] = useState(false);
   const [talks, setTalks] = useState([]);
-  const [totalCount, setTotalCount] = useState(10)
+  const [totalCount, setTotalCount] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchKeyword, setSearchKeyword] = useState("");
+  const [searchComplete, setSearchComplete] = useState(1)
   const fetchData = async () => {
-    let { data: talk, error } = await supabase.from("talk").select("*").range((currentPage-1)*10,currentPage*10);
+    let { data: talk, error } = await supabase
+      .from("talk")
+      .select("*")
+      .like("title", "%" + searchKeyword + "%")
+      .range((currentPage - 1) * 10, currentPage * 10);
+    if (searchKeyword) {
+      setTotalCount(talk.length);
+    }
     setTalks(talk);
     setIsComplete(true);
-    setTotalCount(Math.ceil(talk.length/10))
+    setTotalCount(Math.ceil(talk.length / 10));
   };
-
-  
-
-
 
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage,searchComplete]);
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
   };
+
+    // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
+    const handleInputChange = (event) => {
+      setSearchKeyword(event.target.value);
+    };
+    // 버튼 클릭 시 실행할 함수입니다.
+    const handleSearch = () => {
+      setSearchComplete(prevState => prevState + 1);
+    };
 
   return (
     <>
@@ -58,11 +72,14 @@ function TalkTitle() {
         </h3>
         <form className="search_area">
           <div className="ds-f">
-            <input
-              type="text"
-              placeholder="키워드 또는 제목, 내용을 입력해주세요."
+          <input 
+            type="text" 
+            placeholder="제목, 내용을 입력해주세요."
+            value={searchKeyword}
+            onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
+            
             />
-            <button type="submit">
+            <button type='button' onClick={handleSearch}>
               <i className="ri-search-line"></i>
             </button>
           </div>
@@ -313,8 +330,8 @@ function TalkTitle() {
           </div> */}
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center",width:"100%" }}>
-        <Stack spacing={2} direction="row" style={{overflowX:'auto'}}>
+      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
           <Pagination
             count={totalCount}
             page={currentPage}
@@ -323,11 +340,11 @@ function TalkTitle() {
               "& .MuiPaginationItem-root": {
                 // Targeting the root item of Pagination
                 fontSize: "14px", // Setting font size to 16px
-                minWidth:'auto',
+                minWidth: "auto",
               },
-              '.MuiPagination-ul': {
-                flexWrap: 'nowrap', // Preventing the pagination from wrapping onto multiple lines
-              }
+              ".MuiPagination-ul": {
+                flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
+              },
             }}
           />
         </Stack>

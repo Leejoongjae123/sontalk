@@ -51,7 +51,7 @@ function PrevHistory({ expertNo }) {
               <i className="ri-arrow-right-line"></i>
             </a>
           </div> */}
-          <Button style={{fontSize:'1rem'}} onClick={showMore1} variant="outlined">더보기+</Button>
+          <Button style={{fontSize:'1rem',fontWeight:'bold'}} onClick={showMore1} variant="outlined">더보기+</Button>
         </div>
       </div>
       <div className="bh_row op1 gutters-10">

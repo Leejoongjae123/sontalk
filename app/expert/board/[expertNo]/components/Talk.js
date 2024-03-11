@@ -56,9 +56,10 @@ export default function Talk({ expertNo }) {
             </a>
           </div> */}
             <Button
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "1rem",fontWeight:'bold'}}
               onClick={showMore1}
               variant="outlined"
+              
             >
               더보기+
             </Button>

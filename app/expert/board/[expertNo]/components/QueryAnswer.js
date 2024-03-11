@@ -60,7 +60,7 @@ export default function QueryAnswer({ expertNo }) {
             </a>
           </div> */}
             <Button
-              style={{ fontSize: "1rem" }}
+              style={{ fontSize: "1rem",fontWeight:'bold' }}
               onClick={showMore1}
               variant="outlined"
             >

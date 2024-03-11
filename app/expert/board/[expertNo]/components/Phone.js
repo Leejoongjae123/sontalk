@@ -30,7 +30,7 @@ export default function Phone({ introduction }) {
       </a> */}
       <a
         onClick={handleClick}
-        href={`tel:${introduction[0].phoneNumber}`}
+        href={`tel:1670-8684`}
         className="ds-b mb-10 ta-c"
       >
         <i className="ri-phone-fill"></i>전화 상담
@@ -41,7 +41,7 @@ export default function Phone({ introduction }) {
           <div style={modalContentStyle}>
             <h2 style={{ fontSize: "20px", textAlign: "center" }}>전화번호</h2>
             <p style={{ fontSize: "16px", color: "black" }}>
-              {introduction[0].phoneNumber}
+            1670-8684
             </p>
             <div style={buttonContainerStyle}>
               <button
