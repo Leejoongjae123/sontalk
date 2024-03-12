@@ -26,15 +26,15 @@ export default function Footer() {
             <div className="f_info">
               <div className="ds-f bh-flex-flex-wrap">
                 <p>상호명 : MR Pass</p>
-                <p>대표 : ㅇㅇㅇ</p>
+                <p>대표 : 김동식</p>
                 <p>TEL : 1670-8684</p>
-                <p>EMAIL: abc123@naver.com</p>
+                <p>EMAIL: mrsontop@naver.com</p>
               </div>
               <div className="ds-f bh-flex-flex-wrap">
-                <p>사업자 등록번호 : 000-00-00000</p>
-                <p>통신판매신고번호 : 123-456-7890호</p>
+                <p>사업자 등록번호 : 182-81-02920</p>
+                {/* <p>통신판매신고번호 : 123-456-7890호</p> */}
               </div>
-              <p>주소 : 서울특별시 서초구 강남대로 123-1 ㅇㅇㅇㅇ 3층</p>
+              <p>주소 : 경기도 남양주시 와부읍 덕소로 270, 110동 705호</p>
             </div>
             <div className="f_logo">
               <div className="ds-f ai-c bh-flex-flex-wrap">

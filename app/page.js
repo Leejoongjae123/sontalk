@@ -8,7 +8,8 @@ import SearchBar from './components/SearchBar'
 import Suggestions from './components/Suggestions'
 import Recommendations from './components/Recommendations'
 import MyRecommendations from './components/MyRecommendations'
-export default async function Index() {
+
+export default async function Index({Component,currentPath}) {
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.
@@ -19,7 +20,6 @@ export default async function Index() {
       return false;
     }
   };
-  
 
   const isSupabaseConnected = canInitSupabaseClient();
 

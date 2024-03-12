@@ -29,7 +29,7 @@ function MyRecommendations() {
                 대해 자세히 작성해주시면 적합한 손해사정사를 추천해드립니다.
               </p>
               <div className="effect_btn">
-                <a href="inquiry.html" className="ds-f ai-c">
+                <a href="/inquiry" className="ds-f ai-c">
                   <span>상담 신청하기</span>
                   <i className="ri-arrow-right-line"></i>
                 </a>
@@ -57,7 +57,7 @@ function MyRecommendations() {
                   <br />
                   전문적이고 효과적으로!
                 </p>
-                <a href="inquiry.html" className="ds-b">
+                <a href="/expert" className="ds-b">
                   빠르게 전문가 찾기<i className="ri-arrow-right-line"></i>
                 </a>
                 <img src="images/main/sec4_img1.png" alt="img" className="point" />

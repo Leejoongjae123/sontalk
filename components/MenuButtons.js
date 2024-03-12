@@ -34,7 +34,7 @@ function MenuButtons() {
             <div className="close">
               <i className="ri-close-fill" onClick={menuClose}></i>
             </div>
-            <div className="login_area">
+            {/* <div className="login_area">
               <div className="ds-f">
                 <a href="/login" className="ds-b">
                   로그인
@@ -43,7 +43,7 @@ function MenuButtons() {
                   회원가입
                 </a>
               </div>
-            </div>
+            </div> */}
             <ul>
               <li>
                 <a href="/about">- About Us</a>

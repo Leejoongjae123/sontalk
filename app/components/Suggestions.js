@@ -3,8 +3,24 @@ import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import { useRouter } from "next/navigation";
-
+import { supabase } from "@/utils/supabase/client";
+import keywordList from "@/components/keywordList";
+import Link from 'next/link'
 export default function Suggestions() {
+  const [questions, setQuestions] = useState([]);
+
+  const fetchData = async () => {
+    let { data: query, error } = await supabase
+      .from("query")
+      // .select("*,queryAnswer(*,introduction(*))")
+      .select("*,queryAnswer(*,introduction(*))")
+      .order("count", { ascending: false })
+      .range(0, 5)
+      .eq("secret", "false");
+
+    setQuestions(query);
+  };
+
   useEffect(() => {
     // AOS 초기화
     AOS.init({
@@ -12,6 +28,7 @@ export default function Suggestions() {
       duration: 1500, // 전역 기본 지속 시간 설정
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
+    fetchData();
   }, []);
 
   const [activeTab, setActiveTab] = useState("tab-01");
@@ -36,6 +53,8 @@ export default function Suggestions() {
   const navigateToBoard = (catId) => {
     router.push(`/expert/board?cat=${catId}&page=1`);
   };
+
+  console.log(questions);
 
   return (
     <section className="section section2 po-r">
@@ -378,7 +397,7 @@ export default function Suggestions() {
                     답변을 받아볼 수 있어요.
                   </p>
                   <div className="effect_btn w_ver">
-                    <a href="counsel_borad.html" className="ds-f ai-c">
+                    <a href="/counsel/inquiry" className="ds-f ai-c">
                       <span>바로가기</span>
                       <i className="ri-arrow-right-line"></i>
                     </a>
@@ -401,6 +420,124 @@ export default function Suggestions() {
                 </div>
                 <div className="swiper simple_slide">
                   <div className="swiper-wrapper">
+                    {questions &&
+                      questions.map((elem, index) => {
+                        return (
+                          <div className="swiper-slide slide1 po-r">
+                            <div className="inner">
+                              <div className="ds-f category">
+                                {/* <span className="ds-b">#의료보험</span> */}
+                                {elem.field1 ? (
+                                  <span className="'ds-b">
+                                    #{findNameByCat(elem.field1)}
+                                  </span>
+                                ) : (
+                                  <></>
+                                )}
+                                {elem.field2 ? (
+                                  <span className="'ds-b">
+                                    #{findNameByCat(elem.field2)}
+                                  </span>
+                                ) : (
+                                  <></>
+                                )}
+                                {elem.field3 ? (
+                                  <span className="'ds-b">
+                                    #{findNameByCat(elem.field3)}
+                                  </span>
+                                ) : (
+                                  <></>
+                                )}
+                                {/* <span className="ds-b">#의료보험</span> */}
+                                {/* <span className="ds-b">#의료보험</span> */}
+                              </div>
+                              <div className="title">
+                                <Link
+                                  href={`/counsel/${elem.questionNo.toString()}`}
+                                >
+                                  {elem.title}
+                                </Link>
+                              </div>
+                              <div className="content">{elem.description}</div>
+                              <div className="bh_row no-gutters info jc-b">
+                                <p>
+                                  전문가 답변{" "}
+                                  <b className="fw-b">
+                                    {" "}
+                                    {elem.queryAnswer.length
+                                      ? elem.queryAnswer.length
+                                      : "0"}
+                                  </b>
+                                  건
+                                </p>
+                                <div className="ds-f">
+                                  <span className="ds-b">
+                                    조회수 {elem.count}
+                                  </span>
+                                  <span className="ds-b">
+                                    {daysAgoFormatted(elem.created_at)}
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        );
+                      })}
+
+                    {/* <div className="swiper-slide slide2 po-r">
+                      <div className="inner">
+                        <div className="ds-f category">
+                          <span className="ds-b">#의료보험</span>
+                          <span className="ds-b">#의료보험</span>
+                          <span className="ds-b">#의료보험</span>
+                        </div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
+                        <div className="content">
+                          어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
+                          진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
+                          시…
+                        </div>
+                        <div className="bh_row no-gutters info jc-b">
+                          <p>
+                            전문가 답변 <b className="fw-b">6</b>건
+                          </p>
+                          <div className="ds-f">
+                            <span className="ds-b">조회수 326</span>
+                            <span className="ds-b">2024.01.10</span>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="#"></a>
+                    </div>
+                    <div className="swiper-slide slide3 po-r">
+                      <div className="inner">
+                        <div className="ds-f category">
+                          <span className="ds-b">#의료보험</span>
+                          <span className="ds-b">#의료보험</span>
+                          <span className="ds-b">#의료보험</span>
+                        </div>
+                        <div className="title">
+                          임플란트의 의료보험 적용여부
+                        </div>
+                        <div className="content">
+                          어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
+                          진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
+                          시…
+                        </div>
+                        <div className="bh_row no-gutters info jc-b">
+                          <p>
+                            전문가 답변 <b className="fw-b">6</b>건
+                          </p>
+                          <div className="ds-f">
+                            <span className="ds-b">조회수 326</span>
+                            <span className="ds-b">2024.01.10</span>
+                          </div>
+                        </div>
+                      </div>
+                      <a href="#"></a>
+                    </div>
                     <div className="swiper-slide slide1 po-r">
                       <div className="inner">
                         <div className="ds-f category">
@@ -481,88 +618,7 @@ export default function Suggestions() {
                         </div>
                       </div>
                       <a href="#"></a>
-                    </div>
-                    <div className="swiper-slide slide1 po-r">
-                      <div className="inner">
-                        <div className="ds-f category">
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                        </div>
-                        <div className="title">
-                          임플란트의 의료보험 적용여부
-                        </div>
-                        <div className="content">
-                          어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
-                          진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
-                          시…
-                        </div>
-                        <div className="bh_row no-gutters info jc-b">
-                          <p>
-                            전문가 답변 <b className="fw-b">6</b>건
-                          </p>
-                          <div className="ds-f">
-                            <span className="ds-b">조회수 326</span>
-                            <span className="ds-b">2024.01.10</span>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="#"></a>
-                    </div>
-                    <div className="swiper-slide slide2 po-r">
-                      <div className="inner">
-                        <div className="ds-f category">
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                        </div>
-                        <div className="title">
-                          임플란트의 의료보험 적용여부
-                        </div>
-                        <div className="content">
-                          어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
-                          진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
-                          시…
-                        </div>
-                        <div className="bh_row no-gutters info jc-b">
-                          <p>
-                            전문가 답변 <b className="fw-b">6</b>건
-                          </p>
-                          <div className="ds-f">
-                            <span className="ds-b">조회수 326</span>
-                            <span className="ds-b">2024.01.10</span>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="#"></a>
-                    </div>
-                    <div className="swiper-slide slide3 po-r">
-                      <div className="inner">
-                        <div className="ds-f category">
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                          <span className="ds-b">#의료보험</span>
-                        </div>
-                        <div className="title">
-                          임플란트의 의료보험 적용여부
-                        </div>
-                        <div className="content">
-                          어릴 적부터 만성 천식을 앓고 있어 주기적으로 병원에서
-                          진료를 받습니다. 그런데 동일한 질병에 대해 진료를 볼
-                          시…
-                        </div>
-                        <div className="bh_row no-gutters info jc-b">
-                          <p>
-                            전문가 답변 <b className="fw-b">6</b>건
-                          </p>
-                          <div className="ds-f">
-                            <span className="ds-b">조회수 326</span>
-                            <span className="ds-b">2024.01.10</span>
-                          </div>
-                        </div>
-                      </div>
-                      <a href="#"></a>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
@@ -572,4 +628,34 @@ export default function Suggestions() {
       </div>
     </section>
   );
+}
+
+function findNameByCat(catValue) {
+  // keywordList에서 catValue와 일치하는 cat 값을 가진 객체를 찾습니다.
+  const matchingKeyword = keywordList.find(
+    (keyword) => keyword.cat === catValue
+  );
+
+  // 일치하는 객체가 있으면 그 객체의 name 값을 반환합니다.
+  return matchingKeyword ? matchingKeyword.name : undefined;
+}
+
+function daysAgoFormatted(dateString) {
+  // 주어진 날짜를 Date 객체로 파싱
+  const givenDate = new Date(dateString);
+  // 현재 날짜와 시간
+  const currentDate = new Date();
+
+  // 두 날짜의 차이를 밀리초로 계산
+  const differenceInTime = currentDate.getTime() - givenDate.getTime();
+
+  // 밀리초를 일 단위로 변환
+  const differenceInDays = Math.floor(differenceInTime / (1000 * 3600 * 24));
+
+  // 차이가 0일이면 "오늘 작성", 그렇지 않으면 "X일 전 작성" 반환
+  if (differenceInDays === 0) {
+    return "오늘 작성";
+  } else {
+    return `${differenceInDays}일 전 작성`;
+  }
 }
