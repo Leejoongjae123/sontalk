@@ -30,9 +30,6 @@ function Recommendations() {
     fetchData()
   }, []);
 
-  console.log(talks)
-
-
   return (
     <section className="section section3">
       <div className="bh_wrap">

@@ -9,7 +9,7 @@ import Suggestions from './components/Suggestions'
 import Recommendations from './components/Recommendations'
 import MyRecommendations from './components/MyRecommendations'
 
-export default async function Index({Component,currentPath}) {
+export default async function Index({Component}) {
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
     // Feel free to remove it once you have Supabase connected.

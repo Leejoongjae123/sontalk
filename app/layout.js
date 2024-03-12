@@ -25,12 +25,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({ children,currentPath }) {
-  // const router = useRouter();
-
-  // 현재 경로가 /master로 시작하는지 확인합니다.
-  // const showHeaderAndFooter = !router.pathname.startsWith("/master");
-  console.log(currentPath)
+export default function RootLayout({ children}) {
   return (
     <html lang="en" className={GeistSans.className}>
       <body>
