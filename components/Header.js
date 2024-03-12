@@ -2,8 +2,10 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import MenuButtons from "./MenuButtons";
 import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default async function Header() {
+  
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -19,7 +21,8 @@ export default async function Header() {
     const supabase = createClient(cookieStore);
     await supabase.auth.signOut();
     return redirect("/");
-  };
+  };  
+  
 
   return (
     <>
@@ -40,7 +43,7 @@ export default async function Header() {
                 {user ? (
                   <ul className="ds-f">
                     <li className="fw-m">
-                      <a href="/account">{user.email}</a>
+                      <a href="/master">{user.email}</a>
                     </li>
                     <li className="fw-m">
                       <form action={signOut}>
