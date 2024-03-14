@@ -10,22 +10,11 @@ function Master() {
         sx={{
           flexGrow: 1,
           p: 3,
-          transition: (theme) =>
-            theme.transitions.create("margin", {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.leavingScreen,
-            }),
-          ...(open && {
-            marginLeft: `250px`,
-            transition: (theme) =>
-              theme.transitions.create("margin", {
-                easing: theme.transitions.easing.easeOut,
-                duration: theme.transitions.duration.enteringScreen,
-              }),
-          }),
+
         }}
       >
         전문가 전용 페이지입니다.
+        변경을 원하시는 정보를 NavBar내에서 선택하세요
       </Box>
   )
 }
