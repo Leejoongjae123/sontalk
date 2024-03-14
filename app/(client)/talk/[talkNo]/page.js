@@ -13,7 +13,7 @@ export default async function page({params}) {
   const supabase = createClient(cookieStore);
   let { data: talk, error } = await supabase
     .from("talk")
-    .select("*,introduction(*)")
+    .select("*,profiles(*)")
     .eq("talkNo", talkNo.toString())  
   
 
@@ -126,11 +126,11 @@ export default async function page({params}) {
                     <div className="profile">
                       <div className="ds-f ai-c">
                         <div className="img_box">
-                          <img style={{borderRadius:"100%"}}src={talk[0].introduction.imageUrl} alt="img" />
+                          <img style={{borderRadius:"100%"}}src={talk[0]?.profiles?.imageUrl} alt="img" />
                         </div>
                         <div className="txt_box">
-                          <h3>손TOP {findNameByCat(talk[0].introduction.region)}</h3>
-                          <p>{talk[0].introduction.name} 손해사정사</p>
+                          <h3>손TOP {findNameByCat(talk[0]?.profiles?.region)}</h3>
+                          <p>{talk[0]?.profiles?.name} 손해사정사</p>
                         </div>
                       </div>
                     </div>

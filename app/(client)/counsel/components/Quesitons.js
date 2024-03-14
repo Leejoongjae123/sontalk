@@ -30,8 +30,7 @@ export default function Quesitons() {
   const fetchData = async (searchKeyword) => {
     let { data: query, error } = await supabase
       .from("query")
-      // .select("*,queryAnswer(*,introduction(*))")
-      .select("*,queryAnswer(*,introduction(*))")
+      .select("*,queryAnswer(*,profiles(*))")
       .like("title", "%" + searchKeyword + "%")
       .order(activeTab, { ascending: false })
       .range((currentPage - 1) * 10, currentPage * 10)
@@ -175,9 +174,9 @@ export default function Quesitons() {
                 </a>
                 <a
                   className={`ds-b ${
-                    activeTab === "최신 답변순" ? "active" : ""
+                    activeTab === "updated_at" ? "active" : ""
                   }`}
-                  onClick={() => handleTabClick("최신 답변순")}
+                  onClick={() => handleTabClick("updated_at")}
                 >
                   최신 답변순
                 </a>
@@ -229,7 +228,7 @@ export default function Quesitons() {
                       <div className="ds-f name">
                         <span>대표답변</span>
                         <p>
-                          {elem?.queryAnswer[0]?.introduction?.name} 손해사정사
+                          {elem?.queryAnswer[0]?.profiles?.name} 손해사정사
                         </p>
                       </div>
                       <div className="anser_content">

@@ -6,7 +6,6 @@ function Talk() {
       <div className="talk_board_wrap">
         <div className="bh_wrap">
           <TalkTitle></TalkTitle>
-          
         </div>
       </div>
     </div>

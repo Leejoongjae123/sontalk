@@ -2,14 +2,23 @@ import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Unstable_Grid2';
-
+import { supabase } from "@/utils/supabase/server";
 // import { config } from '@/config';
 import { AccountDetailsForm } from './components/account-details-form';
 import { AccountInfo } from './components/account-info';
+import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
 
+export default async function Page() {
+  
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
 
+  const {
+    data: { user:{email} },
+  } = await supabase?.auth.getUser();
+  
 
-export default function Page() {
   return (
     <Stack spacing={3}>
       {/* <div>
@@ -17,10 +26,10 @@ export default function Page() {
       </div> */}
       <Grid container spacing={3}>
         <Grid lg={4} md={6} xs={12}>
-          <AccountInfo />
+          <AccountInfo  email={email}/>
         </Grid>
         <Grid lg={8} md={6} xs={12}>
-          <AccountDetailsForm />
+          <AccountDetailsForm email={email}/>
         </Grid>
       </Grid>
     </Stack>

@@ -9,7 +9,7 @@ export default async function page({ params }) {
   const supabase = createClient(cookieStore);
   let { data: query, error } = await supabase
     .from("query")
-    .select("*,queryAnswer(*,introduction(*))")
+    .select("*,queryAnswer(*,profiles(*))")
     .eq("questionNo", questionNo.toString());
 
   const currentClick = query[0].count;
@@ -125,13 +125,13 @@ export default async function page({ params }) {
                           <div className="ds-f ai-c">
                             <div className="img_box">
                               <img style={{borderRadius:"100%"}}
-                                src={elem.introduction.imageUrl}
+                                src={elem?.profiles.imageUrl}
                                 alt="img"
                               />
                             </div>
                             <div className="txt_box">
-                              <h3>손TOP {findNameByCat(elem.introduction.region)}</h3>
-                              <p>{elem.introduction.name} 손해사정사</p>
+                              <h3>손TOP {findNameByCat(elem?.profiles?.region)}</h3>
+                              <p>{elem?.profiles?.name} 손해사정사</p>
                             </div>
                           </div>
                         </div>

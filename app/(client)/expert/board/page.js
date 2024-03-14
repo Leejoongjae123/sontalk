@@ -17,18 +17,18 @@ export default function ExpertBoard() {
   const [experts, setExperts] = useState([]);
   const fetchData = async () => {
     if (search.includes("R")) {
-      let { data: introduction, error } = await supabase
-        .from("introduction")
+      let { data: profiles, error } = await supabase
+        .from("profiles")
         .select("*,queryAnswer(*)")
         .eq("region", search);
-      setExperts(introduction);
+      setExperts(profiles);
     } else {
-      let { data: introduction, error } = await supabase
-        .from("introduction")
+      let { data: profiles, error } = await supabase
+        .from("profiles")
         .select("*,queryAnswer(*)")
         // field1이 search와 같거나, field2가 search와 같거나, field3가 search와 같은 조건
         .or(`field1.eq.${search},field2.eq.${search},field3.eq.${search}`);
-      setExperts(introduction);
+      setExperts(profiles);
     }
   };
 

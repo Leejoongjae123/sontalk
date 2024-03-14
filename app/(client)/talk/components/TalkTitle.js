@@ -29,7 +29,7 @@ function TalkTitle() {
   const fetchData = async () => {
     let { data: talk, error } = await supabase
       .from("talk")
-      .select("*")
+      .select("*,expertNo(*)")
       .like("title", "%" + searchKeyword + "%")
       .range((currentPage - 1) * 10, currentPage * 10);
     if (searchKeyword) {
@@ -95,7 +95,7 @@ function TalkTitle() {
                     <div className="item_inner">
                       <div className="ds-f ai-c name">
                         <i className="ri-account-pin-circle-fill fw-l"></i>
-                        <p className="fw-m">{elem.expertName} 손해사정사</p>
+                        <p className="fw-m">{elem.expertNo.name} 손해사정사</p>
                       </div>
                       <div className="title">{elem.title}</div>
                       <div className="content ellipsis">{elem.description}</div>

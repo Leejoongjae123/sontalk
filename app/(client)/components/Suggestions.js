@@ -12,8 +12,7 @@ export default function Suggestions() {
   const fetchData = async () => {
     let { data: query, error } = await supabase
       .from("query")
-      // .select("*,queryAnswer(*,introduction(*))")
-      .select("*,queryAnswer(*,introduction(*))")
+      .select("*,queryAnswer(*,profiles(*))")
       .order("count", { ascending: false })
       .range(0, 5)
       .eq("secret", "false");
