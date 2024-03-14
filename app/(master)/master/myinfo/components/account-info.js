@@ -37,15 +37,7 @@ export function AccountInfo({email}) {
             {/* <Avatar src='11' sx={{ height: '80px', width: '80px' }} /> */}
             <img style={{width:"20vw",height:"auto"}} src={userData?.imageUrl} alt="" />
           </div>
-          {/* <Stack spacing={1} sx={{ textAlign: 'center' }}>
-            <Typography variant="h5">{user.name}</Typography>
-            <Typography color="text.secondary" variant="body2">
-              {user.city} {user.country}
-            </Typography>
-            <Typography color="text.secondary" variant="body2">
-              {user.timezone}
-            </Typography>
-          </Stack> */}
+
         </Stack>
       </CardContent>
       <Divider />

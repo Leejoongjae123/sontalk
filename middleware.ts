@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 
 export async function middleware(request: NextRequest) {
   const {pathname,searchParams}=request.nextUrl
-  console.log({pathname,sort:searchParams.get('sort')})
   const result= await updateSession(request)
   return result
   

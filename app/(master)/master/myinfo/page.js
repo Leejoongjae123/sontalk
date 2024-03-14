@@ -10,14 +10,11 @@ import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
 export default async function Page() {
-  
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-
   const {
     data: { user:{email} },
   } = await supabase?.auth.getUser();
-  
 
   return (
     <Stack spacing={3}>

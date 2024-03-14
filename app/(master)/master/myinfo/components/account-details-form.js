@@ -220,6 +220,7 @@ export function AccountDetailsForm({ email }) {
           <Button variant="contained">정보 저장하기</Button>
         </CardActions>
       </Card>
+
     </form>
   );
 }

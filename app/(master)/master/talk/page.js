@@ -1,26 +1,24 @@
-"use client";
 import React from "react";
 import { Box } from "@mui/material";
-import { Space, Table, Tag } from "antd";
-const { Column, ColumnGroup } = Table;
-function page() {
-  const data = [
-    {
-      key: "1",
-      title: "해냈습니다.",
-      description: "완벽해요",
-    },
-    {
-      key: "2",
-      title: "이번에는",
-      description: "다릅니다.",
-    },
-    {
-      key: "3",
-      title: "다음에도",
-      description: "잘해요",
-    },
-  ];
+import Table from "./components/TableData";
+import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/server";
+import Button from "@mui/material/Button";
+import Link from "next/link";
+
+export default async function page() {
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const {
+    data: { user },
+  } = await supabase?.auth.getUser();
+
+  let { data: profiles } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("email", user.email)
+    .single();
+  const expertNo = profiles?.expertNo;
 
   return (
     <Box
@@ -31,24 +29,19 @@ function page() {
         overflowX: "auto",
       }}
     >
-      <h1 style={{ textAlign: "center" }}>손톡</h1>
-      <Table dataSource={data}>
-        <Column title="title" dataIndex="title" key="title" width="40%" />
-        <Column title="description" dataIndex="description" key="description" width="40%" />
-        <Column
-          title="Action"
-          key="action"
-          width="20%"
-          render={(_, record) => (
-            <Space size="middle">
-              <a>삭제</a>
-              <a>수정</a>
-            </Space>
-          )}
-        />
-      </Table>
+      <Box
+        sx={{
+          margin: "1rem 0 1rem 0",
+        }}
+      >
+        <h1 style={{ textAlign: "center" }}>손톡</h1>
+
+        <Button variant="contained">
+          <Link style={{textDecoration:'none',color:'white'}} href='/master/talk/write'>작성하기</Link>
+        </Button>
+      </Box>
+
+      <Table expertNo={expertNo}></Table>
     </Box>
   );
 }
-
-export default page;
