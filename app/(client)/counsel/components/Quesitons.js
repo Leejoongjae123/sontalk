@@ -68,7 +68,6 @@ export default function Quesitons() {
     // 클릭된 태그의 이름으로 selectedTag 상태를 업데이트합니다.
     setSelectedTag(tagName);
   };
-  console.log(totalCount)
 
 
   const tags = [
@@ -290,36 +289,6 @@ export default function Quesitons() {
           />
         </Stack>
       </div>
-
-      {/* <div className="pagination" style={{ fontSize: "1.5rem" }}>
-        <div className="bh_row no-gutters jc-c">
-          <div className="prve_btn">
-            <div className="ds-f">
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-left-double-line"></i>
-              </a>
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-left-s-line"></i>
-              </a>
-            </div>
-          </div>
-          <div className="page_no_wrap">
-            <a href="#" className="ds-b direction active">
-              1
-            </a>
-          </div>
-          <div className="next_btn">
-            <div className="ds-f">
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-right-s-line"></i>
-              </a>
-              <a href="#" className="ds-b direction">
-                <i className="ri-arrow-right-double-line"></i>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div> */}
     </>
   );
 }

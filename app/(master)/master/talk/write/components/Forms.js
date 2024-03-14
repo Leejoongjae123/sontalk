@@ -11,8 +11,8 @@ import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Unstable_Grid2";
-import redirect from 'next/navigation'
-import {useRouter} from 'next/navigation'
+import redirect from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function Forms({ email }) {
   const [title, setTitle] = useState("");
@@ -22,7 +22,7 @@ export default function Forms({ email }) {
   const [keyword2, setKeyword2] = useState("");
   const [keyword3, setKeyword3] = useState("");
 
-const router=useRouter()
+  const router = useRouter();
 
   const handleChange1 = (event) => {
     setTitle(event.target.value);
@@ -66,10 +66,10 @@ const router=useRouter()
         },
       ])
       .select();
-    if(!error){
-      router.push('/master/talk')
-    }else{
-      console.log(error)
+    if (!error) {
+      router.push("/master/talk");
+    } else {
+      console.log(error);
     }
   };
 

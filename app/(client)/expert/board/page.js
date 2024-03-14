@@ -7,28 +7,35 @@ import { supabase } from "@/utils/supabase/client";
 import categoryList from "@/components/categoryList";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import Phone from './components/Phone'
+import Phone from "./components/Phone";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 export default function ExpertBoard() {
   const searchParams = useSearchParams();
   const search = searchParams.get("cat");
   const page = searchParams.get("page");
-
+  const [totalCount, setTotalCount] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [experts, setExperts] = useState([]);
   const fetchData = async () => {
     if (search.includes("R")) {
       let { data: profiles, error } = await supabase
         .from("profiles")
         .select("*,queryAnswer(*)")
-        .eq("region", search);
+        .eq("region", search)
+        .range((currentPage - 1) * 10, currentPage * 10);
       setExperts(profiles);
+      setTotalCount(Math.ceil(profiles.length / 10));
     } else {
       let { data: profiles, error } = await supabase
         .from("profiles")
         .select("*,queryAnswer(*)")
         // field1이 search와 같거나, field2가 search와 같거나, field3가 search와 같은 조건
-        .or(`field1.eq.${search},field2.eq.${search},field3.eq.${search}`);
+        .or(`field1.eq.${search},field2.eq.${search},field3.eq.${search}`)
+        .range((currentPage - 1) * 10, currentPage * 10);
       setExperts(profiles);
+      setTotalCount(Math.ceil(profiles.length / 10));
     }
   };
 
@@ -42,17 +49,19 @@ export default function ExpertBoard() {
     router.push(`/booking?expertNo=${expertNo}`);
   };
 
-  
-  const handleClick=(e, phoneNumber) =>{
+  const handleClick = (e, phoneNumber) => {
     // 사용자의 환경이 모바일이 아닌 경우
     if (!/Mobi|Android/i.test(navigator.userAgent)) {
-      e.preventDefault() // 기본 동작 방지
+      e.preventDefault(); // 기본 동작 방지
       // 전화번호 복사, 모달 표시, 또는 다른 동작을 수행
-      alert(`전화번호 : ${phoneNumber}`)
+      alert(`전화번호 : ${phoneNumber}`);
     }
     // 모바일 사용자의 경우, 기본적인 tel: 링크 동작 수행
-  }
+  };
 
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
+  };
 
   return (
     <div className="body">
@@ -71,7 +80,11 @@ export default function ExpertBoard() {
                             <div className="ds-f bh-flex-flex-wrap ai-c">
                               {/* <div className="img_box" style={{width:"10vw",height:'auto'}}> */}
                               <div className="img_box">
-                                <img className="responsive-img2" src={elem.imageUrl} alt="img" />
+                                <img
+                                  className="responsive-img2"
+                                  src={elem.imageUrl}
+                                  alt="img"
+                                />
                               </div>
                               <div className="txt_box">
                                 <h3>
@@ -104,9 +117,11 @@ export default function ExpertBoard() {
                                 </div>
                                 <div class="hash">
                                   <div class="ds-f">
-                                    {elem.character.map((elem,index) => {
-                                      return <p>#{elem}</p>
-                                    })}
+                                    {elem.character
+                                      .split(",")
+                                      .map((elem, index) => {
+                                        return <p>#{elem}</p>;
+                                      })}
                                   </div>
                                 </div>
                               </div>
@@ -169,35 +184,37 @@ export default function ExpertBoard() {
                 );
               })}
           </div>
-          <div className="pagination" style={{ fontSize: "1.5rem" }}>
-            <div className="bh_row no-gutters jc-c">
-              <div className="prve_btn">
-                <div className="ds-f">
-                  <a href="#" className="ds-b direction">
-                    <i className="ri-arrow-left-double-line"></i>
-                  </a>
-                  <a href="#" className="ds-b direction">
-                    <i className="ri-arrow-left-s-line"></i>
-                  </a>
-                </div>
-              </div>
-              <div className="page_no_wrap">
-                <a href="#" className="ds-b direction active">
-                  1
-                </a>
-              </div>
-              <div className="next_btn">
-                <div className="ds-f">
-                  <a href="#" className="ds-b direction">
-                    <i className="ri-arrow-right-s-line"></i>
-                  </a>
-                  <a href="#" className="ds-b direction">
-                    <i className="ri-arrow-right-double-line"></i>
-                  </a>
-                </div>
-              </div>
+          {totalCount && (
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                width: "100%",
+              }}
+            >
+              <Stack
+                spacing={2}
+                direction="row"
+                style={{ overflowX: "auto", marginTop: "2rem" }}
+              >
+                <Pagination
+                  count={totalCount}
+                  page={currentPage}
+                  onChange={handleChangePage}
+                  sx={{
+                    "& .MuiPaginationItem-root": {
+                      // Targeting the root item of Pagination
+                      fontSize: "14px", // Setting font size to 16px
+                      minWidth: "auto",
+                    },
+                    ".MuiPagination-ul": {
+                      flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
+                    },
+                  }}
+                />
+              </Stack>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

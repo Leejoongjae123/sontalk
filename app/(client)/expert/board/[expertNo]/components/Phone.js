@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Phone({ introduction }) {
+export default function Phone({ profiles }) {
   // 모달 표시 상태를 관리하는 상태 변수와 setter 함수
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,20 +14,8 @@ export default function Phone({ introduction }) {
     }
     // 모바일 디바이스에서는 링크의 기본 동작(전화 연결)을 수행
   };
-  console.log(introduction)
   return (
     <>
-      {/* <a
-        href={`tel:${introduction.phoneNumber}`}
-        className="ds-b"
-        onClick={handleClick}
-      >
-        <div className="ds-f ai-c jc-b">
-          <p>
-            <i className="ri-phone-fill"></i>30분 전화상담
-          </p>
-        </div>
-      </a> */}
       <a
         onClick={handleClick}
         href={`tel:1670-8684`}

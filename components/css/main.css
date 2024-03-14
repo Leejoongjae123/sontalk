@@ -3595,3 +3595,14 @@ body {
     height: auto;
   }
 }
+
+/* Fade-in 애니메이션 정의 */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+

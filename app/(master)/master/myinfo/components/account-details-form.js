@@ -10,7 +10,7 @@ import Divider from "@mui/material/Divider";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import Select from "@mui/material/Select";
 import Grid from "@mui/material/Unstable_Grid2";
@@ -22,9 +22,9 @@ export function AccountDetailsForm({ email }) {
   const [category1, setCategory1] = useState("");
   const [category2, setCategory2] = useState("");
   const [category3, setCategory3] = useState("");
-  const [name, setName] = useState("")
-  const [description, setdescription] = useState("")
-  const [career, setCareer] = useState("")
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [career, setCareer] = useState("");
   const [userData, setUserData] = useState(null);
 
   const fetchData = async () => {
@@ -34,13 +34,13 @@ export function AccountDetailsForm({ email }) {
       .eq("email", email)
       .single();
     setUserData(data);
-    setRegion(data.region)
-    setCategory1(data.field1)
-    setCategory2(data.field2)
-    setCategory3(data.field3)
-    setName(data.name)
+    setRegion(data.region);
+    setCategory1(data.field1);
+    setCategory2(data.field2);
+    setCategory3(data.field3);
+    setName(data.name);
+    setDescription(data.description);
   };
-  
 
   useEffect(() => {
     fetchData();
@@ -69,8 +69,26 @@ export function AccountDetailsForm({ email }) {
     setCategory3(event.target.value);
   };
 
-  console.log(category3)
-  
+  const handleClick = async () => {
+    const { data, error } = await supabase
+      .from("profiles")
+      .update([
+        {
+          name: name,
+          description: description,
+          region: region,
+          field1: category1,
+          field2: category2,
+          field3: category3,
+          career: career
+        },
+      ])
+      .eq("email", email)
+      .select();
+    if (!error) {
+      location.reload();
+    }
+  };
   return (
     <form
       onSubmit={(event) => {
@@ -97,7 +115,7 @@ export function AccountDetailsForm({ email }) {
               <FormControl fullWidth required>
                 <h4>설명</h4>
                 <OutlinedInput
-                  defaultValue={userData?.description}
+                  value={description}
                   name="lastName"
                   onChange={handleChange2}
                 />
@@ -146,7 +164,6 @@ export function AccountDetailsForm({ email }) {
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={category1}
-                  
                   onChange={handleChange5}
                 >
                   <MenuItem value={"F01"}>진단비</MenuItem>
@@ -171,7 +188,6 @@ export function AccountDetailsForm({ email }) {
                   labelId="demo-simple-select-label"
                   id="demo-simple-select"
                   value={category2}
-                  
                   onChange={handleChange6}
                 >
                   <MenuItem value={"F01"}>진단비</MenuItem>
@@ -217,10 +233,11 @@ export function AccountDetailsForm({ email }) {
         </CardContent>
         <Divider />
         <CardActions sx={{ justifyContent: "flex-end" }}>
-          <Button variant="contained">정보 저장하기</Button>
+          <Button onClick={handleClick} variant="contained">
+            정보 저장하기
+          </Button>
         </CardActions>
       </Card>
-
     </form>
   );
 }
