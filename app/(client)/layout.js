@@ -17,6 +17,9 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: "손TOP",
+  icons:{
+    icon:'images/main/logo.png'
+  },
   description: "복잡한 보험금 청구 합리적으로 더 받자",
   verification: {
     other: {
