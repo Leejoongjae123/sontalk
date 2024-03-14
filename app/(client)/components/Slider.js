@@ -37,11 +37,9 @@ function Slider() {
               <div className="txt_box po-r h-100">
                 <span className="ds-b">손TOP</span>
                 <h3>
-                  복잡한 보험금 청구,
+                분야별, 지역별  보험 청구 전문가가
                   <br />
-                  우리지역의 분야별 전문가들과
-                  <br />
-                  전략적으로, 합리적으로, <em>“더”</em> 받자!
+                  고객 여러분을 든든히 지켜 드립니다.
                 </h3>
                 <p>
                   손해사정 분야의 복잡한 문제를 신속하게 해결하고,
@@ -61,11 +59,9 @@ function Slider() {
               <div className="txt_box po-r h-100">
                 <span className="ds-b">손TOP</span>
                 <h3>
-                  복잡한 보험금 청구,
+                보험 청구할때 병원서류 발급은
                   <br />
-                  우리지역의 분야별 전문가들과
-                  <br />
-                  전략적으로, 합리적으로, <em>“더”</em> 받자!
+                  MRPASS 로 편리하게 받자 !
                 </h3>
                 <p>
                   손해사정 분야의 복잡한 문제를 신속하게 해결하고,
