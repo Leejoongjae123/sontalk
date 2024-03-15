@@ -3606,3 +3606,21 @@ body {
   }
 }
 
+.upload_btn {
+  width: 5vw; /* 기본적으로 PC를 대상으로 하는 폭 설정 */
+  height: 2vw;
+  border-radius: '100%';
+  margin-left: 15px;
+  font-size: medium;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  cursor: pointer;
+
+}
+
+@media (max-width: 768px) { /* 모바일 기기를 대상으로 하는 미디어 쿼리 */
+  .upload_btn {
+    width: 40vw; /* 모바일 기기에서의 폭 */
+    height: 10vw;
+  }
+}

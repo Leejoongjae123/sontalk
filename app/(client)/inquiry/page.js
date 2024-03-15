@@ -4,7 +4,9 @@ import { createClient } from "@/utils/supabase/server";
 import { headers, cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import Policy from './components/Policy'
+import FileUpload from './components/FileUpload'
 export default function Inquiry() {
+  const filePath = `${getCurrentDateTimeStringWithSeconds()}`;
 
   const Booking = async (formData) => {
     "use server";
@@ -17,7 +19,7 @@ export default function Inquiry() {
     const { data, error } = await supabase
     .from('recommendation')
     .insert([
-      { name: name, phoneNumber: phoneNumber,description:description },
+      { name: name, phoneNumber: phoneNumber,description:description,filePath:"https://yieqkayhbhrcqmsfzjiu.supabase.co/storage/v1/object/public/images/"+filePath},
     ])
     .select()
 
@@ -37,6 +39,9 @@ export default function Inquiry() {
 
     return redirect("/");
   };
+
+
+
 
   return (
     <div className="body">
@@ -75,14 +80,16 @@ export default function Inquiry() {
                   </div>
                 </div>
               </div>
-              <div className="col-12">
+              {/* <div className="col-12">
                 <div className="file_area">
                   <div className="file_btn po-r ds-ib">
                     <span>사진 및 파일 첨부</span>
+
                     <input type="file" id='fileInput'/>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <FileUpload filePath={filePath}></FileUpload>
             </div>
             <p className="agreement_title">
               개인정보 수집 <em>*</em>
@@ -129,3 +136,15 @@ export default function Inquiry() {
 }
 
 
+function getCurrentDateTimeStringWithSeconds() {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0"); // 월은 0부터 시작하므로 1을 더해줍니다.
+  const day = String(now.getDate()).padStart(2, "0");
+  const hour = String(now.getHours()).padStart(2, "0");
+  const minute = String(now.getMinutes()).padStart(2, "0");
+  const second = String(now.getSeconds()).padStart(2, "0");
+
+  const dateTimeString = `${year}${month}${day}${hour}${minute}${second}`;
+  return dateTimeString;
+}

@@ -1,22 +1,22 @@
 "use client";
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import { supabase } from "@/utils/supabase/client";
 import keywordList from "@/components/keywordList";
 import categoryList from "@/components/categoryList";
-
+import Link from "next/link";
+import { useRouter } from 'next/navigation';
 
 function Recommendations() {
-
   const [talks, setTalks] = useState([]);
-
+  const router = useRouter();
   const fetchData = async () => {
     let { data: talk, error } = await supabase
       .from("talk")
       // .select("*")
       .select("*,expertNo(*)")
-      .range(0,5);
+      .range(0, 5);
     setTalks(talk);
   };
 
@@ -27,7 +27,17 @@ function Recommendations() {
       duration: 1500, // 전역 기본 지속 시간 설정
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
-    fetchData()
+    fetchData();
+    const handlePopState = () => {
+      // 여기에 페이지가 변경될 때 실행하고 싶은 코드를 작성하세요.
+      console.log("Location changed!");
+    };
+  
+    window.addEventListener("popstate", handlePopState);
+  
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   }, []);
 
   return (
@@ -65,146 +75,45 @@ function Recommendations() {
           </div>
           <div className="swiper card_slide">
             <div className="swiper-wrapper">
-              {talks&&talks.map((elem,index)=>{return(
-              <div className="swiper-slide slide1 po-r">
-              <div className="inner">
-                <div className="profile_img" style={{display:'flex',justifyContent:'center'}}>
-                  <img className="responsive-img3" src={elem.expertNo.imageUrl} alt="profile" />
-                </div>
-                <div className="ds-f ai-c name">
-                  <i className="ri-account-pin-circle-fill"></i>
-                  <p className="fw-m">{elem.expertNo.name} 손해사정사</p>
-                </div>
-                <h3>{elem.title}</h3>
-                <p>
-                {elem.description}
-                </p>
-                <div className="category">
-                  <div className="ds-f ai-c">
-                    <i className="ri-check-fill"></i>
-                    <p>{findNameByCat(elem.field1)}</p>
-                  </div>
-                </div>
-              </div>
-              
-            </div>
-              )})}
+              {talks &&
+                talks.map((elem, index) => {
+                  return (
+                    <div className="swiper-slide slide1 po-r">
+                      <div className="inner">
+                        <div
+                          className="profile_img"
+                          style={{ display: "flex", justifyContent: "center" }}
+                        >
+                          <img
+                            className="responsive-img3"
+                            src={elem.expertNo.imageUrl}
+                            alt="profile"
+                          />
+                        </div>
+                        <div className="ds-f ai-c name">
+                          <i className="ri-account-pin-circle-fill"></i>
+                          <p className="fw-m">
+                            {elem.expertNo.name} 손해사정사
+                          </p>
+                        </div>
+                        <Link
+                          style={{ zIndex: 50 }}
+                          href={`/talk/${elem.talkNo}`}
+                        >
+                          <h3>{elem.title}</h3>{" "}
+                        </Link>
 
-              {/* <div className="swiper-slide slide2 po-r">
-                <div className="inner">
-                  <div className="profile_img">
-                    <img src="images/main/profile_img2.png" alt="profile" />
-                  </div>
-                  <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill"></i>
-                    <p className="fw-m">홍길동 손해사정사</p>
-                  </div>
-                  <h3>암진단 보험 사정사례</h3>
-                  <p>
-                    군인·군무원·경찰공무원 기타 법률이 정하는 자가 전투·훈련등
-                    직무집행과 관련하여...
-                  </p>
-                  <div className="category">
-                    <div className="ds-f ai-c">
-                      <i className="ri-check-fill"></i>
-                      <p>진단비(뇌, 심장, 암)</p>
+                        <p>{elem.description}</p>
+                        <div className="category">
+                          <div className="ds-f ai-c">
+                            <i className="ri-check-fill"></i>
+                            <p>{findNameByCat(elem.field1)}</p>
+                          </div>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <a href="#"></a>
-              </div>
-              <div className="swiper-slide slide3 po-r">
-                <div className="inner">
-                  <div className="profile_img">
-                    <img src="images/main/profile_img3.png" alt="profile" />
-                  </div>
-                  <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill"></i>
-                    <p className="fw-m">홍길동 손해사정사</p>
-                  </div>
-                  <h3>암진단 보험 사정사례</h3>
-                  <p>
-                    군인·군무원·경찰공무원 기타 법률이 정하는 자가 전투·훈련등
-                    직무집행과 관련하여...
-                  </p>
-                  <div className="category">
-                    <div className="ds-f ai-c">
-                      <i className="ri-check-fill"></i>
-                      <p>진단비(뇌, 심장, 암)</p>
-                    </div>
-                  </div>
-                </div>
-                <a href="#"></a>
-              </div>
-              <div className="swiper-slide slide1 po-r">
-                <div className="inner">
-                  <div className="profile_img">
-                    <img src="images/main/profile_img1.png" alt="profile" />
-                  </div>
-                  <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill"></i>
-                    <p className="fw-m">홍길동 손해사정사</p>
-                  </div>
-                  <h3>암진단 보험 사정사례</h3>
-                  <p>
-                    군인·군무원·경찰공무원 기타 법률이 정하는 자가 전투·훈련등
-                    직무집행과 관련하여...
-                  </p>
-                  <div className="category">
-                    <div className="ds-f ai-c">
-                      <i className="ri-check-fill"></i>
-                      <p>진단비(뇌, 심장, 암)</p>
-                    </div>
-                  </div>
-                </div>
-                <a href="#"></a>
-              </div>
-              <div className="swiper-slide slide2 po-r">
-                <div className="inner">
-                  <div className="profile_img">
-                    <img src="images/main/profile_img2.png" alt="profile" />
-                  </div>
-                  <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill"></i>
-                    <p className="fw-m">홍길동 손해사정사</p>
-                  </div>
-                  <h3>암진단 보험 사정사례</h3>
-                  <p>
-                    군인·군무원·경찰공무원 기타 법률이 정하는 자가 전투·훈련등
-                    직무집행과 관련하여...
-                  </p>
-                  <div className="category">
-                    <div className="ds-f ai-c">
-                      <i className="ri-check-fill"></i>
-                      <p>진단비(뇌, 심장, 암)</p>
-                    </div>
-                  </div>
-                </div>
-                <a href="#"></a>
-              </div>
-              <div className="swiper-slide slide3 po-r">
-                <div className="inner">
-                  <div className="profile_img">
-                    <img src="images/main/profile_img3.png" alt="profile" />
-                  </div>
-                  <div className="ds-f ai-c name">
-                    <i className="ri-account-pin-circle-fill"></i>
-                    <p className="fw-m">홍길동 손해사정사</p>
-                  </div>
-                  <h3>암진단 보험 사정사례</h3>
-                  <p>
-                    군인·군무원·경찰공무원 기타 법률이 정하는 자가 전투·훈련등
-                    직무집행과 관련하여...
-                  </p>
-                  <div className="category">
-                    <div className="ds-f ai-c">
-                      <i className="ri-check-fill"></i>
-                      <p>진단비(뇌, 심장, 암)</p>
-                    </div>
-                  </div>
-                </div>
-                <a href="#"></a>
-              </div> */}
+                  );
+                })}
             </div>
           </div>
         </div>
