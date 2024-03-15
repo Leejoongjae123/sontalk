@@ -41,11 +41,7 @@ function MyRecommendations() {
               <div className="inner">
                 <span>전화문의</span>
                 <h5>1670-8684</h5>
-                <p>
-                  평일 09:00 ~ 18:00
-                  <br />
-                  주말 및 공휴일 휴무
-                </p>
+
               </div>
             </div>
           </div>
