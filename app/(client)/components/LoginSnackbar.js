@@ -11,7 +11,7 @@ export default function LoginResultToast() {
     const loginResult=params.get("loginsuccess")
     if (loginResult==='true'){
       toast.success("Login successful!")
-    }else{
+    }else if(loginResult==='false'){
       toast.error("Login failed. Please try again.")
     }
   }, [])
