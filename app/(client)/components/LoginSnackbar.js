@@ -16,5 +16,5 @@ export default function LoginResultToast() {
     }
   }, [])
 
-  return <ToastContainer position="top-center" />
+  return <ToastContainer position="top-center" autoClose={2000}/>
 }
