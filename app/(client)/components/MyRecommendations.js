@@ -40,8 +40,9 @@ function MyRecommendations() {
             <div className="circle_box ta-c po-r">
               <div className="inner">
                 <span>전화문의</span>
-                <h5>1670-8684</h5>
-
+                
+                <a
+        href={`tel:1670-8684`}><h5>1670-8684</h5></a>
               </div>
             </div>
           </div>
