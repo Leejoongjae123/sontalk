@@ -2,6 +2,8 @@
 import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import React, { useEffect } from "react";
 import AOS from "aos";
+import { ToastContainer, toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 function SearchBar() {
   useEffect(() => {
@@ -11,7 +13,17 @@ function SearchBar() {
       duration: 1500, // 전역 기본 지속 시간 설정
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
+    queryData()
   }, []);
+
+  const queryData=()=>{
+    const router=useRouter()
+    const query=router.query
+    console.log(query)
+  }
+  
+  
+  
 
   return (
     <section className="section section1">

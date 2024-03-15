@@ -8,7 +8,7 @@ import SearchBar from './components/SearchBar'
 import Suggestions from './components/Suggestions'
 import Recommendations from './components/Recommendations'
 import MyRecommendations from './components/MyRecommendations'
-
+import LoginSnackbar from './components/LoginSnackbar'
 export default async function Index() {
   const canInitSupabaseClient = () => {
     // This function is just for the interactive tutorial.
@@ -29,6 +29,7 @@ export default async function Index() {
       <Suggestions></Suggestions>
       <Recommendations></Recommendations>
       <MyRecommendations></MyRecommendations>
+      <LoginSnackbar></LoginSnackbar>
     </div>
   );
 }

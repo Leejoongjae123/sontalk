@@ -4,6 +4,10 @@ import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 import './theme.css';
 import './loopple.css';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import LoginSnackBar from './components/LoginSnackBar'
 
 export default function Login({
   searchParams,
@@ -21,17 +25,21 @@ export default function Login({
       email,
       password,
     });
+
+    const params = new URLSearchParams();
+
     if (data?.user?.email) {
-      return redirect("/");
+      params.append("loginsuccess","true")
+      return redirect(`/?${params.toString()}`);
     }
     else{
-      return redirect("/");
+    params.append("loginsuccess", "false");
+    return redirect(`/?${params.toString()}`);
     }
-
-    
   };
   return (
     <div className="container">
+      <LoginSnackBar></LoginSnackBar>
       <div className="row">
         <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
           <div className="card z-index-0 ">
