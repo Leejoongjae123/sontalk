@@ -18,8 +18,10 @@ import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-
-
+import HomeIcon from '@mui/icons-material/Home';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import HelpCenterIcon from '@mui/icons-material/HelpCenter';
+import ChatIcon from '@mui/icons-material/Chat';
 export default function ButtonAppBar() {
   const [open, setOpen] = React.useState(false);
 
@@ -42,7 +44,10 @@ export default function ButtonAppBar() {
           <ListItem key={index} disablePadding>
             <ListItemButton onClick={()=>router.push(elem.url)}>
               <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                {index === 0 ? <HomeIcon></HomeIcon> : <></>}
+                {index === 1 ? <ContactsIcon></ContactsIcon> : <></>}
+                {index === 2 ? <HelpCenterIcon></HelpCenterIcon> : <></>}
+                {index === 3 ?  <ChatIcon></ChatIcon>: <></>}
               </ListItemIcon>
               <ListItemText primary={elem.name} />
             </ListItemButton>

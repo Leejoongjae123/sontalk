@@ -33,13 +33,16 @@ export default function SignUpButton({ signUp }) {
         />
       </div>
       {secretKey==="8684" ? (
+        <div className="login_btn_container">
         <button
           type="submit"
-          className="btn bg-gradient-info w-100 mt-4 mb-2"
+          className="login_btn"
           // formAction={signUp}
         >
           회원가입
         </button>
+        </div>
+
       ) : (
       <></>
       )}

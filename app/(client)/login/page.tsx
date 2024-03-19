@@ -38,11 +38,11 @@ export default function Login({
     }
   };
   return (
-    <div className="container">
+    <div className="login_container">
       <LoginSnackBar></LoginSnackBar>
       <div className="row">
-        <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
-          <div className="card z-index-0 ">
+        <div className="">
+          <div className="card z-index-0">
             <div className="card-header text-center pt-4 pb-1">
               <h4 className="font-weight-bolder mb-1">로그인</h4>
             </div>
@@ -52,24 +52,24 @@ export default function Login({
                   <input
                     type="email"
                     name='email'
-                    className="form-control"
+                    className="login_form"
                     placeholder="Email"
                     aria-label="Email"
                   />
                 </div>
-                <div className="mb-3">
+                <div className="login_input">
                   <input
                     type="password"
                     name='password'
-                    className="form-control"
+                    className="login_form"
                     placeholder="Password"
                     aria-label="Password"
                   />
                 </div>
-                <div className="text-center">
+                <div className="login_btn_container">
                   <button
                     type="submit"
-                    className="btn bg-gradient-info w-100 mt-4 mb-2"
+                    className="login_btn"
                     formAction={signIn}
                   >
                     로그인
@@ -78,11 +78,12 @@ export default function Login({
               </form>
             </div>
             <div className="card-footer text-center pt-0 px-sm-4 px-1">
-              <p className="mb-0 mt-3 text-sm mx-auto">
-                아직 계정이 없으세요?
+              <p className="mb-0 text-sm mx-auto">
+                아직 계정이 없으세요?  
                 <a href='/signup'
-                  className="text-info text-gradient font-weight-bold"
-                  >가입하기</a>
+                  className="text-info font-weight-bold"
+                  
+                  ><span style={{color:"#171C60",fontWeight:"bold"}}>가입하기</span></a>
               </p>
             </div>
           </div>

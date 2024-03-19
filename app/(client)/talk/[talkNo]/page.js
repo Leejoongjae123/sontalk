@@ -81,7 +81,7 @@ export default async function page({params}) {
           </div>
         </div>
         <div className="bh_wrap">
-          <div className="content" style={{fontSize:"16px"}}>
+          <div className="content" style={{fontSize:"16px",whiteSpace:'pre-wrap'}}>
             {talk[0].description}
           </div>
           <div className="content_tool_box">

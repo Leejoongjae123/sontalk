@@ -58,9 +58,9 @@ export default function SignUp({
 
   return (
     <>
-      <div className="container">
+      <div className="login_container">
         <div className="row">
-          <div className="col-xl-4 col-lg-5 col-md-7 mx-auto">
+          <div className="">
             <div className="card z-index-0">
               <div className="card-header text-center pt-4 pb-1">
                 <h4 className="font-weight-bolder mb-1">회원가입</h4>
@@ -70,7 +70,7 @@ export default function SignUp({
                   <div className="mb-3">
                     <input
                       type="email"
-                      className="form-control"
+                      className="login_form"
                       placeholder="Email"
                       name="email"
                       aria-label="Email"
@@ -80,7 +80,7 @@ export default function SignUp({
                     <input
                       type="password"
                       name="password"
-                      className="form-control"
+                      className="login_form"
                       placeholder="Password"
                       aria-label="Password"
                     />

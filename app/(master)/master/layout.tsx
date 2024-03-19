@@ -13,7 +13,9 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <Drawer></Drawer>
+
         {children}
+
       </body>
     </html>
   );

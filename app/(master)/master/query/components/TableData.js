@@ -7,15 +7,15 @@ import Link from "next/link";
 
 export default function TableData({ expertNo }) {
   const { Column, ColumnGroup } = Table;
-  const [talks, setTalks] = useState([]);
+  const [query, setQuery] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const fetchData = async () => {
-    let { data: talk, error } = await supabase
-      .from("talk")
+    let { data: query, error } = await supabase
+      .from("query")
       .select("*")
-      .eq("expertNo", parseInt(expertNo))
+      // .eq("expertNo", parseInt(expertNo))
       .range((currentPage - 1) * 10, currentPage * 10);
-    setTalks(talk);
+    setQuery(query);
   };
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function TableData({ expertNo }) {
   console.log(currentPage);
   return (
     <Table
-      dataSource={talks}
+      dataSource={query}
       pagination={{ current: currentPage, onChange: handlePageChange }}
     >
       <Column title="title" dataIndex="title" key="title" width="40%" />
@@ -54,21 +54,13 @@ export default function TableData({ expertNo }) {
         key="action"
         width="20%"
         render={(_, record) => (
-          <Space size="middle">
-            <Button
-              onClick={() => handleDelete(record.talkNo)}
-              color="error"
-              variant="contained"
-            >
-              삭제
-            </Button>
-
+          <Space size="middle" key='1'>
             <Link
               style={{ zIndex: 50 }}
-              href={`/master/talk/change/${record.talkNo}`}
+              href={`/master/query/${record.questionNo}`}
             >
               <Button color="primary" variant="contained">
-                수정
+                답변하기
               </Button>
             </Link>
           </Space>
