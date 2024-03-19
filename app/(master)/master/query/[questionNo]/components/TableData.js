@@ -13,8 +13,9 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
 import Grid from "@mui/material/Grid";
+import Divider from "@mui/material/Divider";
 
-export default function TableData({ user,questionNo }) {
+export default function TableData({ expertNo, questionNo }) {
   const [comments, setComments] = useState([]);
   const [commentText, setCommentText] = useState("");
 
@@ -43,12 +44,34 @@ export default function TableData({ user,questionNo }) {
   }, []);
 
   const handleCommentSubmit = async () => {
-    console.log(user)
     const { data, error } = await supabase
       .from("queryAnswer")
-      .insert([{ description: commentText, questionNo: questionNo,expertNo:user.expertNo}])
+      .insert([
+        {
+          description: commentText,
+          questionNo: questionNo,
+          expertNo: expertNo,
+        },
+      ])
       .select();
-    console.log(data)
+    const timeNow = new Date(); // 현재 시간의 타임스탬프를 직접 얻기
+
+    const { data: data2, error: error2 } = await supabase
+      .from("query")
+      .update({ updated_at: timeNow })
+      .eq("questionNo", questionNo)
+      .select();
+    console.log(error2);
+    location.reload();
+  };
+  const handleDelete = async (answerNo) => {
+    console.log(answerNo);
+    const { error } = await supabase
+      .from("queryAnswer")
+      .delete()
+      .eq("answerNo", answerNo);
+    console.log(error);
+    location.reload();
   };
 
   return (
@@ -60,32 +83,66 @@ export default function TableData({ user,questionNo }) {
           variant="h5"
           component="div"
         >
+          <p>제목</p>
           {query.title}
         </Typography>
+        <Divider></Divider>
         <Typography
           sx={{ fontSize: "1rem" }}
           variant="h4"
           color="text.secondary"
         >
+          <p>내용</p>
           {query.description}
         </Typography>
+        <Divider></Divider>
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          variant="h4"
+          color="text.secondary"
+        >
+          <p>분류</p>
+          {query.secret ? (
+            <>
+              {" "}
+              <p style={{ color: "red" }}>비밀글</p>
+              <p style={{ color: "red" }}>
+                ※비밀글은 하단의 개별 이메일을 통해서 답변해주세요
+              </p>
+            </>
+          ) : (
+            <p style={{ color: "blue" }}>일반글</p>
+          )}
+        </Typography>
+        <Divider></Divider>
+        <Typography
+          sx={{ fontSize: "1rem" }}
+          variant="h4"
+          color="text.secondary"
+        >
+          <p>메일주소</p>
+          {query.email ? <p>{query.email}</p> : <></>}
+        </Typography>
+        <Divider></Divider>
       </CardContent>
       <CardContent>
         <TextField
           fullWidth
           variant="outlined"
-          label="답변 달기..."
+          label={query.secret?("비밀글 답변달기 불가"):("답변 달기")}
           multiline
           rows={4}
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
+          disabled={query.secret}
         />
         <Button
           sx={{ mt: 2 }}
           variant="contained"
           onClick={handleCommentSubmit}
+          disabled={query.secret}
         >
-          답변 달기
+          답변하기
         </Button>
       </CardContent>
 
@@ -121,7 +178,18 @@ export default function TableData({ user,questionNo }) {
                 <ListItemText primary={comment.description} />
               </Grid>
               <Grid item xs={6}>
-                <ListItemText primary={comment.expertNo.name} />
+                <div style={{ display: "flex" }}>
+                  <ListItemText primary={comment.expertNo.name} />
+                  <Button
+                    color="error"
+                    variant="contained"
+                    onClick={() => {
+                      handleDelete(comment.answerNo);
+                    }}
+                  >
+                    삭제
+                  </Button>
+                </div>
               </Grid>
             </Grid>
           </ListItem>

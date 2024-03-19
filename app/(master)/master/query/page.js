@@ -16,7 +16,7 @@ export default async function page() {
   let { data: profiles } = await supabase
     .from("profiles")
     .select("*")
-    .eq("email", user.email)
+    .eq("email", user?.email)
     .single();
   const expertNo = profiles?.expertNo;
 

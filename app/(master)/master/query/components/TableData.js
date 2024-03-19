@@ -34,33 +34,53 @@ export default function TableData({ expertNo }) {
     // currentPage 상태 업데이트
     setCurrentPage(page);
   };
-  
-  
+
   console.log(currentPage);
   return (
     <Table
       dataSource={query}
       pagination={{ current: currentPage, onChange: handlePageChange }}
     >
-      <Column title="title" dataIndex="title" key="title" width="40%" />
+      <Column title="제목" dataIndex="title" key="title" width="40%" />
       <Column
-        title="description"
+        title="내용"
         dataIndex="description"
         key="description"
         width="40%"
       />
+      {/* <Column title="비밀글여부" dataIndex="secret" key="secret" width="10%" /> */}
       <Column
-        title="Action"
-        key="action"
+        title="비밀글여부"
+        dataIndex="secret"
+        key="secret"
+        width="10%"
+        render={(secret) => (
+          <span style={{ color: secret ? "red" : "blue" }}>
+            {secret ? "비밀글" : "일반글"}
+          </span>
+        )}
+      />
+      <Column
+        title="이메일"
+        dataIndex="email"
+        key="email"
         width="20%"
+        render={(email) => (email ? email : "")}
+      />
+
+      <Column
+        title="비고"
+        key="비고"
+        width="10%"
         render={(_, record) => (
-          <Space size="middle" key='1'>
+          <Space size="middle" key="1">
             <Link
               style={{ zIndex: 50 }}
               href={`/master/query/${record.questionNo}`}
             >
+
               <Button color="primary" variant="contained">
-                답변하기
+                이동
               </Button>
             </Link>
           </Space>

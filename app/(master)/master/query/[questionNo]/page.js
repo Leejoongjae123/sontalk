@@ -10,6 +10,13 @@ async function page({ params }) {
   const {
     data: { user },
   } = await supabase?.auth.getUser();
+
+  let { data: profiles } = await supabase
+  .from("profiles")
+  .select("*")
+  .eq("email", user?.email)
+  .single();
+const expertNo = profiles?.expertNo;
   
   const questionNo=params.questionNo
   console.log('questionNo:',questionNo)
@@ -29,7 +36,7 @@ async function page({ params }) {
       >
       </Box>
 
-      <Table user={user} questionNo={questionNo}></Table>
+      <Table expertNo={expertNo} questionNo={questionNo}></Table>
     </Box>
   );
 }
