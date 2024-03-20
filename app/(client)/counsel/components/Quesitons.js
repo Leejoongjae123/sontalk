@@ -22,7 +22,7 @@ export default function Quesitons() {
   const [activeTab, setActiveTab] = useState("count");
   const [activeSort, setActiveSort] = useState("count");
   const [selectedTag, setSelectedTag] = useState("");
-  const [totalCount, setTotalCount] = useState(10);
+  const [totalCount, setTotalCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1);
@@ -34,7 +34,7 @@ export default function Quesitons() {
       .like("title", "%" + searchKeyword + "%")
       .order(activeTab, { ascending: false })
       .range((currentPage - 1) * 10, currentPage * 10)
-      
+      .or(`field1.eq.${categoryName},field2.eq.${categoryName},field3.eq.${categoryName}`)
       .eq("secret", "false");
 
     if (searchKeyword) {
@@ -44,8 +44,6 @@ export default function Quesitons() {
     setIsComplete(true);
   };
 
-  console.log(activeTab)
-
   const fetchTotal = async () => {
     let { data: query, error } = await supabase.from("query").select("*");
     setTotalCount(Math.ceil(query.length / 10));
@@ -53,7 +51,7 @@ export default function Quesitons() {
 
   useEffect(() => {
     fetchData(searchKeyword);
-  }, [currentPage, activeTab, searchComplete]);
+  }, [currentPage, searchComplete,categoryName]);
 
   useEffect(() => {
     fetchTotal();
@@ -102,7 +100,7 @@ export default function Quesitons() {
     setCategoryName(input);
   };
 
-  console.log(categoryName);
+  console.log('categoryName:',categoryName);
 
   return (
     <>
@@ -193,6 +191,19 @@ export default function Quesitons() {
       <div className="board_wrap">
         {questions &&
           questions.map((elem, index) => {
+            // isRepresentative가 true인 항목 찾기
+            const representativeAnswer = elem.queryAnswer.find(
+              (answer) => answer.isRepresentative
+            );
+
+            // 없으면 created_at 기준 최신 항목 찾기
+            const latestAnswer = [...elem.queryAnswer].sort(
+              (a, b) => new Date(b.created_at) - new Date(a.created_at)
+            )[0];
+
+            // 사용할 항목 결정
+            const selectedAnswer = representativeAnswer || latestAnswer;
+
             return (
               <div className={`item item${index + 1}`} key={index}>
                 <div className="item_inner">
@@ -237,10 +248,10 @@ export default function Quesitons() {
                     <div className="anser">
                       <div className="ds-f name">
                         <span>대표답변</span>
-                        <p>{elem?.queryAnswer[0]?.profiles?.name} 손해사정사</p>
+                        <p>{selectedAnswer.profiles?.name} 손해사정사</p>
                       </div>
                       <div className="anser_content">
-                        {elem.queryAnswer[0]?.description}
+                        {selectedAnswer.description}
                       </div>
                     </div>
                   ) : (
@@ -279,25 +290,29 @@ export default function Quesitons() {
             );
           })}
       </div>
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
-          <Pagination
-            count={totalCount}
-            page={currentPage}
-            onChange={handleChangePage}
-            sx={{
-              "& .MuiPaginationItem-root": {
-                // Targeting the root item of Pagination
-                fontSize: "14px", // Setting font size to 16px
-                minWidth: "auto",
-              },
-              ".MuiPagination-ul": {
-                flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
-              },
-            }}
-          />
-        </Stack>
-      </div>
+      {totalCount && (
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
+            <Pagination
+              count={totalCount}
+              page={currentPage}
+              onChange={handleChangePage}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  // Targeting the root item of Pagination
+                  fontSize: "14px", // Setting font size to 16px
+                  minWidth: "auto",
+                },
+                ".MuiPagination-ul": {
+                  flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
+                },
+              }}
+            />
+          </Stack>
+        </div>
+      )}
     </>
   );
 }

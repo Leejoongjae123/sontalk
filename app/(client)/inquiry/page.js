@@ -22,17 +22,6 @@ export default function Inquiry() {
       { name: name, phoneNumber: phoneNumber,description:description,filePath:"https://yieqkayhbhrcqmsfzjiu.supabase.co/storage/v1/object/public/images/"+filePath},
     ])
     .select()
-
-    // const fileInput = document.getElementById('fileInput')
-    // const file = fileInput.files[0]
-
-    // const filePath = `uploads/${file.name}`
-        
-    // const { data:attachedFile, error:attachedFileError } = await supabase.storage
-    // .from('attachedFile')
-    // .upload(filePath, file)
-    
-    // console.log(attachedFile)
     if (error) {
       return redirect("/");
     }
@@ -110,7 +99,7 @@ export default function Inquiry() {
                     name="accept_agreement"
                     value="Y"
                     id="accept_agreement"
-                    checked
+                    
                   />
                   <label htmlFor="accept_agreement">동의</label>
                 </div>

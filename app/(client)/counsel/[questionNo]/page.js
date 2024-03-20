@@ -20,7 +20,7 @@ export default async function page({ params }) {
     .eq("questionNo", questionNo.toString())
     .select();
 
-  console.log(query[0].queryAnswer)
+  console.log(query[0].queryAnswer);
   return (
     <div className="body">
       <div className="counsel_detail">
@@ -89,45 +89,60 @@ export default async function page({ params }) {
             <span>
               전문가 답변 <b>{query[0].queryAnswer.length}</b>건
             </span>
-            {query[0].queryAnswer.map((elem,index) => {
-              return (
-                <div className="comment_box" key={index}>
-                  <div className="info_box">
-                    <div className="bh_row no-gutters ai-c jc-b">
-                      <div className="col-lg-auto col-12">
-                        <div className="profile">
-                          <div className="ds-f ai-c">
-                            <div className="img_box">
-                              <img style={{borderRadius:"100%"}}
-                                src={elem?.profiles.imageUrl}
-                                alt="img"
-                              />
-                            </div>
-                            <div className="txt_box">
-                              <h3>손TOP {findNameByCat(elem?.profiles?.region)}</h3>
-                              <p>{elem?.profiles?.name} 손해사정사</p>
+            {query[0].queryAnswer
+              .sort((a, b) => {
+                // isRepresentative가 true인 항목을 우선하여 앞으로 배치
+                if (a.isRepresentative && !b.isRepresentative) return -1;
+                if (!a.isRepresentative && b.isRepresentative) return 1;
+
+                // isRepresentative 값이 같을 경우 created_at으로 내림차순 정렬
+                return new Date(b.created_at) - new Date(a.created_at);
+              })
+              .map((elem, index) => {
+                return (
+                  <div className="comment_box" key={index}>
+                    <div className="info_box">
+                      <div className="bh_row no-gutters ai-c jc-b">
+                        <div className="col-lg-auto col-12">
+                          <div className="profile">
+                            <div className="ds-f ai-c">
+                              <div className="img_box">
+                                <img
+                                  style={{ borderRadius: "100%" }}
+                                  src={elem?.profiles.imageUrl}
+                                  alt="img"
+                                />
+                              </div>
+                              <div className="txt_box">
+                                <h3>
+                                  손TOP {findNameByCat(elem?.profiles?.region)}
+                                </h3>
+                                <p>{elem?.profiles?.name} 손해사정사</p>
+                              </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="col-lg-auto col-12">
-                        <div className="ds-f bh-flex-flex-wrap">
-                          <div className="other_btn type2">
-                            <a href={`/booking?expertNo=${elem.expertNo}`} className="ds-b">
-                              <b style={{color:"white"}}>상담 예약</b>
-                            </a>
+                        <div className="col-lg-auto col-12">
+                          <div className="ds-f bh-flex-flex-wrap">
+                            <div className="other_btn type2">
+                              <a
+                                href={`/booking?expertNo=${elem.expertNo}`}
+                                className="ds-b"
+                              >
+                                <b style={{ color: "white" }}>상담 예약</b>
+                              </a>
+                            </div>
                           </div>
                         </div>
                       </div>
                     </div>
+                    <div className="comment_content">{elem.description}</div>
+                    <div className="comment_date">
+                      {formatDate(elem.created_at)}
+                    </div>
                   </div>
-                  <div className="comment_content">
-                    {elem.description}
-                  </div>
-                  <div className="comment_date">{formatDate(elem.created_at)}</div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </div>
       </div>
@@ -189,9 +204,9 @@ function maskMiddleName(name) {
   let maskLength = name.length % 2 === 0 ? 2 : 1; // 짝수면 2, 홀수면 1
 
   // 가운데 글자(들)을 별표로 대체
-  const maskedName = 
-    name.substring(0, middleIndex - Math.floor(maskLength / 2)) + 
-    "*".repeat(maskLength) + 
+  const maskedName =
+    name.substring(0, middleIndex - Math.floor(maskLength / 2)) +
+    "*".repeat(maskLength) +
     name.substring(middleIndex + Math.ceil(maskLength / 2));
 
   return maskedName;

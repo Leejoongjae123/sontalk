@@ -22,10 +22,10 @@ function TalkTitle() {
 
   const [isComplete, setIsComplete] = useState(false);
   const [talks, setTalks] = useState([]);
-  const [totalCount, setTotalCount] = useState(10);
+  const [totalCount, setTotalCount] = useState();
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchComplete, setSearchComplete] = useState(1)
+  const [searchComplete, setSearchComplete] = useState(1);
   // const fetchData = async () => {
   //   let { data: talk, error } = await supabase
   //     .from("talk")
@@ -40,17 +40,21 @@ function TalkTitle() {
   //   setTotalCount(Math.ceil(talk.length / 10));
   // };
   const fetchData = async () => {
-    
-    let { data: talk, error, count } = await supabase
+    let {
+      data: talk,
+      error,
+      count,
+    } = await supabase
       .from("talk")
-      .select("*,expertNo(*)", { count: 'exact' })
+      .select("*,expertNo(*)", { count: "exact" })
       .like("title", "%" + searchKeyword + "%")
       .range((currentPage - 1) * 10, currentPage * 10 - 1); // 수정된 부분
-  
+
     if (error) {
       console.error("Error fetching data:", error);
     } else {
-      const totalPages = count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1;
+      const totalPages =
+        count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1;
 
       setTalks(talk);
       setTotalCount(totalPages); // 전체 항목 수를 정확히 설정
@@ -60,20 +64,20 @@ function TalkTitle() {
 
   useEffect(() => {
     fetchData();
-  }, [currentPage,searchComplete]);
+  }, [currentPage, searchComplete]);
 
   const handleChangePage = (event, newPage) => {
     setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
   };
 
-    // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
-    const handleInputChange = (event) => {
-      setSearchKeyword(event.target.value);
-    };
-    // 버튼 클릭 시 실행할 함수입니다.
-    const handleSearch = () => {
-      setSearchComplete(prevState => prevState + 1);
-    };
+  // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
+  const handleInputChange = (event) => {
+    setSearchKeyword(event.target.value);
+  };
+  // 버튼 클릭 시 실행할 함수입니다.
+  const handleSearch = () => {
+    setSearchComplete((prevState) => prevState + 1);
+  };
 
   return (
     <>
@@ -82,7 +86,7 @@ function TalkTitle() {
         data-aos="fade-down"
         data-aos-duration="1500"
       >
-        <span style={{fontSize:'2rem'}}>손사 Talk</span>
+        <span style={{ fontSize: "2rem" }}>손사 Talk</span>
         <h3>
           분야별 손해사정
           <br />
@@ -90,14 +94,13 @@ function TalkTitle() {
         </h3>
         <form className="search_area">
           <div className="ds-f">
-          <input 
-            type="text" 
-            placeholder="제목, 내용을 입력해주세요."
-            value={searchKeyword}
-            onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
-            
+            <input
+              type="text"
+              placeholder="제목, 내용을 입력해주세요."
+              value={searchKeyword}
+              onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
             />
-            <button type='button' onClick={handleSearch}>
+            <button type="button" onClick={handleSearch}>
               <i className="ri-search-line"></i>
             </button>
           </div>
@@ -118,7 +121,7 @@ function TalkTitle() {
                       <div className="title">{elem.title}</div>
                       <div className="content ellipsis">
                         <p>{elem.description}</p>
-                        </div>
+                      </div>
                       <div className="keyword">
                         <span>#{findNameByKey(elem.keyword1)}</span>
                         <span>#{findNameByKey(elem.keyword2)}</span>
@@ -147,29 +150,32 @@ function TalkTitle() {
                 </div>
               );
             })}
-
-          
+            
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
-        <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
-          <Pagination
-            count={totalCount}
-            page={currentPage}
-            onChange={handleChangePage}
-            sx={{
-              "& .MuiPaginationItem-root": {
-                // Targeting the root item of Pagination
-                fontSize: "14px", // Setting font size to 16px
-                minWidth: "auto",
-              },
-              ".MuiPagination-ul": {
-                flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
-              },
-            }}
-          />
-        </Stack>
-      </div>
+      {totalCount && (
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <Stack spacing={2} direction="row" style={{ overflowX: "auto" }}>
+            <Pagination
+              count={totalCount}
+              page={currentPage}
+              onChange={handleChangePage}
+              sx={{
+                "& .MuiPaginationItem-root": {
+                  // Targeting the root item of Pagination
+                  fontSize: "14px", // Setting font size to 16px
+                  minWidth: "auto",
+                },
+                ".MuiPagination-ul": {
+                  flexWrap: "nowrap", // Preventing the pagination from wrapping onto multiple lines
+                },
+              }}
+            />
+          </Stack>
+        </div>
+      )}
     </>
   );
 }
