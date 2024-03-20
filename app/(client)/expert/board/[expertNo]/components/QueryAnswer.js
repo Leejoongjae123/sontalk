@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
-import keywordList from '@/components/keywordList'
+import keywordList from "@/components/keywordList";
 
 const theme = createTheme({
   palette: {
@@ -15,9 +15,9 @@ const theme = createTheme({
 
 export default function QueryAnswer({ expertNo }) {
   // const [history, setHistory] = useState([]);
-  const [answer, setAnswer] = useState([])
+  const [answer, setAnswer] = useState([]);
   // const [historyCount, setHistoryCount] = useState(0)
-  const [answerCount, setAnswerCount] = useState(0)
+  const [answerCount, setAnswerCount] = useState(0);
   const [pageCount, setPageCount] = useState(3);
   const fetchData = async () => {
     let { data: queryAnswer, error2 } = await supabase
@@ -25,25 +25,22 @@ export default function QueryAnswer({ expertNo }) {
       .select("*")
       .eq("expertNo", expertNo.toString());
     // setHistoryCount(prevProject.length)
-    setAnswerCount(queryAnswer.length)
+    setAnswerCount(queryAnswer.length);
     // prevProject=prevProject.slice(0,pageCount)
-    queryAnswer=queryAnswer.slice(0,pageCount)
+    queryAnswer = queryAnswer.slice(0, pageCount);
     // setHistory(prevProject);
-    setAnswer(queryAnswer)
-    
+    setAnswer(queryAnswer);
   };
 
   useEffect(() => {
     fetchData();
   }, [pageCount]);
 
+  const showMore1 = () => {
+    setPageCount((prevPageCount) => prevPageCount + 3);
+  };
 
-
-  const showMore1=()=>{
-    setPageCount(prevPageCount => prevPageCount + 3);
-  }
-
-  console.log('pageCount:',pageCount)
+  console.log("pageCount:", pageCount);
 
   return (
     <div className="option2">
@@ -60,7 +57,7 @@ export default function QueryAnswer({ expertNo }) {
             </a>
           </div> */}
             <Button
-              style={{ fontSize: "1rem",fontWeight:'bold' }}
+              style={{ fontSize: "1rem", fontWeight: "bold" }}
               onClick={showMore1}
               variant="outlined"
             >
@@ -73,10 +70,27 @@ export default function QueryAnswer({ expertNo }) {
             return (
               <div className="col-lg-4 col-12 m-mb-20 mb-10">
                 <div className="inner">
-                  {elem.field1?(<div className="category">{findNameByCat(elem.field1)}</div>):(<></>)}
-                  <h3>{elem.description}</h3>
+                  {elem.field1 ? (
+                    <div className="category">{findNameByCat(elem.field1)}</div>
+                  ) : (
+                    <></>
+                  )}
+                  <h3
+                    style={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 5,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                  >
+                    {elem.description}
+                  </h3>
                   <span className="fw-m">
-                    <em className="bh_color_main">{daysAgoFormatted(elem.created_at)}</em> 답변 작성
+                    <em className="bh_color_main">
+                      {daysAgoFormatted(elem.created_at)}
+                    </em>{" "}
+                    답변 작성
                   </span>
                 </div>
               </div>
@@ -109,9 +123,10 @@ function daysAgoFormatted(dateString) {
 }
 
 function findNameByCat(catValue) {
-
   // keywordList에서 catValue와 일치하는 cat 값을 가진 객체를 찾습니다.
-  const matchingKeyword = keywordList.find(keyword => keyword.cat === catValue);
+  const matchingKeyword = keywordList.find(
+    (keyword) => keyword.cat === catValue
+  );
 
   // 일치하는 객체가 있으면 그 객체의 name 값을 반환합니다.
   return matchingKeyword ? matchingKeyword.name : undefined;

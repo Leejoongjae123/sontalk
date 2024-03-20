@@ -97,11 +97,12 @@ export default function Inquiry() {
             <div className="agreement">
               <div className="agreement_notice">
                 <span>개인정보 수집 및 이용에 대해서 동의합니다.</span>
-                {/* <a href="#" target="_blank">
-                  [자세히보기]
-                </a> */}
+                <span></span>
+                
                 <Policy></Policy>
+                
               </div>
+              
               <div className="agreement_btn_wrap">
                 <div className="btn_agree">
                   <input
@@ -109,6 +110,7 @@ export default function Inquiry() {
                     name="accept_agreement"
                     value="Y"
                     id="accept_agreement"
+                    checked
                   />
                   <label htmlFor="accept_agreement">동의</label>
                 </div>
@@ -121,8 +123,11 @@ export default function Inquiry() {
                   />
                   <label htmlFor="accept_disagreement">비동의</label>
                 </div>
+                (미동의 시 상담진행이 어려울 수 있습니다)
               </div>
+              
             </div>
+            
             <div className="ta-c">
               <button type="submit" className="submit_btn">
                 상담하기

@@ -56,10 +56,9 @@ export default function Talk({ expertNo }) {
             </a>
           </div> */}
             <Button
-              style={{ fontSize: "1rem",fontWeight:'bold'}}
+              style={{ fontSize: "1rem", fontWeight: "bold" }}
               onClick={showMore1}
               variant="outlined"
-              
             >
               더보기+
             </Button>
@@ -71,11 +70,27 @@ export default function Talk({ expertNo }) {
               <div className="col-lg-4 col-12 m-mb-20 mb-10">
                 <div className="inner">
                   <div className="category">{findNameByCat(elem.field1)}</div>
-                  <h3>{elem.title}</h3>
-                  <p className="content">
+                  <h3
+                              style={{
+                                display: "-webkit-box",
+                                WebkitBoxOrient: "vertical",
+                                WebkitLineClamp: 2,
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                              }}
+                  >{elem.title}</h3>
+                  <p
+                    style={{
+                      display: "-webkit-box",
+                      WebkitBoxOrient: "vertical",
+                      WebkitLineClamp: 5,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                    }}
+                    className="content"
+                  >
                     {elem.description}
                   </p>
-                  
                 </div>
               </div>
             );

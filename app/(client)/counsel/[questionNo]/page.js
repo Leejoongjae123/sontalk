@@ -53,16 +53,6 @@ export default async function page({ params }) {
                 <span>{maskMiddleName(query[0].name)}</span>
               </div>
             </div>
-            {/* <div className="tool_box">
-              <div className="ds-f">
-                <a href="#" className="ds-b">
-                  <i className="ri-heart-3-line"></i>
-                </a>
-                <a href="#" className="ds-b">
-                  <i className="ri-share-line"></i>
-                </a>
-              </div>
-            </div> */}
           </div>
           <div className="content_body">
             <div className="content" style={{ whiteSpace: "pre-wrap" }}>
@@ -74,22 +64,6 @@ export default async function page({ params }) {
               <div className="col-lg-auto col-12">
                 <div className="tools">
                   <div className="bh_row gutters-5">
-                    {/* <div className="col-auto">
-                      <a href="#" className="ds-b active">
-                        <div className="ds-f ai-c">
-                          <i className="ri-heart-3-line"></i>
-                          <p>관심글</p>
-                        </div>
-                      </a>
-                    </div> */}
-                    {/* <div className="col-auto">
-                      <a href="#" className="ds-b">
-                        <div className="ds-f ai-c">
-                          <i className="ri-notification-3-line"></i>
-                          <p>답변 알림받기</p>
-                        </div>
-                      </a>
-                    </div> */}
                     <div className="col-auto">
                       <a href="/counsel" className="ds-b">
                         <div className="ds-f ai-c">
@@ -138,11 +112,6 @@ export default async function page({ params }) {
                       </div>
                       <div className="col-lg-auto col-12">
                         <div className="ds-f bh-flex-flex-wrap">
-                          {/* <div className="other_btn">
-                            <a href="#" className="ds-b">
-                              전문가의 다른 간편 상담답변 보기 <b>56건</b>
-                            </a>
-                          </div> */}
                           <div className="other_btn type2">
                             <a href={`/booking?expertNo=${elem.expertNo}`} className="ds-b">
                               <b style={{color:"white"}}>상담 예약</b>
