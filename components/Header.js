@@ -84,7 +84,7 @@ export default async function Header() {
             </div>
           </div>
         </div>
-        <MenuButtons></MenuButtons>
+        <MenuButtons user={user}></MenuButtons>
         {/* <div className="m_header ds-n m-ds-b">
           <div className="m_logo ta-c">
             <a href="/">

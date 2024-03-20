@@ -6,7 +6,7 @@ import { supabase } from "@/utils/supabase/client";
 import keywordList from "@/components/keywordList";
 import categoryList from "@/components/categoryList";
 import Link from "next/link";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 function Recommendations() {
   const [talks, setTalks] = useState([]);
@@ -16,6 +16,7 @@ function Recommendations() {
       .from("talk")
       // .select("*")
       .select("*,expertNo(*)")
+      .order("count", { ascending: false })
       .range(0, 5);
     setTalks(talk);
   };
@@ -32,9 +33,9 @@ function Recommendations() {
       // 여기에 페이지가 변경될 때 실행하고 싶은 코드를 작성하세요.
       console.log("Location changed!");
     };
-  
+
     window.addEventListener("popstate", handlePopState);
-  
+
     return () => {
       window.removeEventListener("popstate", handlePopState);
     };
@@ -100,10 +101,31 @@ function Recommendations() {
                           style={{ zIndex: 50 }}
                           href={`/talk/${elem.talkNo}`}
                         >
-                          <h3>{elem.title}</h3>{" "}
+                          <h3
+                          style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 2,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                            lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                            minHeight: "3em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                          }}
+                          
+                          >{elem.title}</h3>{" "}
                         </Link>
 
-                        <p>{elem.description}</p>
+                        <p                           style={{
+                            display: "-webkit-box",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                            lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                            minHeight: "4.5em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                          }}>{elem.description}</p>
                         <div className="category">
                           <div className="ds-f ai-c">
                             <i className="ri-check-fill"></i>

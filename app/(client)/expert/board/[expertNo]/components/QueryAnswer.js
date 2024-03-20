@@ -73,7 +73,7 @@ export default function QueryAnswer({ expertNo }) {
             return (
               <div className="col-lg-4 col-12 m-mb-20 mb-10">
                 <div className="inner">
-                  <div className="category">{findNameByCat(elem.field1)}</div>
+                  {elem.field1?(<div className="category">{findNameByCat(elem.field1)}</div>):(<></>)}
                   <h3>{elem.description}</h3>
                   <span className="fw-m">
                     <em className="bh_color_main">{daysAgoFormatted(elem.created_at)}</em> 답변 작성

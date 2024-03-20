@@ -26,18 +26,36 @@ function TalkTitle() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1)
+  // const fetchData = async () => {
+  //   let { data: talk, error } = await supabase
+  //     .from("talk")
+  //     .select("*,expertNo(*)")
+  //     .like("title", "%" + searchKeyword + "%")
+  //     .range((currentPage - 1) * 10, currentPage * 10);
+  //   if (searchKeyword) {
+  //     setTotalCount(talk.length);
+  //   }
+  //   setTalks(talk);
+  //   setIsComplete(true);
+  //   setTotalCount(Math.ceil(talk.length / 10));
+  // };
   const fetchData = async () => {
-    let { data: talk, error } = await supabase
+    
+    let { data: talk, error, count } = await supabase
       .from("talk")
-      .select("*,expertNo(*)")
+      .select("*,expertNo(*)", { count: 'exact' })
       .like("title", "%" + searchKeyword + "%")
-      .range((currentPage - 1) * 10, currentPage * 10);
-    if (searchKeyword) {
-      setTotalCount(talk.length);
+      .range((currentPage - 1) * 10, currentPage * 10 - 1); // 수정된 부분
+  
+    if (error) {
+      console.error("Error fetching data:", error);
+    } else {
+      const totalPages = count % 10 === 0 ? count / 10 : Math.floor(count / 10) + 1;
+
+      setTalks(talk);
+      setTotalCount(totalPages); // 전체 항목 수를 정확히 설정
+      setIsComplete(true);
     }
-    setTalks(talk);
-    setIsComplete(true);
-    setTotalCount(Math.ceil(talk.length / 10));
   };
 
   useEffect(() => {
@@ -98,7 +116,9 @@ function TalkTitle() {
                         <p className="fw-m">{elem.expertNo.name} 손해사정사</p>
                       </div>
                       <div className="title">{elem.title}</div>
-                      <div className="content ellipsis">{elem.description}</div>
+                      <div className="content ellipsis">
+                        <p>{elem.description}</p>
+                        </div>
                       <div className="keyword">
                         <span>#{findNameByKey(elem.keyword1)}</span>
                         <span>#{findNameByKey(elem.keyword2)}</span>

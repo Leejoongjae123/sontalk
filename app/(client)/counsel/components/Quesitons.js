@@ -25,8 +25,8 @@ export default function Quesitons() {
   const [totalCount, setTotalCount] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
-  const [searchComplete, setSearchComplete] = useState(1)
-  const [categoryName, setCategoryName] = useState("")
+  const [searchComplete, setSearchComplete] = useState(1);
+  const [categoryName, setCategoryName] = useState("");
   const fetchData = async (searchKeyword) => {
     let { data: query, error } = await supabase
       .from("query")
@@ -34,13 +34,17 @@ export default function Quesitons() {
       .like("title", "%" + searchKeyword + "%")
       .order(activeTab, { ascending: false })
       .range((currentPage - 1) * 10, currentPage * 10)
-      .eq('secret','false')
+      
+      .eq("secret", "false");
+
     if (searchKeyword) {
       setTotalCount(Math.ceil(query.length / 10));
     }
     setQuestions(query);
     setIsComplete(true);
   };
+
+  console.log(activeTab)
 
   const fetchTotal = async () => {
     let { data: query, error } = await supabase.from("query").select("*");
@@ -49,11 +53,11 @@ export default function Quesitons() {
 
   useEffect(() => {
     fetchData(searchKeyword);
-  }, [currentPage, activeTab,searchComplete]);
+  }, [currentPage, activeTab, searchComplete]);
 
-  useEffect(()=>{
+  useEffect(() => {
     fetchTotal();
-  },[])
+  }, []);
 
   // 탭을 클릭했을 때 실행될 함수입니다.
   const handleTabClick = (tabName) => {
@@ -61,14 +65,12 @@ export default function Quesitons() {
     setActiveTab(tabName);
   };
 
-  
-  
   // 태그를 클릭했을 때 실행될 함수입니다.
-  const handleTagClick = (tagName) => {
-    // 클릭된 태그의 이름으로 selectedTag 상태를 업데이트합니다.
-    setSelectedTag(tagName);
+  const handleTagClick = (tag) => {
+    // 이미 선택된 태그를 다시 클릭했는지 여부를 확인하고,
+    // 해당되면 선택을 취소하고, 그렇지 않으면 새 태그를 선택합니다.
+    setSelectedTag(selectedTag === tag ? null : tag);
   };
-
 
   const tags = [
     "#교통사고",
@@ -94,13 +96,13 @@ export default function Quesitons() {
   };
   // 버튼 클릭 시 실행할 함수입니다.
   const handleSearch = () => {
-    setSearchComplete(prevState => prevState + 1);
+    setSearchComplete((prevState) => prevState + 1);
   };
   const handleCategory = (input) => {
     setCategoryName(input);
   };
 
-  console.log(categoryName)
+  console.log(categoryName);
 
   return (
     <>
@@ -109,7 +111,7 @@ export default function Quesitons() {
         data-aos="fade-down"
         data-aos-duration="1500"
       >
-        <span style={{fontSize:"2rem"}}>간편 상담</span>
+        <span style={{ fontSize: "2rem" }}>간편 상담</span>
         <h3>
           나와 비슷한 문제의 답변을 찾아보거나, 직접 상담글을 작성하여
           <br />
@@ -117,14 +119,13 @@ export default function Quesitons() {
         </h3>
         <form className="search_area">
           <div className="ds-f">
-            <input 
-            type="text" 
-            placeholder="제목, 내용을 입력해주세요."
-            value={searchKeyword}
-            onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
-            
+            <input
+              type="text"
+              placeholder="제목, 내용을 입력해주세요."
+              value={searchKeyword}
+              onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
             />
-            <button type='button' onClick={handleSearch}>
+            <button type="button" onClick={handleSearch}>
               <i className="ri-search-line"></i>
             </button>
           </div>
@@ -138,7 +139,7 @@ export default function Quesitons() {
               key={index}
               onClick={() => {
                 handleTagClick(tag);
-                handleCategory(keywordList[index].cat)
+                handleCategory(keywordList[index].cat);
               }}
               name={keywordList[index].cat}
               style={
@@ -219,16 +220,24 @@ export default function Quesitons() {
                       {elem.title}
                     </Link>
                   </div>
-                  <div className="content" style={{ whiteSpace: "pre-wrap" }}>
+                  <div
+                    className="content"
+                    style={{
+                      whiteSpace: "pre-wrap",
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      display: "-webkit-box",
+                      WebkitLineClamp: 3,
+                      WebkitBoxOrient: "vertical",
+                    }}
+                  >
                     {elem.description}
                   </div>
                   {elem.queryAnswer.length >= 1 ? (
                     <div className="anser">
                       <div className="ds-f name">
                         <span>대표답변</span>
-                        <p>
-                          {elem?.queryAnswer[0]?.profiles?.name} 손해사정사
-                        </p>
+                        <p>{elem?.queryAnswer[0]?.profiles?.name} 손해사정사</p>
                       </div>
                       <div className="anser_content">
                         {elem.queryAnswer[0]?.description}

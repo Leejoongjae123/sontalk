@@ -2,7 +2,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 
-function MenuButtons() {
+function MenuButtons({user}) {
   // 메뉴의 상태를 관리하는 state 변수입니다. 기본값은 'false'로, 메뉴가 숨겨져 있음을 의미합니다.
   const [isOpen, setIsOpen] = useState(false);
 
@@ -52,8 +52,13 @@ function MenuButtons() {
                   <a href="/inquiry">- 맞춤 손사추천</a>
                 </li>
               </ul>
-
-              <div style={{display:'flex',margin:'auto',width:"100%"}} className="login_area">
+              {user?(<div style={{display:'flex',margin:'auto',width:"100%"}} className="login_area">
+                <div style={{margin:'auto'}} className="ds-f">
+                  <a href="/master" className="ds-b">
+                    마이페이지
+                  </a>
+                </div>
+              </div>):(<div style={{display:'flex',margin:'auto',width:"100%"}} className="login_area">
                 <div style={{margin:'auto'}} className="ds-f">
                   <a href="/login" className="ds-b">
                     로그인
@@ -62,7 +67,8 @@ function MenuButtons() {
                     회원가입
                   </a>
                 </div>
-              </div>
+              </div>)}
+              
             </div>
           </div>
         </div>

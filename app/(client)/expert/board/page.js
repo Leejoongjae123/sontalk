@@ -17,7 +17,7 @@ export default function ExpertBoard() {
   const page = searchParams.get("page");
   const [totalCount, setTotalCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [experts, setExperts] = useState([]);
+  const [experts, setExperts] = useState();
   const fetchData = async () => {
     if (search.includes("R")) {
       let { data: profiles, error } = await supabase
@@ -69,120 +69,130 @@ export default function ExpertBoard() {
         <div className="bh_wrap">
           <Title></Title>
           <div className="board_wrap">
-            {experts &&
-              experts.map((elem, index) => {
-                return (
-                  <div className="item item1">
-                    <div className="item_inner po-r">
-                      <div className="bh_row no-gutters jc-b">
-                        <div className="col-lg-auto col-12">
-                          <div className="profile">
-                            <div className="ds-f bh-flex-flex-wrap ai-c">
-                              {/* <div className="img_box" style={{width:"10vw",height:'auto'}}> */}
-                              <div className="img_box">
-                                <img
-                                  className="responsive-img2"
-                                  src={elem.imageUrl}
-                                  alt="img"
-                                />
+            {experts?.map((elem, index) => {
+              return (
+                <div className="item item1">
+                  <div className="item_inner po-r">
+                    <div className="bh_row no-gutters jc-b">
+                      <div
+                        className="col-lg-auto col-12"
+                        style={{ flex: "0 0 70%" }}
+                      >
+                        <div
+                          className="profile"
+                          style={{
+                            maxWidth: "100%", // 최대 너비 설정
+                            overflow: "hidden", // 내용이 넘칠 경우 숨김
+                            whiteSpace: "nowrap", // 텍스트를 한 줄로 처리
+                            textOverflow: "ellipsis", // 넘친 텍스트에 말줄임표 적용
+                          }}
+                        >
+                          <div
+                            className="ds-f bh-flex-flex-wrap ai-c"
+                            style={{ whiteSpace: "nowrap" }}
+                          >
+                            <div className="img_box">
+                              <img
+                                className="responsive-img2"
+                                src={elem.imageUrl}
+                                alt="img"
+                              />
+                            </div>
+                            <div className="txt_box">
+                              <h3>
+                                <a href={`/expert/board/${elem.expertNo}`}>
+                                  손TOP {findNameByCat(elem.region)}
+                                </a>
+                              </h3>
+                              <div className="ds-f ai-c name">
+                                <i className="ri-account-pin-circle-fill"></i>
+                                <p className="fw-m">{elem.name} 손해사정사</p>
                               </div>
-                              <div className="txt_box">
-                                <h3>
-                                  <a href={`/expert/board/${elem.expertNo}`}>
-                                    손TOP {findNameByCat(elem.region)}
-                                  </a>
-                                </h3>
-                                <div className="ds-f ai-c name">
-                                  <i className="ri-account-pin-circle-fill"></i>
-                                  <p className="fw-m">{elem.name} 손해사정사</p>
-                                </div>
-                                <div className="category">
+                              <div
+                                className="category"
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                {elem.field1 ? (
                                   <div className="ds-f">
-                                    {elem.field1 ? (
-                                      <p>{findNameByCat(elem.field1)}</p>
-                                    ) : (
-                                      <></>
-                                    )}
-                                    {elem.field2 ? (
-                                      <p>{findNameByCat(elem.field2)}</p>
-                                    ) : (
-                                      <></>
-                                    )}
-                                    {elem.field3 ? (
-                                      <p>{findNameByCat(elem.field3)}</p>
-                                    ) : (
-                                      <></>
-                                    )}
+                                    <p>{findNameByCat(elem.field1)}</p>
                                   </div>
-                                </div>
-                                <div class="hash">
-                                  <div class="ds-f">
-                                    {elem.character
-                                      .split(",")
-                                      .map((elem, index) => {
-                                        return <p>#{elem}</p>;
-                                      })}
+                                ) : (
+                                  <></>
+                                )}
+                                {elem.field2 ? (
+                                  <div className="ds-f">
+                                    <p>{findNameByCat(elem.field2)}</p>
                                   </div>
+                                ) : (
+                                  <></>
+                                )}
+                                {elem.field3 ? (
+                                  <div className="ds-f">
+                                    <p>{findNameByCat(elem.field3)}</p>
+                                  </div>
+                                ) : (
+                                  <></>
+                                )}
+
+                                {/* <div className="ds-f" style={{marginTop:"1rem"}}>
+                                  {elem.field2 ? (
+                                    <p>{findNameByCat(elem.field2)}</p>
+                                  ) : (
+                                    <></>
+                                  )}
+                                </div> */}
+                              </div>
+                              <div class="hash">
+                                <div class="ds-f">
+                                  {elem.character
+                                    .split(",")
+                                    .map((elem, index) => {
+                                      return <p>#{elem}</p>;
+                                    })}
                                 </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                        <div className="col-lg-auto col-12">
-                          <div className="info">
-                            <div className="star ">
-                              {/* <div className="ds-f ai-c jc-b">
-                            <p>별점</p>
-                            <div className="ds-f">
-                              <img src="images/icon/star-fill.png" alt="star" />
-                              <img src="images/icon/star-fill.png" alt="star" />
-                              <img src="images/icon/star-fill.png" alt="star" />
-                              <img src="images/icon/star-fill.png" alt="star" />
-                              <img src="images/icon/star-line.png" alt="star" />
+                      </div>
+                      <div
+                        className="col-lg-auto col-12"
+                        style={{ flex: "0 0 30%" }}
+                      >
+                        <div className="info">
+                          <div className="star "></div>
+                          <div className="review mb-10">
+                            <div className="ds-f ai-c jc-b">
+                              <p>상담 답변</p>
+                              <span>{elem.queryAnswer.length} 건</span>
                             </div>
-                          </div> */}
-                            </div>
-                            <div className="review mb-10">
+                          </div>
+                          <div className="phone mb-10">
+                            <Phone elem={elem}></Phone>
+                          </div>
+                          <div className="reservation">
+                            <a
+                              onClick={() => navigateToBooking(elem.expertNo)}
+                              className="ds-b"
+                            >
                               <div className="ds-f ai-c jc-b">
-                                <p>상담 답변</p>
-                                <span>{elem.queryAnswer.length} 건</span>
+                                <p>
+                                  <i className="ri-home-4-fill"></i>상담 예약
+                                </p>
+                                <span>바로가기</span>
                               </div>
-                            </div>
-                            <div className="phone mb-10">
-                              {/* <a
-                                href={`tel:${elem.phoneNumber}`}
-                                className="ds-b"
-                                // onClick={(e)=>{handleClick(e,elem.phoneNumber)}}
-                              >
-                                <div className="ds-f ai-c jc-b">
-                                  <p>
-                                    <i className="ri-phone-fill"></i>30분
-                                    전화상담
-                                  </p>
-                                </div>
-                              </a> */}
-                              <Phone elem={elem}></Phone>
-                            </div>
-                            <div className="reservation">
-                              <a
-                                onClick={() => navigateToBooking(elem.expertNo)}
-                                className="ds-b"
-                              >
-                                <div className="ds-f ai-c jc-b">
-                                  <p>
-                                    <i className="ri-home-4-fill"></i>상담 예약
-                                  </p>
-                                  <span>바로가기</span>
-                                </div>
-                              </a>
-                            </div>
+                            </a>
                           </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              );
+            })}
           </div>
           {totalCount && (
             <div

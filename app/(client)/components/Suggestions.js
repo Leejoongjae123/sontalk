@@ -5,7 +5,7 @@ import AOS from "aos";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/utils/supabase/client";
 import keywordList from "@/components/keywordList";
-import Link from 'next/link'
+import Link from "next/link";
 export default function Suggestions() {
   const [questions, setQuestions] = useState([]);
 
@@ -454,10 +454,37 @@ export default function Suggestions() {
                                 <Link
                                   href={`/counsel/${elem.questionNo.toString()}`}
                                 >
-                                  {elem.title}
+                                  <p
+                                    style={{
+                                      display: "-webkit-box",
+                                      WebkitBoxOrient: "vertical",
+                                      WebkitLineClamp: 1,
+                                      overflow: "hidden",
+                                      textOverflow: "ellipsis",
+                                      whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                                      lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                                      minHeight: "1.5em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                                    }}
+                                  >
+                                    {elem.title}
+                                  </p>
                                 </Link>
                               </div>
-                              <div className="content">{elem.description}</div>
+                              <div
+                                style={{
+                                  display: "-webkit-box",
+                                  WebkitBoxOrient: "vertical",
+                                  WebkitLineClamp: 2,
+                                  overflow: "hidden",
+                                  textOverflow: "ellipsis",
+                                  whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                                  lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                                  minHeight: "3em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                                }}
+                                className="content"
+                              >
+                                {elem.description}
+                              </div>
                               <div className="bh_row no-gutters info jc-b">
                                 <p>
                                   전문가 답변{" "}

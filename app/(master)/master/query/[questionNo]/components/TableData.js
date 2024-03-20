@@ -129,7 +129,7 @@ export default function TableData({ expertNo, questionNo }) {
         <TextField
           fullWidth
           variant="outlined"
-          label={query.secret?("비밀글 답변달기 불가"):("답변 달기")}
+          label={query.secret ? "비밀글 답변달기 불가" : "답변 달기"}
           multiline
           rows={4}
           value={commentText}
@@ -145,56 +145,84 @@ export default function TableData({ expertNo, questionNo }) {
           답변하기
         </Button>
       </CardContent>
-
-      <List
-        sx={{ width: "100%", bgcolor: "background.paper" }}
-        subheader={
-          <ListSubheader
-            sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
-            component="div"
-            id="nested-list-subheader"
-          >
-            답변 목록
-          </ListSubheader>
-        }
-      >
-        {/* 댓글 목록 헤더 */}
-        <ListItem>
-          <Grid container>
-            <Grid item xs={6}>
-              <ListItemText primary="내용" />
-            </Grid>
-            <Grid item xs={6}>
-              <ListItemText primary="작성자" />
-            </Grid>
-          </Grid>
-        </ListItem>
-
-        {/* 댓글 데이터 목록 */}
-        {comments.map((comment, index) => (
-          <ListItem key={index} divider>
-            <Grid container>
-              <Grid item xs={6}>
-                <ListItemText primary={comment.description} />
+      <div style={{ overflowX: "auto", width: "100%" }}>
+        <List
+          sx={{
+            width: "100%",
+            bgcolor: "background.paper",
+            overflow: "auto",
+            width: "100%",
+          }}
+          subheader={
+            <ListSubheader
+              sx={{ fontSize: "1.5rem", fontWeight: "bold" }}
+              component="div"
+              id="nested-list-subheader"
+            >
+              답변 목록
+            </ListSubheader>
+          }
+        >
+          {/* 댓글 목록 헤더 */}
+          {/* <ListItem>
+            <Grid container >
+              <Grid item xs={4} style={{ whiteSpace: "nowrap" }}>
+                <ListItemText primary="내용" />
               </Grid>
-              <Grid item xs={6}>
-                <div style={{ display: "flex" }}>
-                  <ListItemText primary={comment.expertNo.name} />
-                  <Button
-                    color="error"
-                    variant="contained"
-                    onClick={() => {
-                      handleDelete(comment.answerNo);
-                    }}
-                  >
-                    삭제
-                  </Button>
-                </div>
+              <Grid item xs={4} style={{ whiteSpace: "nowrap" }}>
+                <ListItemText primary="작성일" />
+              </Grid>
+              <Grid item xs={4}style={{ whiteSpace: "nowrap" }}>
+                <ListItemText primary="작성자" />
               </Grid>
             </Grid>
-          </ListItem>
-        ))}
-      </List>
+          </ListItem> */}
+
+          {/* 댓글 데이터 목록 */}
+          {comments.map((comment, index) => (
+            <ListItem key={index} divider style={{ whiteSpace: "nowrap" }}>
+              <Grid container >
+                <Grid item xs={12} >
+                  <ListItemText primary={comment.description} />
+                </Grid>
+                <Grid item xs={12} >
+                  <ListItemText primary={formatDate(comment.created_at)} />
+                </Grid>
+                <Grid item xs={12} >
+                  <div style={{ display: "flex" }}>
+                    <ListItemText primary={comment.expertNo.name} />
+                    {comment.expertNo.expertNo === expertNo ? (
+                      <Button
+                        color="error"
+                        variant="contained"
+                        onClick={() => {
+                          handleDelete(comment.answerNo);
+                        }}
+                      >
+                        삭제
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                  </div>
+                </Grid>
+              </Grid>
+            </ListItem>
+          ))}
+        </List>
+      </div>
     </Card>
   );
+}
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  // 월과 일은 0부터 시작하므로 1을 더해줍니다. 또한, 10 미만일 경우 앞에 '0'을 붙여줍니다.
+  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+  const day = date.getDate().toString().padStart(2, "0");
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  // 포맷에 맞게 연결하여 최종 문자열을 반환합니다.
+  return `${year}년 ${month}월 ${day}일 ${hours}시${minutes}분`;
 }
