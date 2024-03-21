@@ -26,19 +26,10 @@ function TalkTitle() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1);
-  // const fetchData = async () => {
-  //   let { data: talk, error } = await supabase
-  //     .from("talk")
-  //     .select("*,expertNo(*)")
-  //     .like("title", "%" + searchKeyword + "%")
-  //     .range((currentPage - 1) * 10, currentPage * 10);
-  //   if (searchKeyword) {
-  //     setTotalCount(talk.length);
-  //   }
-  //   setTalks(talk);
-  //   setIsComplete(true);
-  //   setTotalCount(Math.ceil(talk.length / 10));
-  // };
+  const [searchTerm, setSearchTerm] = useState('');
+    // 디바운스를 위한 상태
+    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+
   const fetchData = async () => {
     let {
       data: talk,
@@ -70,6 +61,7 @@ function TalkTitle() {
     setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
   };
 
+  
   // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
   const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
@@ -78,6 +70,28 @@ function TalkTitle() {
   const handleSearch = () => {
     setSearchComplete((prevState) => prevState + 1);
   };
+
+  useEffect(() => {
+    // 입력값이 변경되고 일정 시간(예: 500ms) 동안 변경되지 않으면 검색을 실행
+    const timerId = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 500);
+
+    // 컴포넌트가 언마운트되거나 입력값이 변경될 때마다 타이머를 초기화
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchTerm]);
+
+  useEffect(() => {
+    // debouncedSearchTerm이 변경될 때 검색 실행
+    if (debouncedSearchTerm) {
+      // 검색 로직
+      setSearchComplete((prevState) => prevState + 1);
+    }
+  }, [debouncedSearchTerm]);
+
+
 
   return (
     <>
@@ -98,7 +112,7 @@ function TalkTitle() {
               type="text"
               placeholder="제목, 내용을 입력해주세요."
               value={searchKeyword}
-              onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
+              onChange={(e)=>{handleInputChange(e),handleSearch(e)}} // input 값이 변경될 때 함수를 호출합니다.
             />
             <button type="button" onClick={handleSearch}>
               <i className="ri-search-line"></i>
@@ -150,10 +164,10 @@ function TalkTitle() {
                 </div>
               );
             })}
-            
+
         </div>
       </div>
-      {totalCount && (
+      {totalCount!=0 && (
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >

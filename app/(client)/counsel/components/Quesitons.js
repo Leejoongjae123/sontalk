@@ -16,6 +16,7 @@ export default function Quesitons() {
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
   }, []);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const [isComplete, setIsComplete] = useState(false);
   const [questions, setQuestions] = useState([]);
@@ -28,32 +29,34 @@ export default function Quesitons() {
   const [searchComplete, setSearchComplete] = useState(1);
   const [categoryName, setCategoryName] = useState("");
   const fetchData = async (searchKeyword) => {
-    let result
-    if (categoryName){
-      console.log("CASE1")
+    let result;
+    if (categoryName) {
+      console.log("CASE1");
       let { data: query, error } = await supabase
-      .from("query")
-      .select("*,queryAnswer(*,profiles(*))")
-      .like("title", "%" + searchKeyword + "%")
-      .order(activeTab, { ascending: false })
-      .range((currentPage - 1) * 10, currentPage * 10)
-      .or(`field1.eq.${categoryName},field2.eq.${categoryName},field3.eq.${categoryName}`)
-      .eq("secret", "false")
-      result=query
-    }else{
-      console.log("CASE2")
+        .from("query")
+        .select("*,queryAnswer(*,profiles(*))")
+        .like("title", "%" + searchKeyword + "%")
+        .order(activeTab, { ascending: false })
+        .range((currentPage - 1) * 10, currentPage * 10)
+        .or(
+          `field1.eq.${categoryName},field2.eq.${categoryName},field3.eq.${categoryName}`
+        )
+        .eq("secret", "false");
+      result = query;
+    } else {
+      console.log("CASE2");
       let { data: query, error } = await supabase
-      .from("query")
-      .select("*,queryAnswer(*,profiles(*))")
-      .like("title", "%" + searchKeyword + "%")
-      .order(activeTab, { ascending: false })
-      .range((currentPage - 1) * 10, currentPage * 10)
-      .eq("secret", "false")
-      result=query
+        .from("query")
+        .select("*,queryAnswer(*,profiles(*))")
+        .like("title", "%" + searchKeyword + "%")
+        .order(activeTab, { ascending: false })
+        .range((currentPage - 1) * 10, currentPage * 10)
+        .eq("secret", "false");
+      result = query;
     }
-    
+
     setTotalCount(Math.ceil(result.length / 10));
-    
+
     setQuestions(result);
     setIsComplete(true);
   };
@@ -65,7 +68,7 @@ export default function Quesitons() {
 
   useEffect(() => {
     fetchData(searchKeyword);
-  }, [currentPage, searchComplete,categoryName]);
+  }, [currentPage, searchComplete, categoryName,searchKeyword]);
 
   useEffect(() => {
     fetchTotal();
@@ -104,20 +107,45 @@ export default function Quesitons() {
 
   // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
   const handleInputChange = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setSearchKeyword(event.target.value);
   };
   // 버튼 클릭 시 실행할 함수입니다.
   const handleSearch = (event) => {
-    event.preventDefault()
+    event.preventDefault();
     setSearchComplete((prevState) => prevState + 1);
   };
+
   const handleCategory = (input) => {
     setCategoryName(input);
   };
 
-  console.log('categoryName:',categoryName);
+  // 디바운스를 위한 상태
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
+  useEffect(() => {
+    // 입력값이 변경되고 일정 시간(예: 500ms) 동안 변경되지 않으면 검색을 실행
+    const timerId = setTimeout(() => {
+      setDebouncedSearchTerm(searchTerm);
+    }, 1000);
+
+    // 컴포넌트가 언마운트되거나 입력값이 변경될 때마다 타이머를 초기화
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [searchTerm]);
+
+  useEffect(() => {
+    // debouncedSearchTerm이 변경될 때 검색 실행
+    if (debouncedSearchTerm) {
+      // 검색 로직
+      setSearchComplete((prevState) => prevState + 1);
+    }
+  }, [debouncedSearchTerm]);
+
+  const handleInputChange2 = (event) => {
+    setSearchTerm(event.target.value);
+  };
   return (
     <>
       <div
@@ -137,7 +165,7 @@ export default function Quesitons() {
               type="text"
               placeholder="제목, 내용을 입력해주세요."
               value={searchKeyword}
-              onChange={handleInputChange} // input 값이 변경될 때 함수를 호출합니다.
+              onChange={(e)=>{handleInputChange(e);handleInputChange2(e)}} // input 값이 변경될 때 함수를 호출합니다.
             />
             <button type="button" onClick={handleSearch}>
               <i className="ri-search-line"></i>
@@ -306,7 +334,7 @@ export default function Quesitons() {
             );
           })}
       </div>
-      {totalCount!==0 && (
+      {totalCount !== 0 && (
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
