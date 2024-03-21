@@ -28,19 +28,33 @@ export default function Quesitons() {
   const [searchComplete, setSearchComplete] = useState(1);
   const [categoryName, setCategoryName] = useState("");
   const fetchData = async (searchKeyword) => {
-    let { data: query, error } = await supabase
+    let result
+    if (categoryName){
+      console.log("CASE1")
+      let { data: query, error } = await supabase
       .from("query")
       .select("*,queryAnswer(*,profiles(*))")
       .like("title", "%" + searchKeyword + "%")
       .order(activeTab, { ascending: false })
       .range((currentPage - 1) * 10, currentPage * 10)
       .or(`field1.eq.${categoryName},field2.eq.${categoryName},field3.eq.${categoryName}`)
-      .eq("secret", "false");
-
-    if (searchKeyword) {
-      setTotalCount(Math.ceil(query.length / 10));
+      .eq("secret", "false")
+      result=query
+    }else{
+      console.log("CASE2")
+      let { data: query, error } = await supabase
+      .from("query")
+      .select("*,queryAnswer(*,profiles(*))")
+      .like("title", "%" + searchKeyword + "%")
+      .order(activeTab, { ascending: false })
+      .range((currentPage - 1) * 10, currentPage * 10)
+      .eq("secret", "false")
+      result=query
     }
-    setQuestions(query);
+    
+    setTotalCount(Math.ceil(result.length / 10));
+    
+    setQuestions(result);
     setIsComplete(true);
   };
 
@@ -67,7 +81,7 @@ export default function Quesitons() {
   const handleTagClick = (tag) => {
     // 이미 선택된 태그를 다시 클릭했는지 여부를 확인하고,
     // 해당되면 선택을 취소하고, 그렇지 않으면 새 태그를 선택합니다.
-    setSelectedTag(selectedTag === tag ? null : tag);
+    setSelectedTag(selectedTag === tag ? "" : tag);
   };
 
   const tags = [
@@ -90,10 +104,12 @@ export default function Quesitons() {
 
   // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
   const handleInputChange = (event) => {
+    event.preventDefault()
     setSearchKeyword(event.target.value);
   };
   // 버튼 클릭 시 실행할 함수입니다.
-  const handleSearch = () => {
+  const handleSearch = (event) => {
+    event.preventDefault()
     setSearchComplete((prevState) => prevState + 1);
   };
   const handleCategory = (input) => {
@@ -290,7 +306,7 @@ export default function Quesitons() {
             );
           })}
       </div>
-      {totalCount && (
+      {totalCount!==0 && (
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >
