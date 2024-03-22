@@ -30,6 +30,7 @@ export default function TableData({ expertNo }) {
       .from("talk")
       .select("*", { count: "exact" }) // 전체 데이터 개수도 함께 가져옵니다.
       // .eq("expertNo", parseInt(expertNo)) 조건이 필요하면 여기에 추가
+      .eq('expertNo',expertNo)
       .range(startIndex, startIndex + pageSize - 1);
     if (!error && talk) {
       setTalks(talk);

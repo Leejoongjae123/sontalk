@@ -76,6 +76,7 @@ export default async function page() {
                 <textarea
                   name="description"
                   placeholder="상담받고자 하는 내용을 구체적으로 작성해주세요."
+                  maxLength="200"
                   required
                 ></textarea>
               </div>
@@ -136,6 +137,7 @@ export default async function page() {
                   위 사항을 모두 확인하였으며, 이에 동의합니다.
                 </label>
               </div>
+              <p style={{fontSize:"12px",paddingLeft:'1rem'}}>(미동의 시 상담진행이 어려울 수 있습니다)</p>
             </div>
             <div className="ta-c">
               <button type="submit" className="submit_btn">

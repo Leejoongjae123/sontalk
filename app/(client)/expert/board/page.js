@@ -194,7 +194,7 @@ export default function ExpertBoard() {
               );
             })}
           </div>
-          {totalCount && (
+          {totalCount!=0 && (
             <div
               style={{
                 display: "flex",
