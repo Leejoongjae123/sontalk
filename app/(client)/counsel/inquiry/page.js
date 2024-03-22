@@ -16,7 +16,7 @@ export default async function page() {
     const title = formData.get("title");
     const name = formData.get("name");
     const email = formData.get("email");
-    const secret = formData.get('secret') ? false : true;
+    const secret = formData.get('secret') ? true : false;
     const description = formData.get("description");
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
@@ -70,7 +70,7 @@ export default async function page() {
             </div>
             <div className="info_box">
               <p className="subject">
-                상세내용(100자 이상)<em>*</em>
+                상세내용(200자 이하)<em>*</em>
               </p>
               <div className="input_box">
                 <textarea
