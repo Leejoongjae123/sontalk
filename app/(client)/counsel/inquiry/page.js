@@ -102,7 +102,6 @@ export default async function page() {
                   type="text"
                   placeholder="비밀글 작성하기 체크 시 회신받을 이메일을 입력해주세요"
                   name="email"
-                  required
                 />
               </div>
             </div>

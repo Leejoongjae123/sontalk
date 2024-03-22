@@ -68,7 +68,7 @@ export default function Quesitons() {
 
   useEffect(() => {
     fetchData(searchKeyword);
-  }, [currentPage, searchComplete, categoryName,searchKeyword]);
+  }, [currentPage, searchComplete, categoryName,searchKeyword,activeTab]);
 
   useEffect(() => {
     fetchTotal();
