@@ -4,6 +4,7 @@ import { Space, Table, Tag } from "antd";
 import { supabase } from "@/utils/supabase/client";
 import Button from "@mui/material/Button";
 import Link from "next/link";
+import moment from 'moment';
 
 export default function TableData({ expertNo }) {
   const { Column, ColumnGroup } = Table;
@@ -22,7 +23,8 @@ export default function TableData({ expertNo }) {
       .from("query")
       .select("*", { count: "exact" }) // 전체 데이터 개수도 함께 가져옵니다.
       // .eq("expertNo", parseInt(expertNo)) 조건이 필요하면 여기에 추가
-      .range(startIndex, startIndex + pageSize - 1);
+      .range(startIndex, startIndex + pageSize - 1)
+      .order('created_at', { ascending: false })
     if (!error && query) {
       setQuery(query);
       setTotal(count || 0); // 전체 데이터 개수를 상태에 저장
@@ -62,7 +64,7 @@ export default function TableData({ expertNo }) {
         title="제목"
         dataIndex="title"
         key="title"
-        width="40%"
+        width="20%"
         render={(text) => (
           <div
             style={{
@@ -97,6 +99,16 @@ export default function TableData({ expertNo }) {
         )}
       />
       {/* <Column title="비밀글여부" dataIndex="secret" key="secret" width="10%" /> */}
+      <Column
+        title="작성일"
+        dataIndex="created_at"
+        key="작성일"
+        width="10%"
+        render={(text) => {
+          // Use moment.js to format the date and time
+          return moment(text).format('YYYY년M월D일 HH시mm분');
+        }}
+      />
       <Column
         title="비밀글여부"
         dataIndex="secret"

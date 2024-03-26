@@ -149,8 +149,9 @@ export default function ExpertBoard() {
                                 <div class="ds-f">
                                   {elem.character
                                     .split(",")
+                                    .filter((elem) => elem.length > 1) // Add this line to filter out elements with a character count of 1 or less
                                     .map((elem, index) => {
-                                      return <p>#{elem}</p>;
+                                      return <p style={{fontWeight:'bold',fontSize:'1.5rem'}}>#{elem.trim()}</p>; // Added .trim() to remove any leading or trailing whitespace
                                     })}
                                 </div>
                               </div>
@@ -194,7 +195,7 @@ export default function ExpertBoard() {
               );
             })}
           </div>
-          {totalCount!=0 && (
+          {totalCount != 0 && (
             <div
               style={{
                 display: "flex",
