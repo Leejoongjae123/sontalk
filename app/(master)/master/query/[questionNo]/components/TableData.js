@@ -106,9 +106,9 @@ export default function TableData({ expertNo, questionNo }) {
             <>
               {" "}
               <p style={{ color: "red" }}>비밀글</p>
-              <p style={{ color: "red" }}>
+              {/* <p style={{ color: "red" }}>
                 ※비밀글은 하단의 개별 이메일을 통해서 답변해주세요
-              </p>
+              </p> */}
             </>
           ) : (
             <p style={{ color: "blue" }}>일반글</p>
@@ -134,13 +134,13 @@ export default function TableData({ expertNo, questionNo }) {
           rows={4}
           value={commentText}
           onChange={(e) => setCommentText(e.target.value)}
-          disabled={query.secret}
+          // disabled={query.secret}
         />
         <Button
           sx={{ mt: 2 }}
           variant="contained"
           onClick={handleCommentSubmit}
-          disabled={query.secret}
+          // disabled={query.secret}
         >
           답변하기
         </Button>

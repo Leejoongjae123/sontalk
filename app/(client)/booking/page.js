@@ -12,6 +12,7 @@ function Booking() {
     const name = formData.get("name") 
     const phoneNumber = formData.get("phoneNumber")
     const description = formData.get("description")
+    const timeAvailable = formData.get("timeAvailable")
     const supabase = createClient()
     console.log(supabase);
 
@@ -24,7 +25,7 @@ function Booking() {
     const { data, error } = await supabase
     .from('booking')
     .insert([
-      { name: name, phoneNumber: phoneNumber,description:description },
+      { name: name, phoneNumber: phoneNumber,description:description,timeAvailable:timeAvailable },
     ])
     .select()
         
@@ -79,7 +80,7 @@ function Booking() {
                     상담 가능 일정 <em>*</em>
                   </p>
                   <div className="input_box">
-                    <textarea style={{height:'15vh'}} placeholder={`정확한 날짜 기입 또는 요일과 가능 시간대 기입\n(ex.2024년 3월1일 13시~15시 혹은 월~수 12시 이후)`} name='description' required className="w-100"></textarea>
+                    <textarea style={{height:'15vh'}} placeholder={`정확한 날짜 기입 또는 요일과 가능 시간대 기입\n(ex.2024년 3월1일 13시~15시 혹은 월~수 12시 이후)`} name='timeAvailable' required className="w-100"></textarea>
                   </div>
                 </div>
               </div>

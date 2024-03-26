@@ -152,7 +152,7 @@ export function AccountDetailsForm({ email }) {
                   <MenuItem value={"R05"}>전주/전북</MenuItem>
                   <MenuItem value={"R03"}>부산/울산/경남</MenuItem>
                   <MenuItem value={"R09"}>광주/전남</MenuItem>
-                  <MenuItem value={"R09"}>제주</MenuItem>
+                  <MenuItem value={"R02"}>제주</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
