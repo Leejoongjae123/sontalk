@@ -34,7 +34,8 @@ export default function TableData({ expertNo, questionNo }) {
     let { data: queryAnswer, error } = await supabase
       .from("queryAnswer")
       .select("*,expertNo(*)")
-      .eq("questionNo", parseInt(questionNo));
+      .eq("questionNo", parseInt(questionNo))
+      .order("created_at", { ascending: false })
     setComments(queryAnswer);
   };
 
@@ -129,7 +130,7 @@ export default function TableData({ expertNo, questionNo }) {
         <TextField
           fullWidth
           variant="outlined"
-          label={query.secret ? "비밀글 답변달기 불가" : "답변 달기"}
+          label="답변 달기"
           multiline
           rows={4}
           value={commentText}

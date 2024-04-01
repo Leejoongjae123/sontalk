@@ -40,7 +40,7 @@ export default async function page({ params }) {
                           <li
                             key={index}
                             className="listItem"
-                            style={{ fontSize: "1rem" }}
+                            style={{ fontSize: "16px" }}
                           >
                             {elem}
                           </li>

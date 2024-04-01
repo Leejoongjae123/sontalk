@@ -138,7 +138,7 @@ export default function Forms({ email }) {
           <MenuItem value={"K09"}>상해</MenuItem>
           <MenuItem value={"K10"}>사망보험</MenuItem>
           <MenuItem value={"K11"}>의료보험</MenuItem>
-          <MenuItem value={"K11"}>자동차보험</MenuItem>
+          <MenuItem value={"K12"}>자동차보험</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth required>
@@ -160,7 +160,7 @@ export default function Forms({ email }) {
           <MenuItem value={"K09"}>상해</MenuItem>
           <MenuItem value={"K10"}>사망보험</MenuItem>
           <MenuItem value={"K11"}>의료보험</MenuItem>
-          <MenuItem value={"K11"}>자동차보험</MenuItem>
+          <MenuItem value={"K12"}>자동차보험</MenuItem>
         </Select>
       </FormControl>
       <FormControl fullWidth required>
@@ -182,7 +182,7 @@ export default function Forms({ email }) {
           <MenuItem value={"K09"}>상해</MenuItem>
           <MenuItem value={"K10"}>사망보험</MenuItem>
           <MenuItem value={"K11"}>의료보험</MenuItem>
-          <MenuItem value={"K11"}>자동차보험</MenuItem>
+          <MenuItem value={"K12"}>자동차보험</MenuItem>
         </Select>
       </FormControl>
       <Button

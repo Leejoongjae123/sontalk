@@ -26,9 +26,9 @@ function TalkTitle() {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1);
-  const [searchTerm, setSearchTerm] = useState('');
-    // 디바운스를 위한 상태
-    const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [searchTerm, setSearchTerm] = useState("");
+  // 디바운스를 위한 상태
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
 
   const fetchData = async () => {
     let {
@@ -61,7 +61,6 @@ function TalkTitle() {
     setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
   };
 
-  
   // input 값이 변경될 때마다 searchKeyword 상태를 업데이트합니다.
   const handleInputChange = (event) => {
     setSearchKeyword(event.target.value);
@@ -91,8 +90,6 @@ function TalkTitle() {
     }
   }, [debouncedSearchTerm]);
 
-
-
   return (
     <>
       <div
@@ -112,7 +109,9 @@ function TalkTitle() {
               type="text"
               placeholder="제목, 내용을 입력해주세요."
               value={searchKeyword}
-              onChange={(e)=>{handleInputChange(e),handleSearch(e)}} // input 값이 변경될 때 함수를 호출합니다.
+              onChange={(e) => {
+                handleInputChange(e), handleSearch(e);
+              }} // input 값이 변경될 때 함수를 호출합니다.
             />
             <button type="button" onClick={handleSearch}>
               <i className="ri-search-line"></i>
@@ -137,9 +136,15 @@ function TalkTitle() {
                         <p>{elem.description}</p>
                       </div>
                       <div className="keyword">
-                        <span>#{findNameByKey(elem.keyword1)}</span>
-                        <span>#{findNameByKey(elem.keyword2)}</span>
-                        <span>#{findNameByKey(elem.keyword3)}</span>
+                        {elem.keyword1 && (
+                          <span>#{findNameByKey(elem.keyword1)}</span>
+                        )}
+                        {elem.keyword2 && (
+                          <span>#{findNameByKey(elem.keyword2)}</span>
+                        )}
+                        {elem.keyword3 && (
+                          <span>#{findNameByKey(elem.keyword3)}</span>
+                        )}
                       </div>
                       <div className="info">
                         <div className="ds-f ai-c jc-b bh-flex-flex-wrap">
@@ -164,10 +169,9 @@ function TalkTitle() {
                 </div>
               );
             })}
-
         </div>
       </div>
-      {totalCount!=0 && (
+      {totalCount != 0 && (
         <div
           style={{ display: "flex", justifyContent: "center", width: "100%" }}
         >

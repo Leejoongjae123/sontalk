@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
+import moment from 'moment';
+import { useRouter } from "next/navigation";
 
 const theme = createTheme({
   palette: {
@@ -34,7 +36,6 @@ function PrevHistory({ expertNo }) {
     setPageCount((prevPageCount) => prevPageCount + 3);
   };
 
-  console.log("pageCount:", pageCount);
 
   return (
     <div className="option2">
@@ -66,7 +67,7 @@ function PrevHistory({ expertNo }) {
                 <div className="inner">
                   <div className="category">{elem.category}</div>
                   <p style={{ borderBottom: "1px solid #eee" }}>
-                    일자 : 2024.01.10
+                    일자 : {moment(elem.regiDate).format('YYYY년M월D일')}
                   </p>
                   <p style={{ borderBottom: "1px solid #eee" }}>
                     보험사 : {elem.company}

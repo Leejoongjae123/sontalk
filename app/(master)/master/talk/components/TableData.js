@@ -12,15 +12,7 @@ export default function TableData({ expertNo }) {
   const [total, setTotal] = useState(0); // 전체 데이터 개수를 저장할 상태
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10; // 한 페이지에 표시할 데이터 개수
-
-  // const fetchData = async () => {
-  //   let { data: talk, error } = await supabase
-  //     .from("talk")
-  //     .select("*")
-  //     .eq("expertNo", parseInt(expertNo))
-  //     .range((currentPage - 1) * 10, currentPage * 10);
-  //   setTalks(talk);
-  // };
+  
   const fetchData = async () => {
     const startIndex = (currentPage - 1) * pageSize;
     let {

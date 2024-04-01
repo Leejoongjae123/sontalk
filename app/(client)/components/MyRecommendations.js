@@ -16,7 +16,7 @@ function MyRecommendations() {
     <section className="section section4">
       <div className="bh_wrap">
         <div className="bh_row no-gutters ai-c">
-          <div className="col-lg-auto col-12">
+          <div className="col-lg-auto col-12" style={{width:"30%"}}>
             <div className="txt_box">
               <span>손TOP</span>
               <h3>
@@ -40,9 +40,10 @@ function MyRecommendations() {
             <div className="circle_box ta-c po-r">
               <div className="inner">
                 <span>전화문의</span>
-                
-                <a
-        href={`tel:1670-8684`}><h5>1670-8684</h5></a>
+
+                <a href={`tel:1670-8684`}>
+                  <h5>1670-8684</h5>
+                </a>
               </div>
             </div>
           </div>
@@ -57,10 +58,34 @@ function MyRecommendations() {
                 <a href="/expert" className="ds-b">
                   빠르게 전문가 찾기<i className="ri-arrow-right-line"></i>
                 </a>
-                <img src="images/main/sec4_img1.png" alt="img" className="point" />
+                <img
+                  src="images/main/sec4_img1.png"
+                  alt="img"
+                  className="point"
+                />
               </div>
             </div>
           </div>
+          <div className="col-lg-auto col-12 mobile-margin-top" >
+            <div className="circle_box2 ta-c po-r">
+              <div className="inner" style={{padding:"1.5rem"}}>
+                <p style={{fontSize:"24px",fontWeight:'bold'}}>
+                  MRPASS
+                </p>
+                <a target="_blank" href="https://www.mrpass.net/" className="ds-b" style={{fontSize:'16px'}}>
+                  청구에 필요한 병원서류발급만 필요하시면 여기로!<i className="ri-arrow-right-line"></i>
+                </a>
+                <img
+                  src="images/main/document.png"
+                  alt="img"
+                  className="point"
+                  style={{width:"40%"}}
+                />
+              </div>
+            </div>
+          </div>
+
+
         </div>
       </div>
     </section>

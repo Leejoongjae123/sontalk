@@ -1584,3 +1584,9 @@
       font-size: 3.5rem !important;
     }
   }
+
+  @media (max-width: 768px) {
+    .mobile-margin-top {
+      margin-top: 5%;
+    }
+  }

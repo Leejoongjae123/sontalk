@@ -41,6 +41,10 @@ function Recommendations() {
     };
   }, []);
 
+  const handleCardClick = (elem) => {
+    router.push(`/talk/${elem.talkNo}`);
+  };
+  
   return (
     <section className="section section3">
       <div className="bh_wrap">
@@ -79,60 +83,63 @@ function Recommendations() {
               {talks &&
                 talks.map((elem, index) => {
                   return (
-                    <div className="swiper-slide slide1 po-r">
-                      <div className="inner">
-                        <div
-                          className="profile_img"
-                          style={{ display: "flex", justifyContent: "center" }}
-                        >
-                          <img
-                            className="responsive-img3"
-                            src={elem.expertNo.imageUrl}
-                            alt="profile"
-                          />
-                        </div>
-                        <div className="ds-f ai-c name">
-                          <i className="ri-account-pin-circle-fill"></i>
-                          <p className="fw-m">
-                            {elem.expertNo.name} 손해사정사
-                          </p>
-                        </div>
-                        <Link
-                          style={{ zIndex: 50 }}
-                          href={`/talk/${elem.talkNo}`}
-                        >
+                    <div className="swiper-slide slide1 po-r" onClick={()=>{handleCardClick(elem)}}>
+                        <div className="inner">
+                          <div
+                            className="profile_img"
+                            style={{
+                              display: "flex",
+                              justifyContent: "center",
+                            }}
+                          >
+                            <img
+                              className="responsive-img3"
+                              src={elem.expertNo.imageUrl}
+                              alt="profile"
+                            />
+                          </div>
+                          <div className="ds-f ai-c name">
+                            <i className="ri-account-pin-circle-fill"></i>
+                            <p className="fw-m">
+                              {elem.expertNo.name} 손해사정사
+                            </p>
+                          </div>
                           <h3
-                          style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 2,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
-                            lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
-                            minHeight: "3em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
-                          }}
-                          
-                          >{elem.title}</h3>{" "}
-                        </Link>
-
-                        <p                           style={{
-                            display: "-webkit-box",
-                            WebkitBoxOrient: "vertical",
-                            WebkitLineClamp: 3,
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
-                            lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
-                            minHeight: "4.5em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
-                          }}>{elem.description}</p>
-                        <div className="category">
-                          <div className="ds-f ai-c">
-                            <i className="ri-check-fill"></i>
-                            <p>{findNameByCat(elem.field1)}</p>
+                            style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 2,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                              lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                              minHeight: "3em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                            }}
+                          >
+                            {elem.title}
+                          </h3>{" "}
+                          <p
+                            style={{
+                              display: "-webkit-box",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 3,
+                              overflow: "hidden",
+                              textOverflow: "ellipsis",
+                              whiteSpace: "normal", // 'pre-wrap' 대신 'normal'을 사용합니다.
+                              lineHeight: "1.5", // 줄 높이를 설정하여 텍스트 줄 수를 조절합니다.
+                              minHeight: "4.5em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
+                            }}
+                          >
+                            {elem.description}
+                          </p>
+                          <div className="category">
+                            <div className="ds-f ai-c">
+                              <i className="ri-check-fill"></i>
+                              <p>{findNameByCat(elem.field1)}</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
+
                     </div>
                   );
                 })}

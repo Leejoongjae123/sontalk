@@ -131,7 +131,7 @@ export function AccountDetailsForm({ email }) {
                   placeholder={`대학교졸업\n중학교졸업\n1년근무`}
                   onChange={handleChange3}
                 />
-                <h4>(※쉼표로 구분하여 적어주세요)</h4>
+                <h4>(쉼표 입력 시 줄바꿈이 됩니다)</h4>
               </FormControl>
             </Grid>
 
