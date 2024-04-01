@@ -258,7 +258,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R07")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R07")}
@@ -271,7 +271,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R06")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R06")}
@@ -284,7 +284,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R01")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R01")}
@@ -297,7 +297,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R04")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R04")}
@@ -324,7 +324,7 @@ export default function Suggestions() {
                       </div>
                     )}
 
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R05")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R05")}
@@ -337,7 +337,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R03")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R03")}
@@ -350,7 +350,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R09")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R09")}
@@ -363,7 +363,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R02")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R02")}
