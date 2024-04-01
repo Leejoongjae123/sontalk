@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 import keywordList from "@/components/keywordList";
-
+import { useRouter } from "next/navigation";
 const theme = createTheme({
   palette: {
     // primary 색상을 회색 계열로 설정
@@ -19,6 +19,8 @@ export default function QueryAnswer({ expertNo }) {
   // const [historyCount, setHistoryCount] = useState(0)
   const [answerCount, setAnswerCount] = useState(0);
   const [pageCount, setPageCount] = useState(3);
+  const router = useRouter();
+
   const fetchData = async () => {
     let { data: queryAnswer, error2 } = await supabase
       .from("queryAnswer")
@@ -40,7 +42,9 @@ export default function QueryAnswer({ expertNo }) {
     setPageCount((prevPageCount) => prevPageCount + 3);
   };
 
-  console.log("pageCount:", pageCount);
+  const handleCardClick = (elem) => {
+    router.push(`/counsel/${elem.questionNo}`);
+  };
 
   return (
     <div className="option2">
@@ -68,7 +72,7 @@ export default function QueryAnswer({ expertNo }) {
         <div className="bh_row op2 gutters-10">
           {answer.map((elem, index) => {
             return (
-              <div className="col-lg-4 col-12 m-mb-20 mb-10">
+              <div className="col-lg-4 col-12 m-mb-20 mb-10" onClick={()=>{handleCardClick(elem)}} style={{cursor:'pointer'}}>
                 <div className="inner">
                   {elem.field1 ? (
                     <div className="category">{findNameByCat(elem.field1)}</div>

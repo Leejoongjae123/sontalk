@@ -4,6 +4,7 @@ import { supabase } from "@/utils/supabase/client";
 import { Button, ThemeProvider, createTheme } from "@mui/material";
 import categoryList from "@/components/categoryList";
 import keywordList from "@/components/keywordList";
+import { useRouter } from "next/navigation";
 
 const theme = createTheme({
   palette: {
@@ -20,6 +21,9 @@ export default function Talk({ expertNo }) {
   // const [historyCount, setHistoryCount] = useState(0)
   const [talkCount, setTalkCount] = useState(0);
   const [pageCount, setPageCount] = useState(3);
+
+  const router = useRouter();
+
   const fetchData = async () => {
     let { data: talk, error2 } = await supabase
       .from("talk")
@@ -39,6 +43,10 @@ export default function Talk({ expertNo }) {
 
   const showMore1 = () => {
     setPageCount((prevPageCount) => prevPageCount + 3);
+  };
+
+  const handleCardClick = (elem) => {
+    router.push(`/talk/${elem.talkNo}`);
   };
 
   return (
@@ -67,7 +75,7 @@ export default function Talk({ expertNo }) {
         <div className="bh_row op2 gutters-10">
           {talk.map((elem, index) => {
             return (
-              <div className="col-lg-4 col-12 m-mb-20 mb-10">
+              <div className="col-lg-4 col-12 m-mb-20 mb-10" onClick={()=>{handleCardClick(elem)}} style={{cursor:'pointer'}}>
                 <div className="inner">
                   <div className="category">{findNameByCat(elem.field1)}</div>
                   <h3

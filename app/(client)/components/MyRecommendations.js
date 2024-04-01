@@ -72,7 +72,7 @@ function MyRecommendations() {
                 <p style={{fontSize:"24px",fontWeight:'bold'}}>
                   MRPASS
                 </p>
-                <a target="_blank" href="https://www.mrpass.net/" className="ds-b" style={{fontSize:'16px'}}>
+                <a target="_blank" href="https://www.mrpass.net/" className="ds-b" style={{fontSize:'16px',fontWeight:'normal'}}>
                   청구에 필요한 병원서류발급만 필요하시면 여기로!<i className="ri-arrow-right-line"></i>
                 </a>
                 <img

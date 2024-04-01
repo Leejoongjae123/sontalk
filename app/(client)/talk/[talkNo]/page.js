@@ -66,7 +66,7 @@ export default async function page({params}) {
               <div className="col-auto">
                 <div className="ds-f ai-c name">
                   <i className="ri-account-pin-circle-fill fw-l"></i>
-                  <p className="fw-m">{talk[0].expertName} 손해사정사</p>
+                  <p className="fw-m">손TOP {talk[0].profiles.branch} {talk[0].profiles.name} 손해사정사</p>
                 </div>
               </div>
               <div className="col-auto">
@@ -129,7 +129,7 @@ export default async function page({params}) {
                           <img style={{borderRadius:"100%"}}src={talk[0]?.profiles?.imageUrl} alt="img" />
                         </div>
                         <div className="txt_box">
-                          <h3>손TOP {findNameByCat(talk[0]?.profiles?.region)}</h3>
+                          <h3>손TOP {talk[0].profiles.branch}</h3>
                           <p>{talk[0]?.profiles?.name} 손해사정사</p>
                         </div>
                       </div>

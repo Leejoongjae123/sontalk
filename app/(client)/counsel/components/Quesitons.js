@@ -7,6 +7,8 @@ import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import Link from "next/link";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useRouter } from "next/navigation";
+
 export default function Quesitons() {
   useEffect(() => {
     // AOS 초기화
@@ -28,6 +30,9 @@ export default function Quesitons() {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [searchComplete, setSearchComplete] = useState(1);
   const [categoryName, setCategoryName] = useState("");
+
+  const router = useRouter();
+
   const fetchData = async (searchKeyword) => {
     let result;
     if (categoryName) {
@@ -146,6 +151,11 @@ export default function Quesitons() {
   const handleInputChange2 = (event) => {
     setSearchTerm(event.target.value);
   };
+
+  const handleCardClick = (elem) => {
+    router.push(`/counsel/${elem.questionNo}`);
+  };
+
   return (
     <>
       <div
@@ -249,8 +259,8 @@ export default function Quesitons() {
             const selectedAnswer = representativeAnswer || latestAnswer;
 
             return (
-              <div className={`item item${index + 1}`} key={index}>
-                <div className="item_inner">
+              <div className={`item item${index + 1}`} key={index} onClick={()=>{handleCardClick(elem)}} style={{cursor:'pointer'}}>
+                <div className="item_inner" >
                   <div className="catagory">
                     <div className="ds-f">
                       {elem.field1 ? (
@@ -270,7 +280,7 @@ export default function Quesitons() {
                       )}
                     </div>
                   </div>
-                  <div className="title">
+                  <div className="title" >
                     <Link href={`/counsel/${elem.questionNo.toString()}`}>
                       {elem.title}
                     </Link>

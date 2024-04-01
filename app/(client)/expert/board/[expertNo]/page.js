@@ -58,21 +58,11 @@ export default async function page({ params }) {
               <div className="right_area">
                 <div className="img_box po-r" style={{display:"flex"}}>
                   <img className="responsive-img"  src={profiles.imageUrl} alt="img" />
-                  {/* <div className="profile">
-                    <p>손TOP 서울 강남구</p>
-                    <div className="ds-f ai-c name">
-                      <i className="ri-account-pin-circle-fill fw-l"></i>
-                      <p className="fw-m">홍길동 손해사정사</p>
-                    </div>
-                  </div> */}
                 </div>
                 <div>
-                  <p className="fw-b ml-5" style={{fontSize:"24px",textAlign:'center',margin:"1rem 0 1rem 0"}}>{profiles.name} 손해사정사</p>
+                  <p className="fw-b ml-5" style={{fontSize:"24px",textAlign:'center',margin:"1rem 0 1rem 0"}}>
+                  손TOP {profiles.branch}<br/> {profiles.name} 손해사정사</p>
                 </div>
-
-                {/* <a href="#" className="ds-b mb-10 ta-c">
-                  <i className="ri-phone-fill"></i>전화 상담
-                </a> */}
                 <Phone profiles={profiles}></Phone>
                 <a href={`/booking?expertNo=${expertNo}`} className="ds-b ta-c">
                   <i className="ri-home-4-fill"></i>상담 예약

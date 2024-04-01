@@ -112,7 +112,7 @@ export default function Inquiry() {
                   />
                   <label htmlFor="accept_disagreement">비동의</label>
                 </div>
-                (미동의 시 상담진행이 어려울 수 있습니다)
+                (비동의 시 상담진행이 어려울 수 있습니다)
               </div>
               
             </div>

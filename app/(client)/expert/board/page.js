@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/utils/supabase/client";
 import categoryList from "@/components/categoryList";
 import { useSearchParams } from "next/navigation";
-import { useRouter } from "next/navigation";
 import Phone from "./components/Phone";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
+import { useRouter } from "next/navigation";
 
 export default function ExpertBoard() {
   const searchParams = useSearchParams();
@@ -18,6 +18,7 @@ export default function ExpertBoard() {
   const [totalCount, setTotalCount] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [experts, setExperts] = useState();
+
   const fetchData = async () => {
     if (search.includes("R")) {
       let { data: profiles, error } = await supabase
@@ -63,6 +64,10 @@ export default function ExpertBoard() {
     setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
   };
 
+  const handleCardClick = (elem) => {
+    router.push(`/expert/board/${elem.expertNo}`);
+  };
+
   return (
     <div className="body">
       <div className="expert_board_wrap">
@@ -71,7 +76,7 @@ export default function ExpertBoard() {
           <div className="board_wrap">
             {experts?.map((elem, index) => {
               return (
-                <div className="item item1">
+                <div className="item item1" onClick={()=>{handleCardClick(elem)}} style={{cursor:'pointer'}}>
                   <div className="item_inner po-r">
                     <div className="bh_row no-gutters jc-b">
                       <div
@@ -101,7 +106,7 @@ export default function ExpertBoard() {
                             <div className="txt_box">
                               <h3>
                                 <a href={`/expert/board/${elem.expertNo}`}>
-                                  손TOP {findNameByCat(elem.region)}
+                                  손TOP {elem.branch}
                                 </a>
                               </h3>
                               <div className="ds-f ai-c name">
