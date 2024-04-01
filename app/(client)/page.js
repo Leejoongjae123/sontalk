@@ -25,7 +25,7 @@ export default async function Index() {
   return (
     <div className="body">
       <Slider></Slider>
-      {/* <SearchBar></SearchBar> */}
+      <SearchBar></SearchBar>
       <Suggestions></Suggestions>
       <Recommendations></Recommendations>
       <MyRecommendations></MyRecommendations>

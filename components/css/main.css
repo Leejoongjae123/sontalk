@@ -3680,3 +3680,8 @@ border:#eee 2px solid;
   margin-top: 1rem;
   
 }
+
+.responsive-img {
+  width: 2vw;
+  height: auto;
+}

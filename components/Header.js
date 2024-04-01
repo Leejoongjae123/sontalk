@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 
 export default async function Header() {
-  
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -13,7 +12,6 @@ export default async function Header() {
     data: { user },
   } = await supabase?.auth.getUser();
 
-  
   const signOut = async () => {
     "use server";
 
@@ -21,8 +19,7 @@ export default async function Header() {
     const supabase = createClient(cookieStore);
     await supabase.auth.signOut();
     return redirect("/");
-  };  
-  
+  };
 
   return (
     <>
@@ -47,7 +44,16 @@ export default async function Header() {
                     </li>
                     <li className="fw-m">
                       <form action={signOut}>
-                        <button style={{backgroundColor:'white',fontSize:'0.9rem',cursor:'pointer',color:'#757575'}}>로그아웃</button>
+                        <button
+                          style={{
+                            backgroundColor: "white",
+                            fontSize: "0.9rem",
+                            cursor: "pointer",
+                            color: "#757575",
+                          }}
+                        >
+                          로그아웃
+                        </button>
                       </form>
                     </li>
                   </ul>
@@ -63,7 +69,10 @@ export default async function Header() {
                 )}
               </div>
             </div>
-            <div className="main_menu">
+            <div
+              className="main_menu"
+              style={{ display: "flex", justifyContent: "space-between" }}
+            >
               <ul className="ds-f">
                 <li className="fw-m">
                   <a href="/about">About Us</a>
@@ -80,6 +89,38 @@ export default async function Header() {
                 <li className="fw-m">
                   <a href="/inquiry">맞춤 손사추천</a>
                 </li>
+              </ul>
+
+              <ul className="ds-f" style={{width:"20%",display:'flex',justifyContent:'center',alignItems:'center'}} >
+                <li className="fw-m">
+                  <a href="https://www.mrpass.net/" target="_blank">
+                    <img
+                      src="images/main/mrpass.png"
+                      alt=""
+                      style={{width:"5vw"}}
+                    />
+                  </a>
+                </li>
+                <li className="fw-m">
+                  <a href="https://www.youtube.com/@mrsontop" target="_blank">
+                  <img
+                      className="responsive-img"
+                      src="images/main/youtube.png"
+                      alt=""
+                    />
+                  </a>
+                </li>
+                <li className="fw-m">
+                  <a href="https://blog.naver.com/mrsontop" target="_blank">
+                  <img
+                      className="responsive-img"
+                      src="images/main/blog.png"
+                      alt=""
+                      style={{marginTop:"10%"}}
+                    />
+                  </a>
+                </li>
+
               </ul>
             </div>
           </div>

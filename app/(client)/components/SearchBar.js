@@ -13,17 +13,9 @@ function SearchBar() {
       duration: 1500, // 전역 기본 지속 시간 설정
       once: true, // 스크롤 다운시 애니메이션 한 번만 실행
     });
-    queryData()
   }, []);
-
-  const queryData=()=>{
-    const router=useRouter()
-    const query=router.query
-    console.log(query)
-  }
   
-  
-  
+   
 
   return (
     <section className="section section1">
@@ -32,7 +24,7 @@ function SearchBar() {
           <div className="ds-f ai-c jc-c">
             <img src="images/main/sec1_img.png" alt="img" />
             <h3 className="fw-b">
-              <em>어떤 점</em>이 궁금하신가요?
+              어떤 <em>보험정구</em>를 준비하고 계시나요?(예 : 자동차보험, 진단비)
             </h3>
           </div>
         </div>
@@ -40,7 +32,7 @@ function SearchBar() {
           <div className="ds-f jc-c">
             <input
               type="text"
-              placeholder="상담분야 또는 전문가 이름을 입력해 주세요."
+              placeholder="궁금한 단어를 입력해주세요! 예) 백내장, 줄기세포 등"
             />
             <button type="submit">
               <i className="ri-search-line"></i>
