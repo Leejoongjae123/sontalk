@@ -104,7 +104,7 @@ export default async function Header() {
                 <li className="fw-m">
                   <a href="https://www.youtube.com/@mrsontop" target="_blank">
                   <img
-                      className="responsive-img"
+                      className="responsive-images"
                       src="images/main/youtube.png"
                       alt=""
                     />
@@ -113,7 +113,7 @@ export default async function Header() {
                 <li className="fw-m">
                   <a href="https://blog.naver.com/mrsontop" target="_blank">
                   <img
-                      className="responsive-img"
+                      className="responsive-images"
                       src="images/main/blog.png"
                       alt=""
                       style={{marginTop:"10%"}}
