@@ -245,10 +245,10 @@ export default function Suggestions() {
                       isOptionVisible.rw2 ? "" : "none"
                     }`}
                   >
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
-                          onClick={() => navigateToBoard("R08")}
+                          
                           className="ds-f po-r ai-c jc-c"
                         >
                           <div className="txt_box">
@@ -258,7 +258,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R07")}
@@ -271,7 +271,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R06")}
@@ -284,7 +284,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R01")}
@@ -297,7 +297,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R04")}
@@ -324,7 +324,7 @@ export default function Suggestions() {
                       </div>
                     )}
 
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R05")}
@@ -337,7 +337,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R03")}
@@ -350,7 +350,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R09")}
@@ -363,7 +363,7 @@ export default function Suggestions() {
                         </a>
                       </div>
                     </div>
-                    <div className="col-lg-2 col-6">
+                    <div className="col-lg-2 col-6" onClick={() => navigateToBoard("R08")}>
                       <div className="inner ta-c">
                         <a
                           onClick={() => navigateToBoard("R02")}
