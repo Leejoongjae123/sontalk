@@ -21,8 +21,6 @@ export default function Title() {
   const page = searchParams.get('page')
 
   const result=findCategory(search)
-  console.log(search)
-  console.log(page)
   
   return (
     <div className="board_title_area">
