@@ -48,6 +48,7 @@ export default function SearchBar() {
     .select("*")
     .or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%`)
     .range(0,1)
+    .order('count',{ ascending: false })
     setQuery(query)
 
     let {
