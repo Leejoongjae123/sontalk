@@ -11,15 +11,14 @@ export default function Policy() {
   };
   return (
     <>
-      <a onClick={handleClick}>[자세히보기]</a>
+      <a onClick={handleClick}>이용약관</a>
 
       {isModalOpen && (
         <div style={modalStyle}>
           <div style={modalContentStyle}>
-            <h2 style={{ fontSize: "20px", textAlign: "center" }}>약관</h2>
+            <h2 style={{ fontSize: "20px", textAlign: "center" }}>서비스 이용 약관</h2>
             <p style={{ fontSize: "16px",whiteSpace:'pre-wrap' }}>
-            {`서비스 이용약관
-
+            {`
 [제1장] 총칙
 제1조 (목적)
 본 약관은 ㈜MR병원서류발급(이하 ‘회사’)가 제공하는 손탑 서비스(이하 ‘서비스’) 를 이용함에 있어 회사와 회원과의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 한다.
@@ -263,8 +262,13 @@ export default function Policy() {
             </div>
           </div>
         </div>
-      )}
+
+      )
+
+      }
+      
     </>
+    
   );
 }
 
@@ -280,7 +284,7 @@ const modalStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  
+  zIndex:9999,  
 };
 
 // 모달 내용 스타일

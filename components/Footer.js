@@ -1,5 +1,7 @@
 import React from "react";
 import ScrollToTop from './ScrollToTop'
+import Service from './Service'
+import Privacy from './Privacy'
 export default function Footer() {
 
   // 페이지 최상단으로 스크롤하는 함수
@@ -17,10 +19,8 @@ export default function Footer() {
           <div className="bh_wrap">
             <div className="f_menu">
               <div className="ds-f">
-                <a href="#">이용약관</a>
-                <a href="#" className="fw-b">
-                  개인정보처리방침
-                </a>
+                <Service></Service>
+                <Privacy></Privacy>
               </div>
             </div>
             <div className="f_info">
