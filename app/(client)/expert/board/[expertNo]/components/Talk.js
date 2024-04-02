@@ -97,7 +97,9 @@ export default function Talk({ expertNo }) {
                     }}
                     className="content"
                   >
-                    {elem.description}
+                                                <div dangerouslySetInnerHTML={createMarkup(elem.description)}></div>
+
+                    {/* {elem.description} */}
                   </p>
                 </div>
               </div>
@@ -132,4 +134,10 @@ function daysAgoFormatted(dateString) {
 function findNameByCat(catValue) {
   const item = categoryList?.find((item) => item.cat === catValue);
   return item ? item.name : "해당하는 카테고리가 없습니다.";
+}
+
+function createMarkup(description) {
+  // img 태그를 찾아서 제거하는 정규식
+  const cleanedDescription = description.replace(/<img[^>]*>/g, "");
+  return { __html: cleanedDescription };
 }

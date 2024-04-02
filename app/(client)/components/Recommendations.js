@@ -130,7 +130,8 @@ function Recommendations() {
                               minHeight: "4.5em", // 최대 높이를 (줄 높이 * 줄 수)로 설정합니다.
                             }}
                           >
-                            {elem.description}
+                            {/* {elem.description} */}
+                            <div dangerouslySetInnerHTML={createMarkup(elem.description)}></div>
                           </p>
                           <div className="category">
                             <div className="ds-f ai-c">
@@ -166,4 +167,10 @@ function findNameByKey(catValue) {
 function findNameByCat(catValue) {
   const item = categoryList?.find((item) => item.cat === catValue);
   return item ? item.name : "해당하는 카테고리가 없습니다.";
+}
+
+function createMarkup(description) {
+  // img 태그를 찾아서 제거하는 정규식
+  const cleanedDescription = description.replace(/<img[^>]*>/g, "");
+  return { __html: cleanedDescription };
 }
