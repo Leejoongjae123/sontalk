@@ -12,7 +12,7 @@ export default function TableData({ expertNo }) {
   const [total, setTotal] = useState(0); // 전체 데이터 개수를 저장할 상태
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 10; // 한 페이지에 표시할 데이터 개수
-  
+
   const fetchData = async () => {
     const startIndex = (currentPage - 1) * pageSize;
     let {
@@ -78,14 +78,6 @@ export default function TableData({ expertNo }) {
           </div>
         )}
       />
-      {/* <Column title="title" dataIndex="title" key="title" width="40%" /> */}
-
-      {/* <Column
-        title="description"
-        dataIndex="description"
-        key="description"
-        width="40%"
-      /> */}
       <Column
         title="내용"
         dataIndex="description"
@@ -96,12 +88,13 @@ export default function TableData({ expertNo }) {
             style={{
               display: "-webkit-box",
               WebkitBoxOrient: "vertical",
-              WebkitLineClamp: 5,
+              WebkitLineClamp: 2,
               overflow: "hidden",
               textOverflow: "ellipsis",
             }}
+            dangerouslySetInnerHTML={{ __html: text }}
           >
-            {text}
+            
           </div>
         )}
       />

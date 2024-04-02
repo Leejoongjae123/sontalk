@@ -133,7 +133,10 @@ function TalkTitle() {
                       </div>
                       <div className="title">{elem.title}</div>
                       <div className="content ellipsis">
-                        <p>{elem.description}</p>
+                        {/* <p>{elem.description}</p> */}
+                        <div
+                        dangerouslySetInnerHTML={createMarkup(elem.description)}>
+                        </div>
                       </div>
                       <div className="keyword">
                         {elem.keyword1 && (
@@ -226,4 +229,10 @@ function formatDate(dateString) {
 
   // "XXXX.XX.XX" 형식으로 반환
   return `${year}.${month}.${day}`;
+}
+
+function createMarkup(description) {
+  // img 태그를 찾아서 제거하는 정규식
+  const cleanedDescription = description.replace(/<img[^>]*>/g, "");
+  return { __html: cleanedDescription };
 }

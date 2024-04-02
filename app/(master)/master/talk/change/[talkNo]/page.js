@@ -13,6 +13,8 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Unstable_Grid2";
 import redirect from "next/navigation";
 import { useRouter } from "next/navigation";
+import TextEditor from "./components/Editor";
+
 
 function page({ params }) {
   const [title, setTitle] = useState("");
@@ -21,6 +23,7 @@ function page({ params }) {
   const [keyword1, setKeyword1] = useState("");
   const [keyword2, setKeyword2] = useState("");
   const [keyword3, setKeyword3] = useState("");
+  const [contents, setContents] = useState("");
   const router = useRouter();
 
   const fetchDefault = async () => {
@@ -32,7 +35,7 @@ function page({ params }) {
       .eq("talkNo", talkNo)
       .single();
     setTitle(talk?.title || "");
-    setDescription(talk?.description || "");
+    setContents(talk?.description || "");
     setCategory1(talk?.field1 || "");
     setKeyword1(talk?.keyword1 || "");
     setKeyword2(talk?.keyword2 || "");
@@ -61,18 +64,18 @@ function page({ params }) {
     setKeyword3(event.target.value);
   };
   const handleClick = async () => {
-    let { data: talk, error:error2 } = await supabase
+    let { data: talk, error: error2 } = await supabase
       .from("talk")
       .select("*,expertNo(*)")
       // Filters
-      .eq("talkNo", params.talkNo)
-    console.log(talk)
+      .eq("talkNo", params.talkNo);
+    console.log(talk);
     const { data, error } = await supabase
       .from("talk")
       .update([
         {
           title: title,
-          description: description,
+          description: contents,
           expertNo: talk.expertNo,
           expertName: talk.expertName,
           field1: category1,
@@ -117,14 +120,18 @@ function page({ params }) {
           <h4>내용</h4>
         </div>
 
-        <TextField
+        {/* <TextField
           id="outlined-multiline-static"
           multiline
           rows={4}
           fullWidth // 폭을 꽉 차게 설정
           value={description}
           onChange={handleChange2}
-        />
+        /> */}
+        <TextEditor
+          inputContents={contents}
+          setInputContents={setContents}
+        ></TextEditor>
 
         <FormControl fullWidth required>
           <h4>분야1</h4>

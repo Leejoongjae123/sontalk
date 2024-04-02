@@ -13,6 +13,7 @@ import Select from "@mui/material/Select";
 import Grid from "@mui/material/Unstable_Grid2";
 import redirect from "next/navigation";
 import { useRouter } from "next/navigation";
+import TextEditor from "./Editor";
 
 export default function Forms({ email }) {
   const [title, setTitle] = useState("");
@@ -21,7 +22,7 @@ export default function Forms({ email }) {
   const [keyword1, setKeyword1] = useState("");
   const [keyword2, setKeyword2] = useState("");
   const [keyword3, setKeyword3] = useState("");
-
+  const [contents, setContents] = useState("");
   const router = useRouter();
 
   const handleChange1 = (event) => {
@@ -56,7 +57,7 @@ export default function Forms({ email }) {
       .insert([
         {
           title: title,
-          description: description,
+          description: contents,
           expertNo: profiles.expertNo,
           expertName: profiles.name,
           field1: category1,
@@ -89,15 +90,19 @@ export default function Forms({ email }) {
       <div>
         <h4>내용</h4>
       </div>
+      <TextEditor
+        inputContents={contents}
+        setInputContents={setContents}
+      ></TextEditor>
 
-      <TextField
+      {/* <TextField
         id="outlined-multiline-static"
         multiline
         rows={4}
         fullWidth // 폭을 꽉 차게 설정
         value={description}
         onChange={handleChange2}
-      />
+      /> */}
 
       <FormControl fullWidth required>
         <h4>분야1</h4>

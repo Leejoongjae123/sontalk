@@ -81,8 +81,8 @@ export default async function page({params}) {
           </div>
         </div>
         <div className="bh_wrap">
-          <div className="content" style={{fontSize:"16px",whiteSpace:'pre-wrap'}}>
-            {talk[0].description}
+          <div className="content" style={{fontSize:"16px",whiteSpace:'pre-wrap'}} dangerouslySetInnerHTML={{ __html: talk[0].description }}>
+            {/* {talk[0].description} */}
           </div>
           <div className="content_tool_box">
             <div className="bh_row no-gutters jc-b ai-c">
