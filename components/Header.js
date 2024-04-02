@@ -91,13 +91,13 @@ export default async function Header() {
                 </li>
               </ul>
 
-              <ul className="ds-f" style={{width:"20%",display:'flex',justifyContent:'center',alignItems:'center'}} >
+              <ul className="ds-f" style={{width:"10%",display:'flex',justifyContent:'center',alignItems:'center'}} >
                 <li className="fw-m">
                   <a href="https://www.mrpass.net/" target="_blank">
                     <img
                       src="images/main/mrpass.png"
                       alt=""
-                      style={{width:"5vw"}}
+                      style={{width:"1.8vw"}}
                     />
                   </a>
                 </li>

@@ -24,7 +24,7 @@ function SearchBar() {
           <div className="ds-f ai-c jc-c">
             <img src="images/main/sec1_img.png" alt="img" />
             <h3 className="fw-b">
-              어떤 <em>보험정구</em>를 준비하고 계시나요?(예 : 자동차보험, 진단비)
+              어떤 <em>보험청구</em>를 준비하고 계시나요?(예 : 자동차보험, 진단비)
             </h3>
           </div>
         </div>

@@ -22,6 +22,7 @@ export function AccountDetailsForm({ email }) {
   const [category1, setCategory1] = useState("");
   const [category2, setCategory2] = useState("");
   const [category3, setCategory3] = useState("");
+  const [branch, setBranch] = useState("")
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [career, setCareer] = useState("");
@@ -39,7 +40,9 @@ export function AccountDetailsForm({ email }) {
     setCategory2(data.field2);
     setCategory3(data.field3);
     setName(data.name);
+    setCareer(data.career);
     setDescription(data.description);
+    setBranch(data.branch);
   };
 
   useEffect(() => {
@@ -68,6 +71,9 @@ export function AccountDetailsForm({ email }) {
   const handleChange7 = (event) => {
     setCategory3(event.target.value);
   };
+  const handleChange8 = (event) => {
+    setBranch(event.target.value)
+  };
 
   const handleClick = async () => {
     const { data, error } = await supabase
@@ -80,7 +86,8 @@ export function AccountDetailsForm({ email }) {
           field1: category1,
           field2: category2,
           field3: category3,
-          career: career
+          career: career,
+          branch:branch
         },
       ])
       .eq("email", email)
@@ -125,13 +132,26 @@ export function AccountDetailsForm({ email }) {
               <FormControl fullWidth required>
                 <h4>경력</h4>
                 <OutlinedInput
-                  defaultValue={userData?.career}
+                  defaultValue={career}
                   name="email"
                   multiline
                   placeholder={`대학교졸업\n중학교졸업\n1년근무`}
                   onChange={handleChange3}
                 />
                 <h4>(쉼표 입력 시 줄바꿈이 됩니다)</h4>
+              </FormControl>
+            </Grid>
+            <Grid md={6} xs={12}>
+              <FormControl fullWidth required>
+                <h4>지점</h4>
+                <OutlinedInput
+                  defaultValue={branch}
+                  name="branch"
+                  multiline
+                  placeholder={`서울 강남점`}
+                  onChange={handleChange8}
+                />
+                <h4></h4>
               </FormControl>
             </Grid>
 
