@@ -117,7 +117,7 @@ export default async function page({ params }) {
                                 <h3>
                                   손TOP {findNameByCat(elem?.profiles?.region)}
                                 </h3>
-                                <p>{elem?.profiles?.name} 손해사정사</p>
+                                <p>{elem?.profiles?.name}</p>
                               </div>
                             </div>
                           </div>

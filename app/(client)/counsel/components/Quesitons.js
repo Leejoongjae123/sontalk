@@ -302,7 +302,7 @@ export default function Quesitons() {
                     <div className="anser">
                       <div className="ds-f name">
                         <span>대표답변</span>
-                        <p>{selectedAnswer.profiles?.name} 손해사정사</p>
+                        <p>{selectedAnswer.profiles?.name}</p>
                       </div>
                       <div className="anser_content">
                         {selectedAnswer.description}

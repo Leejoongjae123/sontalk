@@ -61,7 +61,7 @@ export default async function page({ params }) {
                 </div>
                 <div>
                   <p className="fw-b ml-5" style={{fontSize:"24px",textAlign:'center',margin:"1rem 0 1rem 0"}}>
-                  손TOP {profiles.branch}<br/> {profiles.name} 손해사정사</p>
+                  손TOP {profiles.branch}<br/> {profiles.name} </p>
                 </div>
                 <Phone profiles={profiles}></Phone>
                 <a href={`/booking?expertNo=${expertNo}`} className="ds-b ta-c">

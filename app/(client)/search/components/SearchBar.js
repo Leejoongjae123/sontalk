@@ -154,7 +154,7 @@ export default function SearchBar() {
                         <div className="item_inner">
                           <div className="ds-f ai-c name">
                             <i className="ri-account-pin-circle-fill fw-l"></i>
-                            <p className="fw-m">손TOP {elem.expertNo.branch} {elem.expertNo.name} 손해사정사</p>
+                            <p className="fw-m">손TOP {elem.expertNo.branch} {elem.expertNo.name}</p>
                           </div>
                           <div className="title">{elem.description}</div>
                           <div className="content ellipsis">
@@ -264,7 +264,7 @@ export default function SearchBar() {
                         <div className="item_inner">
                           <div className="ds-f ai-c name">
                             {/* <i className="ri-account-pin-circle-fill fw-l"></i> */}
-                            <p className="fw-m">손TOP {elem.expertNo.branch} {elem.expertNo.name} 손해사정사</p>
+                            <p className="fw-m">손TOP {elem.expertNo.branch} {elem.expertNo.name}</p>
                           </div>
                           <div className="title">{elem.title}</div>
                           <div className="content ellipsis">

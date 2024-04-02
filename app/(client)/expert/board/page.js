@@ -111,7 +111,7 @@ export default function ExpertBoard() {
                               </h3>
                               <div className="ds-f ai-c name">
                                 <i className="ri-account-pin-circle-fill"></i>
-                                <p className="fw-m">{elem.name} 손해사정사</p>
+                                <p className="fw-m">{elem.name}</p>
                               </div>
                               <div
                                 className="category"

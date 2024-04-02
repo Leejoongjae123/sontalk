@@ -101,7 +101,7 @@ function Recommendations() {
                           <div className="ds-f ai-c name">
                             <i className="ri-account-pin-circle-fill"></i>
                             <p className="fw-m">
-                            손TOP {elem.expertNo.branch} {elem.expertNo.name} 손해사정사
+                            손TOP {elem.expertNo.branch} {elem.expertNo.name} 
                             </p>
                           </div>
                           <h3
