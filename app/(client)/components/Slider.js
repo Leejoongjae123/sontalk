@@ -25,7 +25,7 @@ function Slider() {
                   보험 소비자들의 권익 보호를 위해 최고의 전문가들이 함께합니다.
                 </p>
                 <img
-                  src="images/main/first.png"
+                  src="images/slide/slide_img.png"
                   alt="slide_img"
                   className="point first-image"
                 />
@@ -47,7 +47,7 @@ function Slider() {
                   보험 소비자들의 권익 보호를 위해 최고의 전문가들이 함께합니다.
                 </p>
                 <img
-                  src="images/main/first.png"
+                  src="images/slide/slide_img.png"
                   alt="slide_img"
                   className="point first-image"
                 />
@@ -69,7 +69,7 @@ function Slider() {
                   보험 소비자들의 권익 보호를 위해 최고의 전문가들이 함께합니다.
                 </p>
                 <img
-                  src="images/main/first.png"
+                  src="images/slide/slide_img.png"
                   alt="slide_img"
                   className="point first-image"
                 />
