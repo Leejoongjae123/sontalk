@@ -21,12 +21,15 @@ export default function Reset({
     const password = formData.get("password")
     const supabase = createClient();
 
+    
+    const code=searchParams.code
     console.log('searchParams2:',searchParams.code)
-
-    if(searchParams.code){
+    if(code){
+      console.log("보내자")
       const {error}=await supabase.auth.exchangeCodeForSession(
-        searchParams.code
+        code
       )
+      console.log("받자")
     }
     console.log("1:",error)
     const {error}=await supabase.auth.updateUser({
