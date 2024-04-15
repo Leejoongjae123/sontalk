@@ -36,7 +36,7 @@ export default function Reset({
     if (error) {
       return redirect("/reset?message=Unable to reste Password. Try again!");
     }
-    redirect('/loginsuccess=success')
+    redirect('/')
   };
   return (
     <div className="login_container">

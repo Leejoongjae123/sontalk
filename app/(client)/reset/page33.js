@@ -16,10 +16,13 @@ export default function Reset() {
   const [password, setPassword] = useState("")
   const [code, setCode] = useState("")
   const searchParams=useSearchParams()
-  const signIn = async (formData) => {
+  const signIn = async () => {
     
-    const { error:error1 } = await supabase.auth.exchangeCodeForSession(code);
-    const {data,error}=await supabase.auth.getSession()
+    // const {data,error}=await supabase.auth.getSession()
+    // console.log(data)
+    const { error } = await supabase.auth.exchangeCodeForSession('23c18cb6-cf3d-4af0-9384-a2bca052b9c8');
+    console.log(error)
+    
     const { error:error2 } = await supabase.auth.updateUser({
       password,
     });
