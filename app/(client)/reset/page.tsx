@@ -8,28 +8,35 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 
-export default function Reset({ searchParams }) {
-  const signIn = async (formData) => {
+export default function Reset({
+  searchParams,
+}: {
+  searchParams: { message: string; code: string };
+}) {
+  const resetPassword = async (formData: FormData) => {
     "use server";
-
-    const email = formData.get("email");
-    const password = formData.get("password");
+    const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const code = searchParams.code;
-    console.log("searchParams2:", searchParams.code);
+    if (searchParams.code) {
+      const supabase = createClient();
+      const { error } = await supabase.auth.exchangeCodeForSession(
+        searchParams.code
+      );
 
-    const { error:error1 } = await supabase.auth.exchangeCodeForSession(code);
-    const data=await supabase.auth.getSession()
-    console.log('data:',data)
-    const { error:error2 } = await supabase.auth.updateUser({
+      if (error) {
+        return redirect("/reset?message=Unable to reset Password.Link expired");
+      }
+    }
+
+    const { error } = await supabase.auth.updateUser({
       password,
     });
 
-    console.log("2:", error2);
-    if (!error2){
-      return redirect("/?loginsuccess=true")
+    if (error) {
+      return redirect("/reset?message=Unable to reste Password. Try again!");
     }
+    redirect('/loginsuccess=success')
   };
   return (
     <div className="login_container">
@@ -40,7 +47,7 @@ export default function Reset({ searchParams }) {
               <h4 className="font-weight-bolder mb-1">비밀번호 변경</h4>
             </div>
             <div className="card-body pb-0">
-              <form action={signIn}>
+              <form action={resetPassword}>
                 {/* <div className="mb-3">
                   <input
                     type="email"
@@ -63,7 +70,7 @@ export default function Reset({ searchParams }) {
                   <button
                     type="submit"
                     className="login_btn"
-                    formAction={signIn}
+                    formAction={resetPassword}
                   >
                     변경
                   </button>
