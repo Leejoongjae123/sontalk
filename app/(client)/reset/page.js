@@ -2,46 +2,33 @@ import Link from "next/link";
 import { headers } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
-import './theme.css';
-import './loopple.css';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import "./theme.css";
+import "./loopple.css";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 
-
-export default function Reset({
-  searchParams}) {
-
-    
-
+export default function Reset({ searchParams }) {
   const signIn = async (formData) => {
     "use server";
-    
-    const email = formData.get("email")
-    const password = formData.get("password")
+
+    const email = formData.get("email");
+    const password = formData.get("password");
     const supabase = createClient();
 
-    
-    const code=searchParams.code
-    console.log('searchParams2:',searchParams.code)
-    if(code){
-      console.log("보내자")
-      const {error}=await supabase.auth.exchangeCodeForSession(
-        code
-      )
-      console.log("받자")
+    const code = searchParams.code;
+    console.log("searchParams2:", searchParams.code);
+
+    const { error:error1 } = await supabase.auth.exchangeCodeForSession(code);
+    console.log("333:",error1)
+    const { error:error2 } = await supabase.auth.updateUser({
+      password,
+    });
+
+    console.log("2:", error2);
+    if (!error2){
+      return redirect("/?loginsuccess=true")
     }
-    console.log("1:",error)
-    const {error}=await supabase.auth.updateUser({
-      password
-    })
-
-    console.log("2:",error)
-    // if (!error){
-    //   return redirect("/?loginsuccess=true")
-    // }
-
-
   };
   return (
     <div className="login_container">
@@ -65,7 +52,7 @@ export default function Reset({
                 <div className="login_input">
                   <input
                     type="password"
-                    name='password'
+                    name="password"
                     className="login_form"
                     placeholder="Password"
                     aria-label="Password"
@@ -82,11 +69,9 @@ export default function Reset({
                 </div>
               </form>
             </div>
-            
           </div>
         </div>
       </div>
     </div>
-    
   );
 }
