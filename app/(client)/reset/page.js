@@ -12,7 +12,7 @@ import Button from '@mui/material/Button';
 export default function Reset({
   searchParams}) {
 
-
+    console.log('searchParams:',searchParams)
 
   const signIn = async (formData) => {
     "use server";
@@ -45,7 +45,7 @@ export default function Reset({
             </div>
             <div className="card-body pb-0">
               <form action={signIn}>
-                <div className="mb-3">
+                {/* <div className="mb-3">
                   <input
                     type="email"
                     name='email'
@@ -53,7 +53,7 @@ export default function Reset({
                     placeholder="Email"
                     aria-label="Email"
                   />
-                </div>
+                </div> */}
                 <div className="login_input">
                   <input
                     type="password"

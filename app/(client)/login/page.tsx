@@ -78,13 +78,13 @@ export default function Login({
               </form>
             </div>
             <div className="card-footer text-center pt-0 px-sm-4 px-1">
-              <p className="mb-0 text-sm mx-auto">
+              <p className="mb-0 text-sm mx-auto" style={{margin:'1rem'}}>
                 아직 계정이 없으세요?  
                 <a href='/signup'
                   className="text-info font-weight-bold"
                   ><span style={{color:"#171C60",fontWeight:"bold"}}>가입하기</span></a>
               </p>
-              <p className="mb-0 text-sm mx-auto">
+              <p className="mb-0 text-sm mx-auto" style={{margin:'1rem'}}>
                 비밀번호를 잊어버리셨나요?
                 <a href='/sendReset'
                   className="text-info font-weight-bold"
