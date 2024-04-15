@@ -10,21 +10,20 @@ import Button from '@mui/material/Button';
 
 
 export default function Reset({
-  searchParams,
-}: {
-  searchParams: { message: string };
-}) {
+  searchParams}) {
 
-  const signIn = async (formData: FormData) => {
+
+
+  const signIn = async (formData) => {
     "use server";
     
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const email = formData.get("email")
+    const password = formData.get("password")
     const supabase = createClient();
 
-    if(searchParams.code){
+    if(searchParams?.code){
       const {error}=await supabase.auth.exchangeCodeForSession(
-        searchParams.code
+        searchParams?.code
       )
     }
     const {error}=await supabase.auth.updateUser({
@@ -33,6 +32,7 @@ export default function Reset({
     if (!error){
       return redirect("/?loginsuccess=true")
     }
+
 
   };
   return (
