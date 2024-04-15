@@ -21,7 +21,7 @@ export default function Reset({
     const password = formData.get("password")
     const supabase = createClient();
 
-    console.log('searchParams2:',searchParams)
+    console.log('searchParams2:',searchParams.code)
 
     if(searchParams.code){
       const {error}=await supabase.auth.exchangeCodeForSession(
