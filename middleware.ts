@@ -6,16 +6,16 @@ import {createMiddlewareClient}from '@supabase/auth-helpers-nextjs'
 export async function middleware(req: NextRequest) {
   const {pathname,searchParams}=req.nextUrl
   const result= await updateSession(req)
-  const res=NextResponse.next()
+  // const res=NextResponse.next()
 
-  const publicUrls=['/reset']
-  if (publicUrls.includes(req.nextUrl.pathname)){
-    return res
-  }
+  // const publicUrls=['/reset']
+  // if (publicUrls.includes(req.nextUrl.pathname)){
+  //   return res
+  // }
 
-  const supabase=createMiddlewareClient({req,res})
+  // const supabase=createMiddlewareClient({req,res})
 
-  const {data:{session}}=await supabase.auth.getSession()
+  // const {data:{session}}=await supabase.auth.getSession()
   
 
 

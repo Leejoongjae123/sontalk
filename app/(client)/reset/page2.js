@@ -1,27 +1,25 @@
+'use client'
 import Link from "next/link";
-import { headers } from "next/headers";
-import { createClient } from "@/utils/supabase/server";
+// import { headers } from "next/headers";
+// import { createClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
+import { supabase } from "@/utils/supabase/client";
 import "./theme.css";
 import "./loopple.css";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
+import { useSearchParams } from "next/navigation";
+import { useState,useEffect } from "react";
 
-export default function Reset({ searchParams }) {
+export default function Reset() {
+  const [password, setPassword] = useState("")
+  const [code, setCode] = useState("")
+  const searchParams=useSearchParams()
   const signIn = async (formData) => {
-    "use server";
-
-    const email = formData.get("email");
-    const password = formData.get("password");
-    const supabase = createClient();
-
-    const code = searchParams.code;
-    console.log("searchParams2:", searchParams.code);
-
+    
     const { error:error1 } = await supabase.auth.exchangeCodeForSession(code);
-    const data=await supabase.auth.getSession()
-    console.log('data:',data)
+    const {data,error}=await supabase.auth.getSession()
     const { error:error2 } = await supabase.auth.updateUser({
       password,
     });
@@ -31,6 +29,16 @@ export default function Reset({ searchParams }) {
       return redirect("/?loginsuccess=true")
     }
   };
+  useEffect(()=>{
+    
+    setCode(searchParams.get("code"))
+  })
+
+  console.log(code)
+  const inputChanged=(event)=>{
+    setPassword(event.target.value)
+  }
+  console.log(password)
   return (
     <div className="login_container">
       <div className="row">
@@ -40,7 +48,7 @@ export default function Reset({ searchParams }) {
               <h4 className="font-weight-bolder mb-1">비밀번호 변경</h4>
             </div>
             <div className="card-body pb-0">
-              <form action={signIn}>
+              <div >
                 {/* <div className="mb-3">
                   <input
                     type="email"
@@ -57,18 +65,20 @@ export default function Reset({ searchParams }) {
                     className="login_form"
                     placeholder="Password"
                     aria-label="Password"
+                    value={password}
+                    onChange={inputChanged}
                   />
                 </div>
                 <div className="login_btn_container">
                   <button
-                    type="submit"
+                    type="button"
                     className="login_btn"
-                    formAction={signIn}
+                    onClick={signIn}
                   >
                     변경
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
