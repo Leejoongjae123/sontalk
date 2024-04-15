@@ -3,8 +3,15 @@ import "aos/dist/aos.css"; // AOS 스타일 시트 임포트
 import React, { useEffect, useState } from "react";
 import AOS from "aos";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/utils/supabase/client";
+import Stack from "@mui/material/Stack";
+import Pagination from "@mui/material/Pagination";
+import Phone from "../../expert/board/components/Phone";
 
 function UpperCont() {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalCount, setTotalCount] = useState(null);
+  const [experts, setExperts] = useState([]);
   useEffect(() => {
     // AOS 초기화
     AOS.init({
@@ -36,18 +43,100 @@ function UpperCont() {
     router.push(`/expert/board?cat=${catId}&page=1`);
   };
 
+  // const fetchData = async () => {
+  //   let { data: profiles, error,count } = await supabase
+  //     .from("profiles")
+  //     .select("*,queryAnswer(*)",{count:'exact'})
+  //     .range((currentPage - 1) * 9, currentPage * 9);
+  //   setExperts(profiles);
+  //   setTotalCount(Math.ceil(count / 10));
+  // };
+
+  // useEffect(() => {
+  //   fetchData();
+  // }, [currentPage]);
+
+  const handleChangePage = (event, newPage) => {
+    setCurrentPage(newPage); // 페이지 변경 시 currentPage 상태 업데이트
+  };
+  const handleClick = (e, phoneNumber) => {
+    // 사용자의 환경이 모바일이 아닌 경우
+    if (!/Mobi|Android/i.test(navigator.userAgent)) {
+      e.preventDefault(); // 기본 동작 방지
+      // 전화번호 복사, 모달 표시, 또는 다른 동작을 수행
+      alert(`전화번호 : ${phoneNumber}`);
+    }
+    // 모바일 사용자의 경우, 기본적인 tel: 링크 동작 수행
+  };
+
+  const handleCardClick = (elem) => {
+    router.push(`/expert/board/${elem.expertNo}`);
+  };
+
+  const navigateToBooking = (expertNo) => {
+    router.push(`/booking?expertNo=${expertNo}`);
+  };
+
+
+
   return (
     <div className="cont2">
       <div className="bh_wrap">
         <div className="tab_area">
-          <div className="tab_menu">
+          <div className="tab_menu" style={{ display: "flex", height: "60px" }}>
             <div className="ds-ib m-ds-b inner">
-              <div
+              <div className="tab_area">
+                <div className="tab_menu">
+                  <div className="bh_row">
+                    <div className="col-lg-4 col-12 m-mb-20">
+                      <div
+                        className={`ds-f ai-c ${
+                          activeTab === "tab-01" ? "on" : ""
+                        }`}
+                        onClick={() => handleTabClick("tab-01")}
+                        data-tab="tab-01"
+                      >
+                        <p className="po-r">
+                          <i className="ri-file-list-3-line"></i>분야로 찾기
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-12 m-mb-20">
+                      <div
+                        className={`ds-f ai-c ${
+                          activeTab === "tab-02" ? "on" : ""
+                        }`}
+                        onClick={() => handleTabClick("tab-02")}
+                        data-tab="tab-01"
+                      >
+                        <p className="po-r">
+                          <i className="ri-map-pin-line"></i>지역으로 찾기
+                        </p>
+                      </div>
+                    </div>
+                    <div className="col-lg-4 col-12 m-mb-20">
+                      <div
+                        className={`ds-f ai-c ${
+                          activeTab === "tab-03" ? "on" : ""
+                        }`}
+                        onClick={() => {
+                          handleTabClick("tab-03")
+                          navigateToBoard('all')
+                        }}
+                        data-tab="tab-03"
+                      >
+                        <p className="po-r">전체보기</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* <div
                 className={`bh_row no-gutters po-r ${
                   activeTab === "tab-02" ? "on" : ""
                 }`}
               >
-                <div className="col-lg-auto col-6">
+                <div className="col-lg-auto col-4">
                   <div
                     className={`ds-f ai-c ${
                       activeTab === "tab-01" ? "on" : ""
@@ -58,7 +147,7 @@ function UpperCont() {
                     <p className="po-r">분야로 찾기</p>
                   </div>
                 </div>
-                <div className="col-lg-auto col-6">
+                <div className="col-lg-auto col-4">
                   <div
                     className={`ds-f ai-c ${
                       activeTab === "tab-02" ? "on" : ""
@@ -69,7 +158,18 @@ function UpperCont() {
                     <p className="po-r">지역으로 찾기</p>
                   </div>
                 </div>
-              </div>
+                <div className="col-lg-auto col-4">
+                  <div
+                    className={`ds-f ai-c ${
+                      activeTab === "tab-03" ? "on" : ""
+                    }`}
+                    onClick={() => handleTabClick("tab-03")}
+                    data-tab="tab-03"
+                  >
+                    <p className="po-r">전체보기</p>
+                  </div>
+                </div>
+              </div> */}
             </div>
           </div>
           <div
@@ -87,7 +187,7 @@ function UpperCont() {
                       <p>
                         진단비
                         <br />
-                        (뇌, 심장, 암)
+                        (뇌, 심장, 암) / 치아
                       </p>
                     </a>
                   </div>
@@ -127,7 +227,7 @@ function UpperCont() {
                       className="ds-b po-r"
                     >
                       <img src="images/icon/sec2_icon4.png" alt="icon" />
-                      <p>치아 보험</p>
+                      <p>소비자 선임권</p>
                     </a>
                   </div>
                 </div>
@@ -768,6 +868,20 @@ function UpperCont() {
               </div>
             </div>
           </div>
+          <div
+            className={`tab_in tab-03 ${activeTab === "tab-03" ? "on" : ""}`}
+          >
+            <div className="bh_wrap">
+              <div className="body">
+                <div className="expert_board_wrap">
+                  <div className="board_wrap">
+                    
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -775,3 +889,9 @@ function UpperCont() {
 }
 
 export default UpperCont;
+
+function findNameByCat(catValue) {
+  const item = categoryList.find((item) => item.cat === catValue);
+  return item ? item.name : "해당하는 카테고리가 없습니다.";
+}
+import categoryList from "@/components/categoryList";

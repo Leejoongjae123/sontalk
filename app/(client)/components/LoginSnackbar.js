@@ -10,9 +10,11 @@ export default function LoginResultToast() {
   useEffect(() => {
     const loginResult=params.get("loginsuccess")
     if (loginResult==='true'){
-      toast.success("Login successful!")
+      toast.success("로그인 성공")
     }else if(loginResult==='false'){
-      toast.error("Login failed. Please try again.")
+      toast.error("로그인 실패")
+    }else if(loginResult==="reset"){
+      toast.success("가입 이메일을 확인해주세요")
     }
   }, [])
 

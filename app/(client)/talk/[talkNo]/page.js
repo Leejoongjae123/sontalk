@@ -1,36 +1,26 @@
 import React from "react";
-import Link from 'next/link'
+import Link from "next/link";
 import { headers, cookies } from "next/headers";
 import keywordList from "@/components/keywordList";
 import categoryList from "@/components/categoryList";
 import { createClient } from "@/utils/supabase/server";
 
-
-export default async function page({params}) {
-
+export default async function page({ params }) {
   const cookieStore = cookies();
   const talkNo = params.talkNo;
   const supabase = createClient(cookieStore);
   let { data: talk, error } = await supabase
     .from("talk")
     .select("*,profiles(*)")
-    .eq("talkNo", talkNo.toString())  
-  
+    .eq("talkNo", talkNo.toString());
 
-  console.log(talk)
-  
-  const currentClick=talk[0].count
-  // console.log(currentClick)
+  const currentClick = talk[0].count;
 
-  
   const { data, updateError } = await supabase
-  .from('talk')
-  .update({ 'count': currentClick+1})
-  .eq('talkNo',talkNo.toString())
-  .select()
-        
-  // console.log(data,updateError)
-
+    .from("talk")
+    .update({ count: currentClick + 1 })
+    .eq("talkNo", talkNo.toString())
+    .select();
 
   return (
     <div className="body">
@@ -59,15 +49,17 @@ export default async function page({params}) {
                 </div>
               </div> */}
             </div>
-            <div className="title">
-              {talk[0].title}
-            </div>
+            <div className="title">{talk[0].title}</div>
             <div className="bh_row no-gutters jc-b ai-c">
               <div className="col-auto">
-                <div className="ds-f ai-c name">
-                  <i className="ri-account-pin-circle-fill fw-l"></i>
-                  <p className="fw-m">손TOP {talk[0].profiles.branch} {talk[0].profiles.name} </p>
-                </div>
+                <a href={`/expert/board/${talk[0]?.profiles?.expertNo}`}>
+                  <div className="ds-f ai-c name">
+                    <i className="ri-account-pin-circle-fill fw-l"></i>
+                    <p className="fw-m">
+                      손TOP {talk[0].profiles.branch} {talk[0].profiles.name}{" "}
+                    </p>
+                  </div>
+                </a>
               </div>
               <div className="col-auto">
                 <div className="date">
@@ -81,7 +73,11 @@ export default async function page({params}) {
           </div>
         </div>
         <div className="bh_wrap">
-          <div className="content" style={{fontSize:"16px",whiteSpace:'pre-wrap'}} dangerouslySetInnerHTML={{ __html: talk[0].description }}>
+          <div
+            className="content"
+            style={{ fontSize: "16px", whiteSpace: "pre-wrap" }}
+            dangerouslySetInnerHTML={{ __html: talk[0].description }}
+          >
             {/* {talk[0].description} */}
           </div>
           <div className="content_tool_box">
@@ -124,15 +120,21 @@ export default async function page({params}) {
                 <div className="bh_row no-gutters ai-c jc-b">
                   <div className="col-lg-auto col-12">
                     <div className="profile">
-                      <div className="ds-f ai-c">
-                        <div className="img_box">
-                          <img style={{borderRadius:"100%"}}src={talk[0]?.profiles?.imageUrl} alt="img" />
+                      <a href={`/expert/board/${talk[0]?.profiles?.expertNo}`}>
+                        <div className="ds-f ai-c">
+                          <div className="img_box">
+                            <img
+                              style={{ borderRadius: "100%" }}
+                              src={talk[0]?.profiles?.imageUrl}
+                              alt="img"
+                            />
+                          </div>
+                          <div className="txt_box">
+                            <h3>손TOP {talk[0].profiles.branch}</h3>
+                            <p>{talk[0]?.profiles?.name} </p>
+                          </div>
                         </div>
-                        <div className="txt_box">
-                          <h3>손TOP {talk[0].profiles.branch}</h3>
-                          <p>{talk[0]?.profiles?.name} </p>
-                        </div>
-                      </div>
+                      </a>
                     </div>
                   </div>
                   <div className="col-lg-auto col-12">
@@ -143,8 +145,11 @@ export default async function page({params}) {
                         </a>
                       </div> */}
                       <div className="other_btn type2">
-                        <Link href={`/booking?expertNo=${talk[0].expertNo}`} className="ds-b">
-                          <b style={{color:"white"}}>상담 예약</b>
+                        <Link
+                          href={`/booking?expertNo=${talk[0].expertNo}`}
+                          className="ds-b"
+                        >
+                          <b style={{ color: "white" }}>상담 예약</b>
                         </Link>
                       </div>
                     </div>

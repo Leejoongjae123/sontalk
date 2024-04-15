@@ -2,7 +2,7 @@ const categoryList=[
   {name:'진단비',cat:"F01",variation:'분야로 찾기'},
   {name:'암 입원비 / 실손 의료비',cat:"F02",variation:'분야로 찾기'},
   {name:'질병·상해 사망 및 후유장해',cat:"F03",variation:'분야로 찾기'},
-  {name:'치아 보험',cat:"F04",variation:'분야로 찾기'},
+  {name:'소비자선임권',cat:"F04",variation:'분야로 찾기'},
   {name:'자동차보험, 운전자보험',cat:"F05",variation:'분야로 찾기'},
   {name:'배상 책임, 근로자재해보험, 학교안전공제, 여행자보험',cat:"F06",variation:'분야로 찾기'},
   {name:'도난, 화재, 누수, 침수, 재난사고',cat:"F07",variation:'분야로 찾기'},

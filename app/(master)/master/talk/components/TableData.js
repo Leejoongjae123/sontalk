@@ -26,7 +26,8 @@ export default function TableData({ expertNo }) {
       .eq('expertNo',expertNo)
       .range(startIndex, startIndex + pageSize - 1)
       .order('created_at', { ascending: false })
-
+      
+    console.log('count:',count)
     if (!error && talk) {
       setTalks(talk);
       setTotal(count || 0); // 전체 데이터 개수를 상태에 저장
@@ -42,6 +43,7 @@ export default function TableData({ expertNo }) {
       location.reload();
     }
   };
+  
 
   // 페이지 번호가 바뀔 때 실행될 함수
   const handlePageChange = (page) => {

@@ -28,7 +28,7 @@ export default function ExpertBoard() {
         .range((currentPage - 1) * 10, currentPage * 10);
       setExperts(profiles);
       setTotalCount(Math.ceil(profiles.length / 10));
-    } else {
+    } else if(search.includes("F")) {
       let { data: profiles, error } = await supabase
         .from("profiles")
         .select("*,queryAnswer(*)")
@@ -37,12 +37,23 @@ export default function ExpertBoard() {
         .range((currentPage - 1) * 10, currentPage * 10);
       setExperts(profiles);
       setTotalCount(Math.ceil(profiles.length / 10));
+    }else{
+      let { data: profiles, error,count } = await supabase
+      .from("profiles")
+      .select("*,queryAnswer(*)",{count:'exact'})
+      .range((currentPage - 1) * 10, currentPage * 10);
+
+    setExperts(profiles);
+    setTotalCount(Math.ceil(count / 10));
+
     }
   };
 
+  console.log(experts)
+
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentPage]);
 
   const router = useRouter();
 
@@ -99,7 +110,7 @@ export default function ExpertBoard() {
                             <div className="img_box">
                               <img
                                 className="responsive-img2"
-                                src={elem.imageUrl}
+                                src={elem.imageUrl?(elem.imageUrl):('https://yieqkayhbhrcqmsfzjiu.supabase.co/storage/v1/object/public/images/adjusternuri20240325114532')}
                                 alt="img"
                               />
                             </div>

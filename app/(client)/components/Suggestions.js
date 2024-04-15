@@ -53,7 +53,9 @@ export default function Suggestions() {
     router.push(`/expert/board?cat=${catId}&page=1`);
   };
 
-  console.log(questions);
+  
+
+
 
   return (
     <section className="section section2 po-r">
@@ -69,7 +71,7 @@ export default function Suggestions() {
             <div className="tab_area">
               <div className="tab_menu">
                 <div className="bh_row">
-                  <div className="col-lg-6 col-12 m-mb-20">
+                  <div className="col-lg-4 col-12 m-mb-20">
                     <div
                       className={`ds-f ai-c ${
                         activeTab === "tab-01" ? "on" : ""
@@ -83,7 +85,7 @@ export default function Suggestions() {
                       </p>
                     </div>
                   </div>
-                  <div className="col-lg-6 col-12">
+                  <div className="col-lg-4 col-12">
                     <div
                       className={`ds-f ai-c ${
                         activeTab === "tab-02" ? "on" : ""
@@ -93,6 +95,23 @@ export default function Suggestions() {
                     >
                       <p className="po-r">
                         <i className="ri-map-pin-line"></i>지역으로 찾기
+                        <i className="ri-check-fill check"></i>
+                      </p>
+                    </div>
+                  </div>
+                  <div className="col-lg-4 col-12">
+                    <div
+                      className={`ds-f ai-c ${
+                        activeTab === "tab-03" ? "on" : ""
+                      }`}
+                      onClick={() => {
+                        handleTabClick("tab-03")
+                        navigateToBoard('all')
+                      }}
+                      data-tab="tab-03"
+                    >
+                      <p className="po-r">
+                        전체보기
                         <i className="ri-check-fill check"></i>
                       </p>
                     </div>
@@ -120,7 +139,7 @@ export default function Suggestions() {
                           <p>
                             진단비
                             <br />
-                            (뇌, 심장, 암)
+                            (뇌, 심장, 암) / 치아
                           </p>
                         </a>
                       </div>
@@ -159,8 +178,8 @@ export default function Suggestions() {
                           onClick={() => navigateToBoard("F04")}
                           className="ds-b po-r"
                         >
-                          <img src="images/icon/sec2_icon4.png" alt="icon" />
-                          <p>치아 보험</p>
+                          <img src="images/main/hand-image2.jpg" alt="icon" />
+                          <p>소비자선임권</p>
                         </a>
                       </div>
                     </div>

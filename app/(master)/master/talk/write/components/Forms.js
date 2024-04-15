@@ -115,7 +115,7 @@ export default function Forms({ email }) {
           <MenuItem value={"F01"}>진단비</MenuItem>
           <MenuItem value={"F02"}>암 입원비 / 실손 의료비</MenuItem>
           <MenuItem value={"F03"}>질병·상해 사망 및 후유장해</MenuItem>
-          <MenuItem value={"F04"}>치아 보험</MenuItem>
+          <MenuItem value={"F04"}>소비자선임권</MenuItem>
           <MenuItem value={"F05"}>자동차보험, 운전자보험</MenuItem>
           <MenuItem value={"F06"}>
             배상 책임, 근로자재해보험, 학교안전공제, 여행자보험

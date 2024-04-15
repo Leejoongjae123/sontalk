@@ -39,7 +39,8 @@ export default function SearchBar() {
       .from("prevProject")
       .select("*,expertNo(*)")
       // .like("result", "%" + keyword + "%")
-      .or(`result.ilike.%${keyword}%,description.ilike.%${keyword}%`)
+      .or(`result.ilike.%${keyword}%,description.ilike.%${keyword}%,expertName.ilike.%${keyword}%`)
+      // .or(`result.ilike.%${keyword}%,description.ilike.%${keyword}%,expertNo.name.ilike.%${keyword}%`)
       .range(0, 3);
     setHistory(prevProject);
     
@@ -57,7 +58,7 @@ export default function SearchBar() {
     } = await supabase
       .from("talk")
       .select("*,expertNo(*)")
-      .or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%`)
+      .or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%,expertName.ilike.%${keyword}`)
       .range(0,1)
       .order('count',{ ascending: false })
     setTalks(talk)
@@ -67,7 +68,7 @@ export default function SearchBar() {
     fetchData();    
   }, [debouncedKeyword]);
 
-
+  console.log(history)
 
 
   // useEffect(()=>{
@@ -147,7 +148,7 @@ export default function SearchBar() {
                 선임사례
               </h1>
               <div className="bh_row">
-                {history.map((elem, index) => {
+                {history?.map((elem, index) => {
                   return (
                     <div className="col-lg-6 col-12 mb-30 m-mb-20" onClick={()=>{handleCardClick1(elem)}}>
                       <div className="item item1 po-r">

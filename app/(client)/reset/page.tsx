@@ -7,44 +7,41 @@ import './loopple.css';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import LoginSnackBar from './components/LoginSnackBar'
 
-export default function Login({
+
+export default function Reset({
   searchParams,
 }: {
   searchParams: { message: string };
 }) {
+
   const signIn = async (formData: FormData) => {
     "use server";
-
+    
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
     const supabase = createClient();
 
-    const {data,error} = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    const params = new URLSearchParams();
-
-    if (data?.user?.email) {
-      params.append("loginsuccess","true")
-      return redirect(`/?${params.toString()}`);
+    if(searchParams.code){
+      const {error}=await supabase.auth.exchangeCodeForSession(
+        searchParams.code
+      )
     }
-    else{
-    params.append("loginsuccess", "false");
-    return redirect(`/?${params.toString()}`);
+    const {error}=await supabase.auth.updateUser({
+      password
+    })
+    if (!error){
+      return redirect("/?loginsuccess=true")
     }
+
   };
   return (
     <div className="login_container">
-      <LoginSnackBar></LoginSnackBar>
       <div className="row">
         <div className="">
           <div className="card z-index-0">
             <div className="card-header text-center pt-4 pb-1">
-              <h4 className="font-weight-bolder mb-1">로그인</h4>
+              <h4 className="font-weight-bolder mb-1">비밀번호 변경</h4>
             </div>
             <div className="card-body pb-0">
               <form action={signIn}>
@@ -72,24 +69,10 @@ export default function Login({
                     className="login_btn"
                     formAction={signIn}
                   >
-                    로그인
+                    변경
                   </button>
                 </div>
               </form>
-            </div>
-            <div className="card-footer text-center pt-0 px-sm-4 px-1">
-              <p className="mb-0 text-sm mx-auto">
-                아직 계정이 없으세요?  
-                <a href='/signup'
-                  className="text-info font-weight-bold"
-                  ><span style={{color:"#171C60",fontWeight:"bold"}}>가입하기</span></a>
-              </p>
-              <p className="mb-0 text-sm mx-auto">
-                비밀번호를 잊어버리셨나요?
-                <a href='/sendReset'
-                  className="text-info font-weight-bold"
-                  ><span style={{color:"#171C60",fontWeight:"bold"}}>비밀번호 변경하기</span></a>
-              </p>
             </div>
             
           </div>

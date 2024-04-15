@@ -24,10 +24,12 @@ export default function Title() {
   
   return (
     <div className="board_title_area">
-      <span>{result.variation}</span>
+      {/* <span>{result?.variation}</span> */}
+      {result?.variation?(<span>{result?.variation}</span>):(<span>전체보기</span>)}
+      
       <div className="ds-f ai-c jc-b">
         <h3>
-          {result.name}
+          {result?.name}
         </h3>
         <a href="/expert" className="ds-b">
           목록
