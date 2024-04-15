@@ -37,9 +37,9 @@ export default function Reset({
     })
 
     console.log("2:",error)
-    if (!error){
-      return redirect("/?loginsuccess=true")
-    }
+    // if (!error){
+    //   return redirect("/?loginsuccess=true")
+    // }
 
 
   };
