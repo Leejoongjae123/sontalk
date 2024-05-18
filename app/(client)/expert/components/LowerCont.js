@@ -226,7 +226,7 @@ function UpperCont() {
                       onClick={() => navigateToBoard("F04")}
                       className="ds-b po-r"
                     >
-                      <img src="images/icon/sec2_icon4.png" alt="icon" />
+                      <img  style={{marginTop:'0.5rem'}} src="images/icon/sec2_icon4.png" alt="icon" />
                       <p>소비자 선임권</p>
                     </a>
                   </div>

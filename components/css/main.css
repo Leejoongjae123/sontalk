@@ -3686,8 +3686,10 @@ border:#eee 2px solid;
   height: auto;
 }
 .first-image{
-  width:20vw;
-  
+  width:20vw; 
+}
+.first-image2{
+  width:25vw; 
 }
 
 .ds-f.ai-c.on{
@@ -3699,4 +3701,13 @@ border:#eee 2px solid;
   /* background-color: var(--bh_color_main); */
   border-radius: 2rem;
   /* transition: all 0.5s ; */
+}
+
+.showmore-container{
+  width:100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #171C60;
+
 }

@@ -120,6 +120,16 @@ export default async function Header() {
                     />
                   </a>
                 </li>
+                <li className="fw-m">
+                  <a href="https://cafe.daum.net/mrpass" target="_blank">
+                  <img
+                      className="responsive-images"
+                      src="images/main/cafe.jpg"
+                      alt=""
+                      style={{marginTop:"10%"}}
+                    />
+                  </a>
+                </li>
 
               </ul>
             </div>

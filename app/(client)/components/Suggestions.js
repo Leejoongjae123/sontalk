@@ -177,8 +177,9 @@ export default function Suggestions() {
                         <a
                           onClick={() => navigateToBoard("F04")}
                           className="ds-b po-r"
+                          
                         >
-                          <img src="images/main/hand-image2.jpg" alt="icon" />
+                          <img style={{marginTop:'0.5rem'}} src="images/main/hand-image2.jpg" alt="icon" />
                           <p>소비자선임권</p>
                         </a>
                       </div>

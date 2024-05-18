@@ -30,70 +30,50 @@ export default function SearchBar() {
   const [query, setQuery] = useState([]);
   const [debouncedKeyword, setDebouncedKeyword] = useState("");
   const [talks, setTalks] = useState([]);
-  const [page, setPage] = useState(0); // 페이지 상태 변수 추가
-  const [queryPage, setQueryPage] = useState(0); // query 페이지 상태 변수 추가
-  const [talkPage, setTalkPage] = useState(0); // talk 페이지 상태 변수 추가
-
   const [keyword, setKeyword] = useState(searchParams.get("keyword"));
 
   const debounceTimer = useRef();
 
-  const fetchPrevProject = async (pageNumber = 0, reset = false) => {
+  const fetchData = async () => {
     let { data: prevProject, error1 } = await supabase
       .from("prevProject")
       .select("*,expertNo(*)")
+      // .like("result", "%" + keyword + "%")
       .or(
-        `result.ilike.%${debouncedKeyword}%,description.ilike.%${debouncedKeyword}%,expertName.ilike.%${debouncedKeyword}%`
+        `result.ilike.%${keyword}%,description.ilike.%${keyword}%,expertName.ilike.%${keyword}%`
       )
-      .range(pageNumber * 2, pageNumber * 2 + 1); // 페이지에 따라 2개씩 불러오기
+      // .or(`result.ilike.%${keyword}%,description.ilike.%${keyword}%,expertNo.name.ilike.%${keyword}%`)
+      .range(0, 3);
+    setHistory(prevProject);
 
-    if (reset) {
-      setHistory(prevProject); // 초기화
-    } else {
-      setHistory(prev => [...prev, ...prevProject]); // 불러온 데이터 추가
-    }
-  };
-
-  const fetchQuery = async (pageNumber = 0, reset = false) => {
-    let { data: queryData, error2 } = await supabase
+    let { data: query, error2 } = await supabase
       .from("query")
       .select("*")
-      .or(`title.ilike.%${debouncedKeyword}%,description.ilike.%${debouncedKeyword}%`)
-      .range(pageNumber * 2, pageNumber * 2 + 1)
+      .or(`title.ilike.%${keyword}%,description.ilike.%${keyword}%`)
+      .range(0, 1)
       .order("count", { ascending: false });
+    setQuery(query);
 
-    if (reset) {
-      setQuery(queryData); // 초기화
-    } else {
-      setQuery(prev => [...prev, ...queryData]); // 불러온 데이터 추가
-    }
-  };
-
-  const fetchTalk = async (pageNumber = 0, reset = false) => {
-    let { data: talkData, error3 } = await supabase
+    let { data: talk, error3 } = await supabase
       .from("talk")
       .select("*,expertNo(*)")
       .or(
-        `title.ilike.%${debouncedKeyword}%,description.ilike.%${debouncedKeyword}%,expertName.ilike.%${debouncedKeyword}%`
+        `title.ilike.%${keyword}%,description.ilike.%${keyword}%,expertName.ilike.%${keyword}`
       )
-      .range(pageNumber * 2, pageNumber * 2 + 1)
+      .range(0, 1)
       .order("count", { ascending: false });
-
-    if (reset) {
-      setTalks(talkData); // 초기화
-    } else {
-      setTalks(prev => [...prev, ...talkData]); // 불러온 데이터 추가
-    }
+    setTalks(talk);
   };
-
   useEffect(() => {
-    setPage(0); // 페이지를 0으로 초기화
-    setQueryPage(0); // query 페이지를 0으로 초기화
-    setTalkPage(0); // talk 페이지를 0으로 초기화
-    fetchPrevProject(0, true); // 초기화된 상태로 fetchData 호출
-    fetchQuery(0, true); // 초기화된 상태로 fetchData 호출
-    fetchTalk(0, true); // 초기화된 상태로 fetchData 호출
+    fetchData();
   }, [debouncedKeyword]);
+
+  console.log(history);
+
+  // useEffect(()=>{
+  //   setKeyword(searchParams.get("keyword"))
+  //   fetchData()
+  // },[])
 
   useEffect(() => {
     // 기존의 타이머를 초기화합니다.
@@ -122,25 +102,10 @@ export default function SearchBar() {
     router.push(`/talk/${elem.talkNo}`);
   };
 
-  const showMore1 = () => {
-    const newPage = page + 1;
-    setPage(newPage);
-    fetchPrevProject(newPage);
-  };
-  const showMore2 = () => {
-    const newQueryPage = queryPage + 1;
-    setQueryPage(newQueryPage);
-    fetchQuery(newQueryPage);
-  };
-  const showMore3 = () => {
-    const newTalkPage = talkPage + 1;
-    setTalkPage(newTalkPage);
-    fetchTalk(newTalkPage);
-  };
-  // 페이지가 변경될 때마다 fetchData 호출
-  // 페이지가 변경될 때마다 fetchData 호출
+  const showMore1=()=>{
+    console.log('aa')
+  }
 
-  console.log(page,queryPage,talkPage)
   return (
     <section className="section section1">
       <div className="bh_wrap">
@@ -230,17 +195,14 @@ export default function SearchBar() {
                   );
                 })}
                 <div className="showmore-container">
-                  <Button
-                    onClick={showMore1}
-                    sx={{
-                      color: "#171C60",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    더보기+
-                  </Button>
+                <Button
+                  onClick={showMore1}
+                  sx={{color:"#171C60",fontSize:"1rem",fontWeight:'bold'}}
+                >
+                  더보기+
+                </Button>
                 </div>
+                
               </div>
             </div>
             <div style={{ margin: "2vw" }}>
@@ -306,18 +268,6 @@ export default function SearchBar() {
                       </div>
                     );
                   })}
-                                  <div className="showmore-container">
-                  <Button
-                    onClick={showMore2}
-                    sx={{
-                      color: "#171C60",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    더보기+
-                  </Button>
-                </div>
               </div>
             </div>
 
@@ -389,18 +339,6 @@ export default function SearchBar() {
                       </div>
                     );
                   })}
-                                  <div className="showmore-container">
-                  <Button
-                    onClick={showMore3}
-                    sx={{
-                      color: "#171C60",
-                      fontSize: "1rem",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    더보기+
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
